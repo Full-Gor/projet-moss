@@ -20,9 +20,3 @@ docs/
 # Fichiers temporaires
 *.tmp
 *.temp
-
-# Ne pas ignorer les fichiers de configuration Railway
-!railway.json
-!nixpacks.toml
-!Procfile
-!railway-build.sh
