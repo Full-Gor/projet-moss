@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test Supabase
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card">
+					<div class="card-header">
+						<h3>🧪 Test de connexion Supabase</h3>
+					</div>
+					<div
+						class="card-body">
+						<!-- Status de connexion -->
+						<div class="alert alert-{{ status == 'success' ? 'success' : 'danger' }} mb-4">
+							<h5>📊 Status de la connexion</h5>
+							<p class="mb-0">{{ message }}</p>
+							<small>Dernière vérification :
+								{{ timestamp|date('H:i:s') }}</small>
+						</div>
+
+						<!-- Bouton pour ajouter un log -->
+						<div class="mb-4">
+							<form method="POST" action="{{ path('app_test_ajouter') }}" class="d-inline">
+								<button type="submit" class="btn btn-primary">
+									➕ Ajouter un log de test
+								</button>
+							</form>
+							<a href="{{ path('app_test_supabase') }}" class="btn btn-secondary ms-2">
+								🔄 Rafraîchir
+							</a>
+						</div>
+
+						<!-- Messages flash -->
+						{% for message in app.flashes('success') %}
+							<div class="alert alert-success">
+								✅
+								{{ message }}
+							</div>
+						{% endfor %}
+
+						{% for message in app.flashes('error') %}
+							<div class="alert alert-danger">
+								❌
+								{{ message }}
+							</div>
+						{% endfor %}
+
+						<!-- Liste des logs -->
+						<div class="mt-4">
+							<h5>📝 Logs récents ({{ logs|length }})</h5>
+							{% if logs|length > 0 %}
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Message</th>
+												<th>Type</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for log in logs %}
+												<tr>
+													<td>{{ log.id }}</td>
+													<td>{{ log.message }}</td>
+													<td>
+														<span class="badge bg-info">{{ log.type }}</span>
+													</td>
+													<td>{{ log.createdAt|date('H:i:s') }}</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							{% else %}
+								<div class="alert alert-info">
+									Aucun log trouvé. Cliquez sur "Ajouter un log de test" pour commencer !
+								</div>
+							{% endif %}
+						</div>
+
+						<!-- Instructions -->
+						<div class="mt-4">
+							<h6>📋 Instructions :</h6>
+							<ol>
+								<li>Cliquez sur "Ajouter un log de test" pour insérer une nouvelle entrée</li>
+								<li>Vérifiez dans Supabase que la table
+									<code>test_log</code>
+									contient bien les nouvelles données</li>
+								<li>Cliquez sur "Rafraîchir" pour voir les logs mis à jour</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

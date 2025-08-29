@@ -17,13 +17,23 @@ class AdminController extends AbstractController
     #[Route('/dashboard', name: 'app_admin_dashboard')]
     public function dashboard(ProduitRepository $produitRepository, CommandeRepository $commandeRepository): Response
     {
-        // Récupérer les statistiques
-        $totalProduits = count($produitRepository->findAll());
-        $produitsActifs = count($produitRepository->findActifs());
-        $totalCommandes = count($commandeRepository->findAll());
+        try {
+            // Récupérer les statistiques
+            $totalProduits = count($produitRepository->findAll());
+            $produitsActifs = count($produitRepository->findActifs());
+            $totalCommandes = count($commandeRepository->findAll());
 
-        // Récupérer les produits pour le tableau
-        $produits = $produitRepository->findAll();
+            // Récupérer les produits pour le tableau
+            $produits = $produitRepository->findAll();
+        } catch (\Exception $e) {
+            // En cas d'erreur de connexion, utiliser des valeurs par défaut
+            $totalProduits = 0;
+            $produitsActifs = 0;
+            $totalCommandes = 0;
+            $produits = [];
+
+            $this->addFlash('warning', 'Erreur de connexion à la base de données. Affichage des données en mode hors ligne.');
+        }
 
         return $this->render('admin/dashboard.html.twig', [
             'totalProduits' => $totalProduits,
