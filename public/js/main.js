@@ -51,13 +51,13 @@ function addToCart(product, color) {
     });
     
     updateCartCount();
-    showNotification('Produit ajoutÃ© au panier');
+    showNotification('Produit ajoute au panier');
 }
 
 function updateCartCount() {
     const cartIcon = document.querySelector('.cart');
     if (cartIcon && cart.length > 0) {
-        cartIcon.textContent = `í»’ Panier (${cart.length})`;
+        cartIcon.textContent = `Panier (${cart.length})`;
     }
 }
 
