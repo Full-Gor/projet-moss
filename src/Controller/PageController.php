@@ -14,6 +14,28 @@ class PageController extends AbstractController
         return $this->render('base/index.html.twig');
     }
 
+  // Dans PageController.php, ajoute ces routes :
+
+#[Route('/produit', name: 'app_produit')]
+public function produit(): Response
+{
+    return $this->render('page/produit.html.twig');
+}
+
+#[Route('/histoire', name: 'app_histoire')]
+public function histoire(): Response
+{
+    return $this->render('page/histoire.html.twig');
+}
+
+#[Route('/panier', name: 'app_panier')]
+public function panier(): Response
+{
+    return $this->render('page/panier.html.twig');
+}
+
+// Et créer un nouveau SecurityController pour l'authentification...
+
     #[Route('/a-propos', name: 'app_about')]
     public function about(): Response
     {
