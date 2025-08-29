@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Script de build pour Render.com
-echo "🚀 Démarrage du build pour MossAir..."
+echo "🚂 Démarrage du build Railway pour MossAir..."
 
 # Installer les dépendances
 echo "📦 Installation des dépendances..."
@@ -19,4 +18,8 @@ php bin/console doctrine:migrations:migrate --env=prod --no-interaction
 echo "🎨 Installation des assets..."
 php bin/console assets:install public --env=prod
 
-echo "✅ Build terminé avec succès !"
+# Vérifier la configuration
+echo "🔧 Vérification de la configuration..."
+php bin/console debug:config --env=prod
+
+echo "✅ Build Railway terminé avec succès !"

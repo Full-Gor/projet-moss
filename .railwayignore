@@ -1,0 +1,22 @@
+# Fichiers de développement
+.git/
+.gitignore
+README.md
+.env.local
+.env.test
+
+# Fichiers de cache
+var/cache/
+var/logs/
+
+# Fichiers de test
+tests/
+phpunit.xml.dist
+
+# Fichiers de documentation
+docs/
+*.md
+
+# Fichiers temporaires
+*.tmp
+*.temp

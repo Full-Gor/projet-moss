@@ -1,47 +1,45 @@
 # MossAir - Purificateur d'air naturel
 
-## 🚀 Déploiement sur Render.com
+## 🚀 Déploiement sur Railway.app
 
 ### Prérequis
 - Compte GitHub avec le code source
 - Compte Supabase avec base de données PostgreSQL
-- Compte Render.com
+- Compte Railway.app
 
 ### Étapes de déploiement
 
 1. **Pousser le code sur GitHub**
    ```bash
    git add .
-   git commit -m "Préparation pour déploiement Render"
+   git commit -m "Préparation pour déploiement Railway"
    git push origin main
    ```
 
-2. **Créer un compte Render.com**
-   - Allez sur https://render.com
+2. **Créer un compte Railway.app**
+   - Allez sur https://railway.app
    - Créez un compte gratuit
 
 3. **Connecter GitHub**
-   - Dans Render, cliquez sur "New +"
-   - Sélectionnez "Web Service"
+   - Dans Railway, cliquez sur "New Project"
+   - Sélectionnez "Deploy from GitHub repo"
    - Connectez votre repository GitHub
 
-4. **Configurer le service**
-   - **Name**: `mossair-symfony`
-   - **Environment**: `PHP`
-   - **Build Command**: `chmod +x render-build.sh && ./render-build.sh`
-   - **Start Command**: `php -S 0.0.0.0:$PORT -t public`
+4. **Configuration automatique**
+   - Railway détecte automatiquement que c'est un projet PHP/Symfony
+   - Aucune configuration supplémentaire nécessaire
 
 5. **Variables d'environnement**
    - `APP_ENV`: `prod`
-   - `APP_SECRET`: Généré automatiquement
+   - `APP_SECRET`: `votre_secret_ici`
    - `DATABASE_URL`: `postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres`
 
 6. **Déployer**
-   - Cliquez sur "Create Web Service"
    - Le déploiement se fait automatiquement
+   - Votre site est accessible immédiatement
 
 ### URL finale
-Votre site sera accessible sur : `https://mossair-symfony.onrender.com`
+Votre site sera accessible sur : `https://mossair-production.up.railway.app`
 
 ### Fonctionnalités
 - ✅ Panier d'achat
@@ -53,4 +51,4 @@ Votre site sera accessible sur : `https://mossair-symfony.onrender.com`
 - ✅ Sitemap.xml
 
 ### Support
-Pour toute question, consultez la documentation Render.com
+Pour toute question, consultez la documentation Railway.app
