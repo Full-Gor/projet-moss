@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		<h1>Mon Panier</h1>
+
+		{% if panier is empty %}
+			<div class="empty-cart">
+				<p>Votre panier est vide.</p>
+				<a href="{{ path('app_produit') }}" class="btn btn-primary">Continuer mes achats</a>
+			</div>
+		{% else %}
+			<div class="cart-items">
+				{% for item in panier %}
+					<div class="cart-item">
+						<div class="item-info">
+							<h3>{{ item.produit }}</h3>
+							<p class="item-details">
+								<strong>Couleur:</strong>
+								{{ item.couleur|capitalize }}<br>
+								<strong>Quantité:</strong>
+								{{ item.quantite }}<br>
+								<strong>Prix unitaire:</strong>
+								{{ item.prix }}€
+							</p>
+						</div>
+						<div class="item-price">
+							<span class="price">{{ item.prix * item.quantite }}€</span>
+							<a href="{{ path('app_panier_supprimer', {id: item.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+								Supprimer
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="cart-summary">
+				<div class="total">
+					<h3>Total:
+						{{ total }}€</h3>
+				</div>
+
+				<div class="cart-actions">
+					<a href="{{ path('app_panier_vider') }}" class="btn btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir vider votre panier ?')">
+						Vider le panier
+					</a>
+					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentModal">
+						Passer commande
+					</button>
+				</div>
+			</div>
+
+			<!-- Modal Paiement effectué -->
+			<div class="modal fade" id="paymentModal" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-body text-center">
+							<h4>Paiement effectué</h4>
+							<br>
+							<form action="{{ path('app_panier_paiement_effectue') }}" method="POST" style="display: inline;">
+								<button type="submit" class="btn btn-primary">Continuer mes achats</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		{% endif %}
+	</div>
+
+	<style>
+		.cart-items {
+			margin-bottom: 2rem;
+		}
+
+		.cart-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			margin-bottom: 1rem;
+			background: white;
+		}
+
+		.item-info h3 {
+			margin: 0 0 0.5rem;
+			color: #333;
+		}
+
+		.item-details {
+			margin: 0;
+			color: #666;
+		}
+
+		.item-price {
+			text-align: right;
+		}
+
+		.price {
+			font-size: 1.2rem;
+			font-weight: bold;
+			color: #28a745;
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+
+		.cart-summary {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			border-radius: 8px;
+			text-align: center;
+		}
+
+		.total h3 {
+			color: #28a745;
+			margin-bottom: 1rem;
+		}
+
+		.cart-actions {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+		}
+
+		.empty-cart {
+			text-align: center;
+			padding: 3rem;
+			background: #f8f9fa;
+			border-radius: 8px;
+		}
+
+		.empty-cart p {
+			font-size: 1.2rem;
+			color: #666;
+			margin-bottom: 1rem;
+		}
+	</style>
+{% endblock %}

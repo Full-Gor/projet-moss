@@ -1,17 +1,225 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}MossAir - Purificateur d'air naturel
+			{% endblock %}
+		</title>
+		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+		<!-- Google Analytics 4 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+function gtag() {
+dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'G-XXXXXXXXXX');
+		</script>
+
+		<!-- Meta tags SEO -->
+		<meta name="description" content="MossAir - Purificateur d'air naturel révolutionnaire utilisant la mousse vivante pour créer un environnement plus sain. Découvrez notre technologie innovante.">
+		<meta name="keywords" content="purificateur d'air, mousse, air pur, environnement sain, MossAir, technologie verte">
+		<meta name="author" content="MossAir">
+		<meta
+		name="robots" content="index, follow">
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="{{ app.request.uri }}">
+		<meta property="og:title" content="{% block og_title %}MossAir - Purificateur d'air naturel{% endblock %}">
+		<meta property="og:description" content="{% block og_description %}Purificateur d'air naturel révolutionnaire utilisant la mousse vivante pour créer un environnement plus sain.{% endblock %}">
+		<meta
+		property="og:image" content="{% block og_image %}{{ app.request.schemeAndHttpHost }}{{ asset('images/hero2.jpg') }}{% endblock %}">
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image">
+		<meta property="twitter:url" content="{{ app.request.uri }}">
+		<meta property="twitter:title" content="{% block twitter_title %}MossAir - Purificateur d'air naturel{% endblock %}">
+		<meta property="twitter:description" content="{% block twitter_description %}Purificateur d'air naturel révolutionnaire utilisant la mousse vivante pour créer un environnement plus sain.{% endblock %}">
+		<meta
+		property="twitter:image" content="{% block twitter_image %}{{ app.request.schemeAndHttpHost }}{{ asset('images/hero2.jpg') }}{% endblock %}">
+
+		<!-- Canonical URL -->
+		<link
+		rel="canonical" href="{{ app.request.uri }}">
+
+		<!-- Sitemap -->
+		<link rel="sitemap" type="application/xml" href="{{ path('app_sitemap') }}"> {% block stylesheets %}{% endblock %}
+		</head>
+		<body>
+			<nav class="navbar">
+				<div class="nav-container">
+					<a href="{{ path('app_home') }}" class="logo">
+						MossAir</a>
+					<ul class="nav-menu">
+						<li>
+							<a href="{{ path('app_home') }}">Accueil</a>
+						</li>
+						<li>
+							<a href="{{ path('app_produit') }}">Produit</a>
+						</li>
+						<li>
+							<a href="{{ path('app_histoire') }}">Histoire</a>
+						</li>
+						<li>
+							<a href="{{ path('app_about') }}">À propos</a>
+						</li>
+						<li>
+							<a href="{{ path('app_panier') }}" class="cart">Panier</a>
+						</li>
+						{% if app.session.get('user') %}
+							<li>
+								<a href="{{ path('app_profile') }}" class="profile-link">
+									<img src="{{ asset('images/profiles/' ~ (app.session.get('user').photo ?? 'default-avatar.jpg')) }}" alt="Photo de profil">
+									{{ app.session.get('user').nom }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_deconnexion') }}" class="logout-btn">
+									<i class="fas fa-sign-out-alt"></i>
+									Déconnexion
+								</a>
+							</li>
+						{% else %}
+							<li>
+								<a href="{{ path('app_connexion') }}" class="login-btn">
+									<i class="fas fa-sign-in-alt"></i>
+									Connexion
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+
+			<main class="main-content"> {% block body %}{% endblock %}
+				</main>
+
+				<footer class="footer">
+					<div class="footer-container">
+						<div class="footer-column">
+							<h4>Environ</h4>
+							<p>Mosslab considère la beauté et les avantages de la mousse comme une alternative concise et durable à la verdure traditionnelle. Notre mission est de rapprocher la nature de la vie urbaine, en créant des espaces verts luxuriants qui prospèrent même dans les environnements urbains les plus fréquentés.</p>
+						</div>
+						<div class="footer-column">
+							<h4>Boutique</h4>
+							<ul>
+								<li><ahref="{{path('app_produit')}}">Moss Air</a></li>
+								<li><a href="#">Double Air Mousse</a></li>
+								<li><a href="#">Sac à dos tout-en-un Moss Air</a></li>
+								<li><a href="#">Filtre à mousse</a></li>
+
+							</ul>
+						</div>
+						<div class="footer-column">
+							<h4>Ressources</h4>
+							<ul>
+								<li><ahref="{{path('app_histoire')}}">Histoire</a></li>
+								<li><a href="#">Mode d'emploi</a></li>
+							</ul>
+						</div>
+						<div class="footer-column">
+							<h4>Support</h4>
+							<ul>
+								<li>
+									<a href="#">Politique de confidentialité</a>
+								</li>
+								<li>
+									<a href="{{ path('app_cgv') }}">CGV</a>
+								</li>
+							</ul>
+							<div class="social-links">
+								<a href="https://facebook.com" target="_blank"></a>
+								<a href="https://instagram.com" target="_blank"></a>
+								<a href="https://twitter.com" target="_blank"></a>
+							</div>
+						</div>
+					</div>
+				</footer>
+
+				<script src="{{ asset('js/main.js') }}"></script>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+				{% block javascripts %}{% endblock %}
+
+				<script>
+					// Ctrl+A pour accéder au dashboard admin
+document.addEventListener('keydown', function (event) {
+if (event.ctrlKey && event.key === 'a') {
+event.preventDefault(); // Empêcher la sélection de tout le texte
+window.location.href = '{{ path('app_admin_dashboard') }}';
+}
+});
+				</script>
+
+				<style>
+					.navbar {
+						background: linear-gradient(135deg, #4a7c59, #6b8e7a);
+						padding: 1.5rem 0;
+						box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+						min-height: 80px;
+					}
+
+					.navbar-brand {
+						font-size: 1.5rem;
+						font-weight: bold;
+					}
+
+					.navbar-nav .nav-link {
+						padding: 0.75rem 1rem;
+						font-weight: 500;
+					}
+
+					.login-btn,
+					.logout-btn,
+					.profile-link {
+						transition: all 0.3s ease;
+						display: flex;
+						align-items: center;
+						gap: 0.5rem;
+					}
+
+					.login-btn:hover,
+					.logout-btn:hover,
+					.profile-link:hover {
+						transform: translateY(-2px);
+					}
+
+					.profile-link {
+						color: #4a7c59 !important;
+						font-weight: 600;
+					}
+
+					.profile-link img {
+						width: 32px;
+						height: 32px;
+						border-radius: 50%;
+						object-fit: cover;
+						border: 2px solid #fff;
+					}
+
+					.logout-btn {
+						color: #dc3545 !important;
+					}
+
+					.logout-btn:hover {
+						color: #c82333 !important;
+					}
+				</style>
+			</body>
+		</html>
+
+
+		<?php
+
+use App\Kernel;
+
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+
+return function (array $context )

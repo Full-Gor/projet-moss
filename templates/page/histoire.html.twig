@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<style>
+		.youtube-iframe {
+			border-radius: 24px;
+			overflow: hidden;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+			border: none;
+			display: block;
+			margin: 0 auto;
+		}
+		.youtube-iframe.large {
+			width: 1100px !important;
+			height: 618px !important;
+			max-width: 100%;
+		}
+	</style>
+	<div
+		class="histoire-page">
+		<!-- Video Header avec navigation visible -->
+		<div class="video-header" style="position:relative;">
+			<iframe width="100%" height="100%" src="https://www.youtube.com/embed/KwRd0TRkAyc?si=DIBRzUssj0zc48Og&autoplay=1&mute=1&loop=1&playlist=KwRd0TRkAyc" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			<div class="header-overlay-text" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:2.2rem;text-align:center;text-shadow:0 2px 8px #222;max-width:90vw;z-index:5;line-height:1.2;">
+				Libérez la puissance de la nature avec la mousse.<br>
+				Purifiez votre air, augmentez l'humidité, créez un environnement paisible.<br>
+				Sublimez votre espace avec la beauté et les bienfaits de la mousse.
+			</div>
+		</div>
+
+		<!-- Video centrée avec carrés animés -->
+		<section class="stats-section" style="position:relative;">
+			<div style="display:flex; justify-content:center; align-items:center; flex-direction:column;">
+				<iframe id="video2" class="youtube-iframe large" width="1100" height="618" src="https://www.youtube.com/embed/4bHUsy74Fss?si=hUXK9U145OopXduP&start=15&end=24&autoplay=1&mute=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="margin-bottom:1rem;"></iframe>
+				<div class="stats-overlay">
+					<div class="stat-box">-90% poussières fines</div>
+					<div class="stat-box">-60% COV</div>
+					<div class="stat-box">-40% dioxyde de carbone</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Section avec video carrée et texte -->
+		<section class="benefits-section">
+			<iframe id="video3" class="youtube-iframe" width="560" height="315" src="https://www.youtube.com/embed/4bHUsy74Fss?si=hUXK9U145OopXduP&start=66&end=89&autoplay=1&mute=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:block; margin:0 auto 1rem auto;"></iframe>
+			<div class="benefits-text">
+				<h2>Les bénéfices de la mousse dans l'écosystème</h2>
+				<p>La mousse est l'un des organismes les plus anciens et les plus résilients de notre planète. Elle possède des capacités de filtration exceptionnelles, absorbant les particules fines et les polluants tout en produisant de l'oxygène. Dans nos espaces urbains, elle agit comme un poumon vert miniature, créant un microclimat plus sain et plus agréable.</p>
+			</div>
+			<iframe id="video4" class="youtube-iframe" width="560" height="315" src="https://www.youtube.com/embed/4bHUsy74Fss?si=hUXK9U145OopXduP&start=92&end=95&autoplay=1&mute=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:block; margin:1rem auto 0 auto;"></iframe>
+		</section>
+
+		<!-- Video 80% largeur -->
+		<section class="wide-video-section">
+			<video autoplay muted loop class="wide-video">
+				<source src="{{ asset('videos/process-video.mp4') }}" type="video/mp4">
+			</video>
+		</section>
+
+		<!-- Section finale avec video carrée et rectangle -->
+		<section class="final-section">
+			<video autoplay muted loop class="final-square-video">
+				<source src="{{ asset('videos/final-video.mp4') }}" type="video/mp4">
+			</video>
+			<div class="final-rectangle">
+				<h3>Rejoignez la révolution verte</h3>
+				<p>Transformez votre espace avec Moss Air</p>
+			</div>
+		</section>
+	</div>
+	<script src="https://www.youtube.com/iframe_api"></script>
+	<script>
+		var ytPlayers = {};
+function onYouTubeIframeAPIReady() {
+const videos = [
+{
+id: 'video2',
+start: 15,
+end: 24
+}, {
+id: 'video3',
+start: 66,
+end: 89
+}, {
+id: 'video4',
+start: 92,
+end: 95
+}
+];
+videos.forEach(function (v) {
+ytPlayers[v.id] = new YT.Player(v.id, {
+events: {
+'onReady': function (event) {
+event.target.seekTo(v.start);
+event.target.playVideo();
+},
+'onStateChange': function (event) {
+var player = ytPlayers[v.id];
+if (event.data === YT.PlayerState.PLAYING && ! player.interval) {
+player.interval = setInterval(function () {
+var current = player.getCurrentTime();
+if (current >= v.end - 0.2) {
+player.seekTo(v.start);
+}
+}, 500);
+}
+if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+clearInterval(player.interval);
+player.interval = null;
+}
+}
+}
+});
+});
+}
+	</script>
+
+{% endblock %}

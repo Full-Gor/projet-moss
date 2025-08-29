@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		<h1>Historique de mes commandes</h1>
+
+		{% if commandes is empty %}
+			<p>Vous n'avez pas encore passé de commande.</p>
+		{% else %}
+			<table class="commandes-table">
+				<thead>
+					<tr>
+						<th>N° Commande</th>
+						<th>Date</th>
+						<th>Produit</th>
+						<th>Nom Client</th>
+						<th>Quantité</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for commande in commandes %}
+						<tr>
+							<td>#{{ commande.id }}</td>
+							<td>{{ commande.dateCommande|date('d/m/Y H:i') }}</td>
+							<td>{{ commande.produit }}</td>
+							<td>{{ commande.nomClient }}</td>
+							<td>{{ commande.quantite }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+{% endblock %}
