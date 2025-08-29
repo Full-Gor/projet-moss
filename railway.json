@@ -4,7 +4,7 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "php -S 0.0.0.0:$PORT -t public",
+        "startCommand": "php start-railway.php",
         "healthcheckPath": "/",
         "healthcheckTimeout": 300,
         "restartPolicyType": "ON_FAILURE",

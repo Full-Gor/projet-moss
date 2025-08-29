@@ -22,4 +22,17 @@ php bin/console assets:install public --env=prod
 echo "🔧 Vérification de la configuration..."
 php bin/console debug:config --env=prod
 
+# Vérifier que le dossier public existe
+echo "📁 Vérification du dossier public..."
+ls -la public/
+
+# Vérifier que index.php existe
+echo "📄 Vérification du fichier index.php..."
+ls -la public/index.php
+
+# Afficher les variables d'environnement importantes
+echo "🌍 Variables d'environnement..."
+echo "APP_ENV: $APP_ENV"
+echo "PORT: $PORT"
+
 echo "✅ Build Railway terminé avec succès !"
