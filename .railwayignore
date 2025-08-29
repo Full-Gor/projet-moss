@@ -5,7 +5,7 @@ README.md
 .env.local
 .env.test
 
-# Fichiers de cache
+# Fichiers de cache (seront régénérés)
 var/cache/
 var/logs/
 
@@ -20,3 +20,9 @@ docs/
 # Fichiers temporaires
 *.tmp
 *.temp
+
+# Ne pas ignorer les fichiers de configuration Railway
+!railway.json
+!nixpacks.toml
+!Procfile
+!railway-build.sh
