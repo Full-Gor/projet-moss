@@ -22,4 +22,5 @@ ls -la public/index.php
 
 # Démarrer le serveur PHP
 echo "🚀 Démarrage du serveur PHP sur le port $PORT..."
-php -S 0.0.0.0:$PORT -t public
+ php -S 127.0.0.1:8000 -t public
+ -t public
