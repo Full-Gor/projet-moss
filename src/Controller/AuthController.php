@@ -7,11 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Connection;
 
 class AuthController extends AbstractController
 {
     #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, SessionInterface $session): Response
+    public function connexion(Request $request, SessionInterface $session, Connection $connection): Response
     {
         $error = null;
         $success = null;
@@ -20,24 +21,30 @@ class AuthController extends AbstractController
             $action = $request->request->get('action');
 
             if ($action === 'login') {
-                // Traitement de la connexion
+                // Traitement de la connexion avec la base de données
                 $email = $request->request->get('email');
                 $password = $request->request->get('password');
 
-                // Simulation de vérification (à remplacer par une vraie authentification)
-                if ($email === 'test@test.com' && $password === 'password') {
-                    $session->set('user', [
-                        'id' => 1,
-                        'email' => $email,
-                        'nom' => 'Jean Dupont',
-                        'connecte' => true
-                    ]);
-                    return $this->redirectToRoute('app_home');
-                } else {
-                    $error = 'Email ou mot de passe incorrect';
+                try {
+                    $result = $connection->executeQuery('SELECT * FROM user WHERE email = ?', [$email]);
+                    $user = $result->fetchAssociative();
+
+                    if ($user && password_verify($password, $user['password'])) {
+                        $session->set('user', [
+                            'id' => $user['id'],
+                            'email' => $user['email'],
+                            'nom' => $user['nom'],
+                            'connecte' => true
+                        ]);
+                        return $this->redirectToRoute('app_home');
+                    } else {
+                        $error = 'Email ou mot de passe incorrect';
+                    }
+                } catch (\Exception $e) {
+                    $error = 'Erreur de connexion à la base de données';
                 }
             } elseif ($action === 'register') {
-                // Traitement de l'inscription
+                // Traitement de l'inscription avec la base de données
                 $nom = $request->request->get('nom');
                 $email = $request->request->get('email');
                 $password = $request->request->get('password');
@@ -50,14 +57,30 @@ class AuthController extends AbstractController
                 } elseif (strlen($password) < 6) {
                     $error = 'Le mot de passe doit contenir au moins 6 caractères';
                 } else {
-                    // Simulation d'inscription réussie
-                    $session->set('user', [
-                        'id' => 2,
-                        'email' => $email,
-                        'nom' => $nom,
-                        'connecte' => true
-                    ]);
-                    return $this->redirectToRoute('app_home');
+                    try {
+                        // Vérifier si l'email existe déjà
+                        $result = $connection->executeQuery('SELECT id FROM user WHERE email = ?', [$email]);
+                        if ($result->fetchAssociative()) {
+                            $error = 'Cet email est déjà utilisé';
+                        } else {
+                            // Créer le nouvel utilisateur
+                            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                            $connection->executeStatement('INSERT INTO user (nom, email, password, created_at) VALUES (?, ?, ?, NOW())', [$nom, $email, $hashedPassword]);
+
+                            $userId = $connection->lastInsertId();
+                            $session->set('user', [
+                                'id' => $userId,
+                                'email' => $email,
+                                'nom' => $nom,
+                                'connecte' => true
+                            ]);
+
+                            $success = 'Inscription réussie !';
+                            return $this->redirectToRoute('app_home');
+                        }
+                    } catch (\Exception $e) {
+                        $error = 'Erreur lors de l\'inscription';
+                    }
                 }
             }
         }

@@ -4,47 +4,28 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
-use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
-    #[Route('/dashboard', name: 'app_admin_dashboard')]
-    public function dashboard(ProduitRepository $produitRepository, CommandeRepository $commandeRepository): Response
+    #[Route('/', name: 'app_admin_dashboard')]
+    public function index(ProduitRepository $produitRepository): Response
     {
-        try {
-            // Récupérer les statistiques
-            $totalProduits = count($produitRepository->findAll());
-            $produitsActifs = count($produitRepository->findActifs());
-            $totalCommandes = count($commandeRepository->findAll());
-
-            // Récupérer les produits pour le tableau
-            $produits = $produitRepository->findAll();
-        } catch (\Exception $e) {
-            // En cas d'erreur de connexion, utiliser des valeurs par défaut
-            $totalProduits = 0;
-            $produitsActifs = 0;
-            $totalCommandes = 0;
-            $produits = [];
-
-            $this->addFlash('warning', 'Erreur de connexion à la base de données. Affichage des données en mode hors ligne.');
-        }
+        $produits = $produitRepository->findAll();
 
         return $this->render('admin/dashboard.html.twig', [
-            'totalProduits' => $totalProduits,
-            'produitsActifs' => $produitsActifs,
-            'totalCommandes' => $totalCommandes,
-            'produits' => $produits
+            'produits' => $produits,
         ]);
     }
 
-    #[Route('/produit/nouveau', name: 'app_admin_produit_new')]
-    public function nouveauProduit(Request $request, EntityManagerInterface $em): Response
+    #[Route('/produit/new', name: 'app_admin_produit_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         if ($request->isMethod('POST')) {
             $produit = new Produit();
@@ -52,40 +33,41 @@ class AdminController extends AbstractController
             $produit->setDescription($request->request->get('description'));
             $produit->setPrix((float) $request->request->get('prix'));
             $produit->setActif($request->request->get('actif') === 'on');
+            $produit->setUpdatedAt(new \DateTimeImmutable());
 
-            // Gérer l'upload d'image
-            $image = $request->files->get('image');
-            if ($image && $image->isValid()) {
-                $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            // Gestion de l'image
+            $imageFile = $request->files->get('image');
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
-                if (in_array($image->getMimeType(), $allowedTypes)) {
-                    $fileName = 'produit_' . time() . '.' . $image->getClientOriginalExtension();
-                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/images/produits/';
-
-                    // Créer le dossier s'il n'existe pas
-                    if (!is_dir($uploadDir)) {
-                        mkdir($uploadDir, 0777, true);
-                    }
-
-                    $image->move($uploadDir, $fileName);
-                    $produit->setImage($fileName);
+                try {
+                    $imageFile->move(
+                        $this->getParameter('produits_directory'),
+                        $newFilename
+                    );
+                    $produit->setImage($newFilename);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Erreur lors du téléchargement de l\'image');
                 }
             }
 
-            $em->persist($produit);
-            $em->flush();
+            $entityManager->persist($produit);
+            $entityManager->flush();
 
+            $this->addFlash('success', 'Produit créé avec succès !');
             return $this->redirectToRoute('app_admin_dashboard');
         }
 
         return $this->render('admin/produit_form.html.twig', [
             'produit' => null,
-            'action' => 'Ajouter'
+            'action' => 'Créer'
         ]);
     }
 
-    #[Route('/produit/{id}/modifier', name: 'app_admin_produit_edit')]
-    public function modifierProduit(Request $request, Produit $produit, EntityManagerInterface $em): Response
+    #[Route('/produit/{id}/edit', name: 'app_admin_produit_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         if ($request->isMethod('POST')) {
             $produit->setNom($request->request->get('nom'));
@@ -94,27 +76,27 @@ class AdminController extends AbstractController
             $produit->setActif($request->request->get('actif') === 'on');
             $produit->setUpdatedAt(new \DateTimeImmutable());
 
-            // Gérer l'upload d'image
-            $image = $request->files->get('image');
-            if ($image && $image->isValid()) {
-                $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            // Gestion de l'image
+            $imageFile = $request->files->get('image');
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
-                if (in_array($image->getMimeType(), $allowedTypes)) {
-                    $fileName = 'produit_' . $produit->getId() . '_' . time() . '.' . $image->getClientOriginalExtension();
-                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/images/produits/';
-
-                    // Supprimer l'ancienne image si elle existe
-                    if ($produit->getImage() && file_exists($uploadDir . $produit->getImage())) {
-                        unlink($uploadDir . $produit->getImage());
-                    }
-
-                    $image->move($uploadDir, $fileName);
-                    $produit->setImage($fileName);
+                try {
+                    $imageFile->move(
+                        $this->getParameter('produits_directory'),
+                        $newFilename
+                    );
+                    $produit->setImage($newFilename);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Erreur lors du téléchargement de l\'image');
                 }
             }
 
-            $em->flush();
+            $entityManager->flush();
 
+            $this->addFlash('success', 'Produit modifié avec succès !');
             return $this->redirectToRoute('app_admin_dashboard');
         }
 
@@ -124,19 +106,15 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{id}/supprimer', name: 'app_admin_produit_delete', methods: ['POST'])]
-    public function supprimerProduit(Produit $produit, EntityManagerInterface $em): Response
+    #[Route('/produit/{id}/delete', name: 'app_admin_produit_delete', methods: ['POST'])]
+    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
-        // Supprimer l'image si elle existe
-        if ($produit->getImage()) {
-            $imagePath = $this->getParameter('kernel.project_dir') . '/public/images/produits/' . $produit->getImage();
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-        }
+        if ($this->isCsrfTokenValid('delete' . $produit->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($produit);
+            $entityManager->flush();
 
-        $em->remove($produit);
-        $em->flush();
+            $this->addFlash('success', 'Produit supprimé avec succès !');
+        }
 
         return $this->redirectToRoute('app_admin_dashboard');
     }

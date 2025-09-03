@@ -2,92 +2,157 @@
 
 {% block body %}
 	<div class="product-page">
-		<div class="product-container">
-			<div class="product-image">
-				<img src="{{ asset('images/hero3.jpg') }}" alt="Moss Air">
+		{% if produits is empty %}
+			<div class="no-products">
+				<h2>Aucun produit disponible</h2>
+				<p>Il n'y a actuellement aucun produit en vente.</p>
 			</div>
-			<div class="product-info">
-				<h1>Moss Air - Purificateur d'air naturel</h1>
-				<p class="price">{{ prix }}€</p>
-
-				<form action="{{ path('app_panier_ajouter') }}" method="POST">
-					<div class="quantity-selection">
-						<label for="quantite">Quantité :</label>
-						<input type="number" id="quantite" name="quantite" value="1" min="1" max="10" class="quantity-input">
+		{% else %}
+			{% for produit in produits %}
+				<div class="product-container">
+					<div class="product-image">
+						{% if produit.image %}
+							<img src="{{ asset('images/produits/' ~ produit.image) }}" alt="{{ produit.nom }}">
+						{% else %}
+							<img src="{{ asset('images/hero3.jpg') }}" alt="{{ produit.nom }}">
+						{% endif %}
 					</div>
+					<div class="product-info">
+						<h1>{{ produit.nom }}</h1>
+						<p class="price">{{ produit.prix }}€</p>
 
-					<button type="submit" class="add-to-cart">Ajouter au panier</button>
-				</form>
-			</div>
-		</div>
+						{% if produit.description %}
+							<div class="product-description">
+								<p>{{ produit.description }}</p>
+							</div>
+						{% endif %}
 
-		<div class="product-details">
-			<div class="product-description">
-				<h2>Description</h2>
-				<p>Le Moss Air est un purificateur d'air révolutionnaire qui utilise la mousse vivante pour filtrer naturellement l'air de votre espace. Inspiré par la nature, ce dispositif combine design minimaliste et technologie biomimétique pour créer un environnement plus sain.</p>
-			</div>
+						<form action="{{ path('app_panier_ajouter') }}" method="POST">
+							<div class="quantity-selection">
+								<label for="quantite">Quantité :</label>
+								<input type="number" id="quantite" name="quantite" value="1" min="1" max="10" class="quantity-input">
+							</div>
 
-			<div class="product-characteristics">
-				<h3>Caractéristiques :</h3>
-				<ul>
-					<li>Filtration naturelle par mousse vivante</li>
-					<li>Réduction de 90% des particules fines</li>
-					<li>Diminution de 60% des COV</li>
-					<li>Réduction de 40% du CO2</li>
-					<li>Design minimaliste et élégant</li>
-					<li>Entretien minimal</li>
-				</ul>
-			</div>
-		</div>
+							<button type="submit" class="add-to-cart">Ajouter au panier</button>
+						</form>
+					</div>
+				</div>
+
+				<div class="product-details">
+					<div class="product-characteristics">
+						<h3>Caractéristiques :</h3>
+						<ul>
+							<li>Filtration naturelle par mousse vivante</li>
+							<li>Réduction de 90% des particules fines</li>
+							<li>Diminution de 60% des COV</li>
+							<li>Réduction de 40% du CO2</li>
+							<li>Design minimaliste et élégant</li>
+							<li>Entretien minimal</li>
+						</ul>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
 	</div>
 
 	<style>
-		.product-container {
+		.product-page {
+			padding: 2rem;
 			max-width: 1200px;
-			margin: 0 auto 3rem;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
+			margin: 0 auto;
+		}
+
+		.product-container {
+			display: flex;
 			gap: 3rem;
-			padding: 0 20px;
+			margin-bottom: 3rem;
+			align-items: flex-start;
+		}
+
+		.product-image {
+			flex: 1;
+			max-width: 500px;
+		}
+
+		.product-image img {
+			width: 100%;
+			height: auto;
+			border-radius: 10px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.product-info {
+			flex: 1;
+			padding: 1rem;
+		}
+
+		.product-info h1 {
+			color: #2c5530;
+			margin-bottom: 1rem;
+			font-size: 2.5rem;
+		}
+
+		.price {
+			font-size: 2rem;
+			font-weight: bold;
+			color: #4a7c59;
+			margin-bottom: 1.5rem;
+		}
+
+		.product-description {
+			margin-bottom: 2rem;
+			line-height: 1.6;
+			color: #555;
 		}
 
 		.quantity-selection {
-			margin: 1rem 0;
+			margin-bottom: 1.5rem;
 		}
 
 		.quantity-selection label {
 			display: block;
 			margin-bottom: 0.5rem;
-			font-weight: bold;
+			font-weight: 600;
+			color: #333;
 		}
 
 		.quantity-input {
 			width: 80px;
 			padding: 0.5rem;
-			border: 1px solid #ddd;
-			border-radius: 4px;
+			border: 2px solid #ddd;
+			border-radius: 5px;
+			font-size: 1rem;
+		}
+
+		.add-to-cart {
+			background: linear-gradient(135deg, #4a7c59, #6b8e7a);
+			color: white;
+			border: none;
+			padding: 1rem 2rem;
+			font-size: 1.1rem;
+			border-radius: 25px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-weight: 600;
+		}
+
+		.add-to-cart:hover {
+			background: linear-gradient(135deg, #3d6b4a, #5a7a66);
+			transform: translateY(-2px);
+			box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
 		}
 
 		.product-details {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 0 20px;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 3rem;
+			margin-top: 2rem;
+			padding: 2rem;
+			background: #f8f9fa;
+			border-radius: 10px;
 		}
 
-		.product-description h2,
 		.product-characteristics h3 {
-			color: #4a7c59;
+			color: #2c5530;
 			margin-bottom: 1rem;
 			font-size: 1.5rem;
-		}
-
-		.product-description p {
-			line-height: 1.6;
-			color: #666;
-			margin-bottom: 1rem;
 		}
 
 		.product-characteristics ul {
@@ -96,16 +161,48 @@
 		}
 
 		.product-characteristics li {
-			padding: 0.5rem 0;
-			border-bottom: 1px solid #eee;
-			color: #666;
+			padding: 0.5rem 0 0.5rem 1.5rem;
+			border-bottom: 1px solid #e9ecef;
+			color: #555;
+			position: relative;
 		}
 
 		.product-characteristics li:before {
 			content: "✓";
 			color: #4a7c59;
 			font-weight: bold;
-			margin-right: 0.5rem;
+			position: absolute;
+			left: 0;
+		}
+
+		.no-products {
+			text-align: center;
+			padding: 4rem 2rem;
+			color: #666;
+		}
+
+		.no-products h2 {
+			color: #2c5530;
+			margin-bottom: 1rem;
+		}
+
+		@media(max-width: 768px) {
+			.product-container {
+				flex-direction: column;
+				gap: 2rem;
+			}
+
+			.product-image {
+				max-width: 100%;
+			}
+
+			.product-info h1 {
+				font-size: 2rem;
+			}
+
+			.price {
+				font-size: 1.5rem;
+			}
 		}
 	</style>
 {% endblock %}

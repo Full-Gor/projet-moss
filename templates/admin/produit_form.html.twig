@@ -1,91 +1,70 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+	{{ action }}
+	un produit - MossAir
+{% endblock %}
+
 {% block body %}
 	<div class="container mt-4">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">
-							<i class="fas fa-edit"></i>
-							{{ action }}
-							un produit
-						</h5>
+						<h4 class="mb-0">{{ action }}
+							un produit</h4>
 					</div>
 					<div class="card-body">
 						<form method="POST" enctype="multipart/form-data">
-							<div
-								class="row">
-								<!-- Image du produit -->
-								<div class="col-md-4">
-									<div class="text-center mb-3">
-										{% if produit and produit.image %}
-											<img src="{{ asset('images/produits/' ~ produit.image) }}" alt="Image du produit" class="product-preview" id="imagePreview">
-										{% else %}
-											<div class="product-preview-placeholder" id="imagePreview">
-												<i class="fas fa-image fa-3x"></i>
-												<p>Aucune image</p>
-											</div>
-										{% endif %}
-									</div>
-									<div class="mb-3">
-										<label for="image" class="form-label">Image du produit</label>
-										<input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/jpg,image/png">
-										<div class="form-text">Formats acceptés : JPG, PNG (max 5MB)</div>
-									</div>
-								</div>
+							<div class="mb-3">
+								<label for="nom" class="form-label">Nom du produit *</label>
+								<input type="text" class="form-control" id="nom" name="nom" value="{{ produit ? produit.nom : '' }}" required>
+							</div>
 
-								<!-- Informations du produit -->
-								<div class="col-md-8">
-									<div class="row">
-										<div class="col-md-8 mb-3">
-											<label for="nom" class="form-label">
-												<i class="fas fa-tag"></i>
-												Nom du produit
-											</label>
-											<input type="text" class="form-control" id="nom" name="nom" value="{{ produit ? produit.nom : '' }}" required>
-										</div>
-										<div class="col-md-4 mb-3">
-											<label for="prix" class="form-label">
-												<i class="fas fa-euro-sign"></i>
-												Prix (€)
-											</label>
-											<input type="number" class="form-control" id="prix" name="prix" step="0.01" min="0" value="{{ produit ? produit.prix : '' }}" required>
-										</div>
-									</div>
+							<div class="mb-3">
+								<label for="description" class="form-label">Description</label>
+								<textarea class="form-control" id="description" name="description" rows="3">{{ produit ? produit.description : '' }}</textarea>
+							</div>
 
-									<div class="mb-3">
-										<label for="description" class="form-label">
-											<i class="fas fa-align-left"></i>
-											Description
-										</label>
-										<textarea class="form-control" id="description" name="description" rows="4">{{ produit ? produit.description : '' }}</textarea>
-									</div>
-
-									<div class="mb-3">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="actif" name="actif" {{ produit and produit.actif ? 'checked' : '' }}>
-											<label class="form-check-label" for="actif">
-												<i class="fas fa-toggle-on"></i>
-												Produit actif
-											</label>
-										</div>
-										<div class="form-text">Un produit inactif ne sera pas visible sur le site</div>
-									</div>
+							<div class="mb-3">
+								<label for="prix" class="form-label">Prix *</label>
+								<div class="input-group">
+									<input type="number" class="form-control" id="prix" name="prix" value="{{ produit ? produit.prix : '' }}" step="0.01" min="0" required>
+									<span class="input-group-text">€</span>
 								</div>
 							</div>
 
-							<hr>
+							<div class="mb-3">
+								<label for="image" class="form-label">Image</label>
+								<input type="file" class="form-control" id="image" name="image" accept="image/*">
+								{% if produit and produit.image %}
+									<div class="mt-2">
+										<small class="text-muted">Image actuelle :
+											{{ produit.image }}</small>
+										<br>
+										<img src="{{ asset('images/produits/' ~ produit.image) }}" alt="{{ produit.nom }}" style="max-width: 200px; max-height: 200px; object-fit: cover; margin-top: 10px;">
+									</div>
+								{% endif %}
+							</div>
 
-							<div class="d-flex justify-content-between">
-								<a href="{{ path('app_admin_dashboard') }}" class="btn btn-secondary">
-									<i class="fas fa-arrow-left"></i>
-									Retour au dashboard
-								</a>
+							<div class="mb-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="actif" name="actif" {{ produit and produit.actif ? 'checked' : '' }}>
+									<label class="form-check-label" for="actif">
+										Produit actif
+									</label>
+								</div>
+							</div>
+
+							<div class="d-flex gap-2">
 								<button type="submit" class="btn btn-primary">
 									<i class="fas fa-save"></i>
 									{{ action }}
 								</button>
+								<a href="{{ path('app_admin_dashboard') }}" class="btn btn-secondary">
+									<i class="fas fa-arrow-left"></i>
+									Retour
+								</a>
 							</div>
 						</form>
 					</div>
@@ -93,117 +72,4 @@
 			</div>
 		</div>
 	</div>
-
-	<style>
-		.card {
-			border: none;
-			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-			border-radius: 15px;
-		}
-
-		.card-header {
-			background: linear-gradient(135deg, #4a7c59, #6b8e7a);
-			color: white;
-			border-radius: 15px 15px 0 0;
-			border: none;
-		}
-
-		.product-preview {
-			width: 200px;
-			height: 200px;
-			border-radius: 15px;
-			object-fit: cover;
-			border: 3px solid #4a7c59;
-		}
-
-		.product-preview-placeholder {
-			width: 200px;
-			height: 200px;
-			border-radius: 15px;
-			border: 3px dashed #4a7c59;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			color: #6c757d;
-			background: #f8f9fa;
-		}
-
-		.product-preview-placeholder i {
-			margin-bottom: 0.5rem;
-		}
-
-		.form-control {
-			border: 2px solid #e9ecef;
-			border-radius: 8px;
-			padding: 0.75rem 1rem;
-			transition: all 0.3s ease;
-		}
-
-		.form-control:focus {
-			border-color: #4a7c59;
-			box-shadow: 0 0 0 0.2rem rgba(74, 124, 89, 0.25);
-		}
-
-		.form-label {
-			font-weight: 600;
-			color: #333;
-			margin-bottom: 0.5rem;
-		}
-
-		.form-text {
-			color: #6c757d;
-			font-size: 0.875rem;
-		}
-
-		.form-check-input:checked {
-			background-color: #4a7c59;
-			border-color: #4a7c59;
-		}
-
-		.btn-primary {
-			background: linear-gradient(135deg, #4a7c59, #6b8e7a);
-			border: none;
-			padding: 0.75rem 1.5rem;
-			border-radius: 8px;
-			font-weight: 600;
-			transition: all 0.3s ease;
-		}
-
-		.btn-primary:hover {
-			background: linear-gradient(135deg, #3d6b4a, #5a7a66);
-			transform: translateY(-2px);
-		}
-
-		.btn-secondary {
-			background: #6c757d;
-			border: none;
-			padding: 0.75rem 1.5rem;
-			border-radius: 8px;
-			font-weight: 600;
-			transition: all 0.3s ease;
-		}
-
-		.btn-secondary:hover {
-			background: #5a6268;
-			transform: translateY(-2px);
-		}
-	</style>
-
-	<script>
-		// Prévisualisation de l'image
-document.getElementById('image').addEventListener('change', function (e) {
-const file = e.target.files[0];
-if (file) {
-const reader = new FileReader();
-reader.onload = function (e) {
-const preview = document.getElementById('imagePreview');
-preview.innerHTML = `<img src="${
-e.target.result
-}" alt="Aperçu" class="product-preview">`;
-};
-reader.readAsDataURL(file);
-}
-});
-	</script>
 {% endblock %}

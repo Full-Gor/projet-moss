@@ -39,10 +39,7 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @return Produit[] Returns an array of active Produit objects
-     */
-    public function findActifs(): array
+    public function findActifs()
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.actif = :actif')

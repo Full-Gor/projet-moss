@@ -12,20 +12,20 @@ use App\Repository\TestLogRepository;
 
 class TestController extends AbstractController
 {
-    #[Route('/test-supabase', name: 'app_test_supabase')]
+    #[Route('/test', name: 'app_test')]
     public function index(TestLogRepository $testLogRepository): Response
     {
         try {
             $logs = $testLogRepository->findRecentLogs(10);
             $status = 'success';
-            $message = 'Connexion à Supabase réussie !';
+            $message = 'Connexion à la base de données réussie !';
         } catch (\Exception $e) {
             $logs = [];
             $status = 'error';
             $message = 'Erreur de connexion : ' . $e->getMessage();
         }
 
-        return $this->render('test/supabase.html.twig', [
+        return $this->render('test/index.html.twig', [
             'status' => $status,
             'message' => $message,
             'logs' => $logs,
@@ -33,12 +33,12 @@ class TestController extends AbstractController
         ]);
     }
 
-    #[Route('/test-supabase/ajouter', name: 'app_test_ajouter', methods: ['POST'])]
+    #[Route('/test/ajouter', name: 'app_test_ajouter', methods: ['POST'])]
     public function ajouter(Request $request, EntityManagerInterface $em): Response
     {
         try {
             $log = new TestLog();
-            $log->setMessage('Test Supabase - ' . date('H:i:s'));
+            $log->setMessage('Test de base de données - ' . date('H:i:s'));
             $log->setType('test');
 
             $em->persist($log);
@@ -49,6 +49,6 @@ class TestController extends AbstractController
             $this->addFlash('error', 'Erreur lors de l\'ajout : ' . $e->getMessage());
         }
 
-        return $this->redirectToRoute('app_test_supabase');
+        return $this->redirectToRoute('app_test');
     }
 }

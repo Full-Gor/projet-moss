@@ -56,7 +56,7 @@ gtag('config', 'G-XXXXXXXXXX');
 		<body>
 			<nav class="navbar">
 				<div class="nav-container">
-					<a href="{{ path('app_home') }}" class="logo">
+					<a href="{{ path('app_home') }}" class="logo" id="siteLogo">
 						MossAir</a>
 					<ul class="nav-menu">
 						<li>
@@ -67,6 +67,9 @@ gtag('config', 'G-XXXXXXXXXX');
 						</li>
 						<li>
 							<a href="{{ path('app_histoire') }}">Histoire</a>
+						</li>
+						<li>
+							<a href="#">Mode d'emploi</a>
 						</li>
 						<li>
 							<a href="{{ path('app_about') }}">À propos</a>
@@ -111,17 +114,16 @@ gtag('config', 'G-XXXXXXXXXX');
 						<div class="footer-column">
 							<h4>Boutique</h4>
 							<ul>
-								<li><ahref="{{path('app_produit')}}">Moss Air</a></li>
+								<li><ahref="{{ path('app_produit') }}">Moss Air</a></li>
 								<li><a href="#">Double Air Mousse</a></li>
 								<li><a href="#">Sac à dos tout-en-un Moss Air</a></li>
 								<li><a href="#">Filtre à mousse</a></li>
-
 							</ul>
 						</div>
 						<div class="footer-column">
 							<h4>Ressources</h4>
 							<ul>
-								<li><ahref="{{path('app_histoire')}}">Histoire</a></li>
+								<li><ahref="{{ path('app_histoire') }}">Histoire</a></li>
 								<li><a href="#">Mode d'emploi</a></li>
 							</ul>
 						</div>
@@ -144,17 +146,142 @@ gtag('config', 'G-XXXXXXXXXX');
 					</div>
 				</footer>
 
+				<!-- Modale Admin -->
+				<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="adminModalLabel">
+									<i class="fas fa-lock"></i>
+									Accès Administrateur
+								</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="alert alert-info">
+									<i class="fas fa-info-circle"></i>
+									<strong>Accès sécurisé :</strong>
+									Entrez le mot de passe administrateur pour accéder au CRUD des produits.
+								</div>
+								<form id="adminForm">
+									<div class="mb-3">
+										<label for="adminPassword" class="form-label">Mot de passe</label>
+										<input type="password" class="form-control" id="adminPassword" placeholder="Entrez le mot de passe" required autocomplete="new-password">
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+								<button type="button" class="btn btn-primary" onclick="checkAdminPassword()">
+									<i class="fas fa-sign-in-alt"></i>
+									Accéder
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<script src="{{ asset('js/main.js') }}"></script>
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 				{% block javascripts %}{% endblock %}
 
 				<script>
-					// Ctrl+A pour accéder au dashboard admin
+					// Attendre que le DOM soit chargé
+document.addEventListener('DOMContentLoaded', function () {
+console.log('DOM chargé, initialisation du système admin...');
+
+// Ctrl+A pour accéder au dashboard admin
 document.addEventListener('keydown', function (event) {
 if (event.ctrlKey && event.key === 'a') {
-event.preventDefault(); // Empêcher la sélection de tout le texte
+event.preventDefault();
 window.location.href = '{{ path('app_admin_dashboard') }}';
 }
+});
+
+// Système de 3 clics sur le titre pour accéder à l'admin
+let clickCount = 0;
+let clickTimer = null;
+
+const siteLogo = document.getElementById('siteLogo');
+if (siteLogo) {
+console.log('Logo trouvé, ajout des événements de clic...');
+
+siteLogo.addEventListener('click', function () {
+console.log('Clic détecté, compteur:', clickCount + 1);
+clickCount++;
+
+if (clickTimer) {
+clearTimeout(clickTimer);
+}
+
+clickTimer = setTimeout(() => {
+if (clickCount === 3) {
+console.log('3 clics détectés, ouverture de la modale...');
+// Afficher la modale admin
+const adminModal = new bootstrap.Modal(document.getElementById('adminModal'));
+adminModal.show();
+clickCount = 0;
+} else {
+console.log('Pas assez de clics, réinitialisation...');
+clickCount = 0;
+}
+}, 500);
+});
+} else {
+console.error('Logo non trouvé !');
+}
+
+// Vérification du mot de passe admin
+window.checkAdminPassword = function () {
+const password = document.getElementById('adminPassword').value;
+const correctPassword = 'admin123';
+
+console.log('Vérification du mot de passe...');
+
+if (password === correctPassword) {
+console.log('Mot de passe correct, redirection...');
+// Mot de passe correct, rediriger vers l'admin
+window.location.href = '{{ path('app_admin_dashboard') }}';
+} else {
+console.log('Mot de passe incorrect');
+// Mot de passe incorrect
+document.getElementById('adminPassword').value = '';
+document.getElementById('adminPassword').classList.add('is-invalid');
+
+// Afficher un message d'erreur
+const errorDiv = document.createElement('div');
+errorDiv.className = 'invalid-feedback d-block';
+errorDiv.textContent = 'Mot de passe incorrect !';
+
+const existingError = document.querySelector('.invalid-feedback');
+if (existingError) {
+existingError.remove();
+}
+
+document.getElementById('adminPassword').parentNode.appendChild(errorDiv);
+
+// Retirer la classe d'erreur après 3 secondes
+setTimeout(() => {
+document.getElementById('adminPassword').classList.remove('is-invalid');
+const errorDiv = document.querySelector('.invalid-feedback');
+if (errorDiv) {
+errorDiv.remove();
+}
+}, 3000);
+}
+};
+
+// Réinitialiser le compteur de clics si on clique ailleurs
+document.addEventListener('click', function (event) {
+if (! event.target.closest('#siteLogo')) {
+clickCount = 0;
+if (clickTimer) {
+clearTimeout(clickTimer);
+}
+}
+});
+
+console.log('Système admin initialisé !');
 });
 				</script>
 
@@ -210,6 +337,31 @@ window.location.href = '{{ path('app_admin_dashboard') }}';
 
 					.logout-btn:hover {
 						color: #c82333 !important;
+					}
+
+					/* Styles pour la modale admin */
+					#adminModal .modal-header {
+						background: linear-gradient(135deg, #4a7c59, #6b8e7a);
+						color: white;
+					}
+
+					#adminModal .modal-header .btn-close {
+						filter: invert(1);
+					}
+
+					#adminModal .alert-info {
+						background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+						border-color: #bee5eb;
+						color: #0c5460;
+					}
+
+					#adminModal .btn-primary {
+						background: linear-gradient(135deg, #4a7c59, #6b8e7a);
+						border: none;
+					}
+
+					#adminModal .btn-primary:hover {
+						background: linear-gradient(135deg, #3d6b4a, #5a7a66);
 					}
 				</style>
 			</body>

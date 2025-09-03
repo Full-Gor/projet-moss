@@ -1,54 +1,63 @@
 # MossAir - Purificateur d'air naturel
 
-## 🚀 Déploiement sur Railway.app
+## 🚀 Développement local
 
 ### Prérequis
-- Compte GitHub avec le code source
-- Compte Supabase avec base de données PostgreSQL
-- Compte Railway.app
+- PHP 8.0+
+- Composer
+- Base de données MySQL locale (WAMP/XAMPP)
+- Symfony CLI
 
-### Étapes de déploiement
+### Installation
 
-1. **Pousser le code sur GitHub**
+1. **Cloner le projet**
    ```bash
-   git add .
-   git commit -m "Préparation pour déploiement Railway"
-   git push origin main
+   git clone [URL_DU_REPO]
+   cd projet-symf-1
    ```
 
-2. **Créer un compte Railway.app**
-   - Allez sur https://railway.app
-   - Créez un compte gratuit
+2. **Installer les dépendances**
+   ```bash
+   composer install
+   ```
 
-3. **Connecter GitHub**
-   - Dans Railway, cliquez sur "New Project"
-   - Sélectionnez "Deploy from GitHub repo"
-   - Connectez votre repository GitHub
+3. **Configuration de la base de données**
+   - Créez une base de données `mossair_local` dans phpMyAdmin
+   - Copiez le fichier `.env.local.example` vers `.env.local`
+   - Modifiez la `DATABASE_URL` selon votre configuration
 
-4. **Configuration automatique**
-   - Railway détecte automatiquement que c'est un projet PHP/Symfony
-   - Aucune configuration supplémentaire nécessaire
+4. **Créer les tables**
+   ```bash
+   php bin/console doctrine:migrations:migrate
+   ```
 
-5. **Variables d'environnement**
-   - `APP_ENV`: `prod`
-   - `APP_SECRET`: `votre_secret_ici`
-   - `DATABASE_URL`: `postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres`
+5. **Lancer le serveur de développement**
+   ```bash
+   symfony serve
+   ```
 
-6. **Déployer**
-   - Le déploiement se fait automatiquement
-   - Votre site est accessible immédiatement
+### Configuration de la base de données
 
-### URL finale
-Votre site sera accessible sur : `https://mossair-production.up.railway.app`
+Créez un fichier `.env.local` avec :
+```bash
+DATABASE_URL="mysql://root:@127.0.0.1:3306/mossair_local?serverVersion=8.0&charset=utf8mb4"
+APP_ENV=dev
+APP_SECRET=votre_secret_ici
+```
+
+### URL d'accès
+- **Site principal** : `http://localhost:8000`
+- **Page de test** : `http://localhost:8000/test`
+- **Connexion** : `http://localhost:8000/connexion`
 
 ### Fonctionnalités
 - ✅ Panier d'achat
 - ✅ Système de connexion
 - ✅ Profil utilisateur
 - ✅ Dashboard admin (Ctrl+A)
-- ✅ Base de données Supabase
+- ✅ Base de données MySQL locale
 - ✅ SEO optimisé
 - ✅ Sitemap.xml
 
 ### Support
-Pour toute question, consultez la documentation Railway.app
+Pour toute question, consultez la documentation Symfony

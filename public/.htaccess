@@ -38,7 +38,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]
 
-# In case when running on Railway or similar platforms
+# Redirection HTTPS pour les plateformes cloud
 RewriteCond %{HTTP:X-Forwarded-Proto} =https [OR]
 RewriteCond %{HTTPS} =on
 RewriteRule ^(.*)$ - [E=HTTPS:on]

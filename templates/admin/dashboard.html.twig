@@ -1,261 +1,99 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Dashboard Admin - MossAir
+{% endblock %}
+
 {% block body %}
-	<div class="container-fluid mt-4">
-		<div
-			class="row">
-			<!-- Sidebar -->
-			<div class="col-md-3">
-				<div class="card admin-sidebar">
-					<div class="card-body">
-						<h5 class="card-title">
-							<i class="fas fa-tachometer-alt"></i>
-							Dashboard Admin
-						</h5>
-						<hr>
-						<div class="admin-stats">
-							<div class="stat-item">
-								<i class="fas fa-box"></i>
-								<div>
-									<h4>{{ totalProduits }}</h4>
-									<small>Produits</small>
-								</div>
-							</div>
-							<div class="stat-item">
-								<i class="fas fa-check-circle"></i>
-								<div>
-									<h4>{{ produitsActifs }}</h4>
-									<small>Actifs</small>
-								</div>
-							</div>
-							<div class="stat-item">
-								<i class="fas fa-shopping-cart"></i>
-								<div>
-									<h4>{{ totalCommandes }}</h4>
-									<small>Commandes</small>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<a href="{{ path('app_admin_produit_new') }}" class="btn btn-primary w-100">
-							<i class="fas fa-plus"></i>
-							Nouveau Produit
+	<div class="container mt-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h1>Dashboard Admin</h1>
+			<a href="{{ path('app_admin_produit_new') }}" class="btn btn-primary">
+				<i class="fas fa-plus"></i>
+				Nouveau Produit
+			</a>
+		</div>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		{% endfor %}
+
+		<div class="card">
+			<div class="card-header">
+				<h5 class="mb-0">Gestion des Produits</h5>
+			</div>
+			<div class="card-body">
+				{% if produits|length > 0 %}
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Image</th>
+									<th>Nom</th>
+									<th>Prix</th>
+									<th>Statut</th>
+									<th>Date création</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for produit in produits %}
+									<tr>
+										<td>{{ produit.id }}</td>
+										<td>
+											{% if produit.image %}
+												<img src="{{ asset('images/produits/' ~ produit.image) }}" alt="{{ produit.nom }}" style="width: 50px; height: 50px; object-fit: cover;">
+											{% else %}
+												<div class="bg-light text-muted d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+													<i class="fas fa-image"></i>
+												</div>
+											{% endif %}
+										</td>
+										<td>{{ produit.nom }}</td>
+										<td>{{ produit.prix|number_format(2, ',', ' ') }}
+											€</td>
+										<td>
+											<span class="badge bg-{{ produit.actif ? 'success' : 'danger' }}">
+												{{ produit.actif ? 'Actif' : 'Inactif' }}
+											</span>
+										</td>
+										<td>{{ produit.createdAt|date('d/m/Y H:i') }}</td>
+										<td>
+											<a href="{{ path('app_admin_produit_edit', {id: produit.id}) }}" class="btn btn-sm btn-warning">
+												<i class="fas fa-edit"></i>
+											</a>
+											<form method="POST" action="{{ path('app_admin_produit_delete', {id: produit.id}) }}" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+												<button type="submit" class="btn btn-sm btn-danger">
+													<i class="fas fa-trash"></i>
+												</button>
+											</form>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% else %}
+					<div class="text-center py-4">
+						<i class="fas fa-box fa-3x text-muted mb-3"></i>
+						<p class="text-muted">Aucun produit trouvé</p>
+						<a href="{{ path('app_admin_produit_new') }}" class="btn btn-primary">
+							Créer le premier produit
 						</a>
 					</div>
-				</div>
-			</div>
-
-			<!-- Main Content -->
-			<div class="col-md-9">
-				<div class="card">
-					<div class="card-header">
-						<h5 class="mb-0">
-							<i class="fas fa-list"></i>
-							Gestion des Produits
-						</h5>
-					</div>
-					<div class="card-body">
-						{% if produits is empty %}
-							<div class="text-center py-5">
-								<i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-								<h5>Aucun produit</h5>
-								<p class="text-muted">Commencez par ajouter votre premier produit</p>
-								<a href="{{ path('app_admin_produit_new') }}" class="btn btn-primary">
-									<i class="fas fa-plus"></i>
-									Ajouter un produit
-								</a>
-							</div>
-						{% else %}
-							<div class="table-responsive">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>Image</th>
-											<th>Nom</th>
-											<th>Prix</th>
-											<th>Statut</th>
-											<th>Date création</th>
-											<th>Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-										{% for produit in produits %}
-											<tr>
-												<td>
-													{% if produit.image %}
-														<img src="{{ asset('images/produits/' ~ produit.image) }}" alt="{{ produit.nom }}" class="product-thumb">
-													{% else %}
-														<div class="no-image">
-															<i class="fas fa-image"></i>
-														</div>
-													{% endif %}
-												</td>
-												<td>
-													<strong>{{ produit.nom }}</strong>
-													{% if produit.description %}
-														<br><small class="text-muted">{{ produit.description|slice(0, 50) }}...</small>
-													{% endif %}
-												</td>
-												<td>
-													<span class="badge bg-success">{{ produit.prix }}€</span>
-												</td>
-												<td>
-													{% if produit.actif %}
-														<span class="badge bg-success">Actif</span>
-													{% else %}
-														<span class="badge bg-secondary">Inactif</span>
-													{% endif %}
-												</td>
-												<td>
-													<small>{{ produit.createdAt|date('d/m/Y H:i') }}</small>
-												</td>
-												<td>
-													<div class="btn-group" role="group">
-														<a href="{{ path('app_admin_produit_edit', {'id': produit.id}) }}" class="btn btn-sm btn-outline-primary">
-															<i class="fas fa-edit"></i>
-														</a>
-														<button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmDelete({{ produit.id }}, '{{ produit.nom }}')">
-															<i class="fas fa-trash"></i>
-														</button>
-													</div>
-												</td>
-											</tr>
-										{% endfor %}
-									</tbody>
-								</table>
-							</div>
-						{% endif %}
-					</div>
-				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
-
-	<!-- Modal de confirmation de suppression -->
-	<div class="modal fade" id="deleteModal" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">
-						<i class="fas fa-exclamation-triangle text-danger"></i>
-						Confirmer la suppression
-					</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-					<p>Êtes-vous sûr de vouloir supprimer le produit
-						<strong id="produitNom"></strong>
-						?</p>
-					<p class="text-muted">Cette action est irréversible.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-					<form id="deleteForm" method="POST" style="display: inline;">
-						<button type="submit" class="btn btn-danger">
-							<i class="fas fa-trash"></i>
-							Supprimer
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<style>
-		.admin-sidebar {
-			background: linear-gradient(135deg, #4a7c59, #6b8e7a);
-			color: white;
-			border: none;
-			border-radius: 15px;
-		}
-
-		.admin-sidebar .card-title {
-			color: white;
-			font-weight: bold;
-		}
-
-		.admin-stats {
-			margin: 1rem 0;
-		}
-
-		.stat-item {
-			display: flex;
-			align-items: center;
-			gap: 1rem;
-			margin-bottom: 1rem;
-			padding: 0.5rem;
-			background: rgba(255, 255, 255, 0.1);
-			border-radius: 8px;
-		}
-
-		.stat-item i {
-			font-size: 1.5rem;
-			color: #fff;
-		}
-
-		.stat-item h4 {
-			margin: 0;
-			font-weight: bold;
-			color: white;
-		}
-
-		.stat-item small {
-			color: rgba(255, 255, 255, 0.8);
-		}
-
-		.product-thumb {
-			width: 50px;
-			height: 50px;
-			border-radius: 8px;
-			object-fit: cover;
-		}
-
-		.no-image {
-			width: 50px;
-			height: 50px;
-			background: #f8f9fa;
-			border-radius: 8px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: #6c757d;
-		}
-
-		.table th {
-			background: #f8f9fa;
-			border-top: none;
-			font-weight: 600;
-			color: #333;
-		}
-
-		.btn-group .btn {
-			margin-right: 0.25rem;
-		}
-
-		.btn-group .btn:last-child {
-			margin-right: 0;
-		}
-
-		.modal-content {
-			border: none;
-			border-radius: 15px;
-			box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-		}
-
-		.modal-header {
-			background: linear-gradient(135deg, #4a7c59, #6b8e7a);
-			color: white;
-			border-radius: 15px 15px 0 0;
-		}
-	</style>
-
-	<script>
-		function confirmDelete(id, nom) {
-document.getElementById('produitNom').textContent = nom;
-document.getElementById('deleteForm').action = '/admin/produit/' + id + '/supprimer';
-
-const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-modal.show();
-}
-	</script>
 {% endblock %}
