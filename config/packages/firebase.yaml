@@ -1,0 +1,39 @@
+parameters:
+    firebase.credentials: '%env(resolve:FIREBASE_CREDENTIALS)%'
+    firebase.project_id: '%env(FIREBASE_PROJECT_ID)%'
+    firebase.storage_bucket: '%env(FIREBASE_STORAGE_BUCKET)%'
+    firebase.database_url: '%env(FIREBASE_DATABASE_URL)%'
+
+services:
+    # Firebase Factory
+    Kreait\Firebase\Factory:
+        class: Kreait\Firebase\Factory
+        calls:
+            - withServiceAccount: ['%firebase.credentials%']
+            - withProjectId: ['%firebase.project_id%']
+            - withDatabaseUri: ['%firebase.database_url%']
+
+    # Firebase Auth Service
+    Kreait\Firebase\Contract\Auth:
+        factory: ['@Kreait\Firebase\Factory', 'createAuth']
+        public: true
+
+    # Firebase Storage Service
+    Kreait\Firebase\Contract\Storage:
+        factory: ['@Kreait\Firebase\Factory', 'createStorage']
+        public: true
+
+    # Firebase Database Service
+    Kreait\Firebase\Contract\Database:
+        factory: ['@Kreait\Firebase\Factory', 'createDatabase']
+        public: true
+
+    # Firebase Firestore Service
+    Kreait\Firebase\Contract\Firestore:
+        factory: ['@Kreait\Firebase\Factory', 'createFirestore']
+        public: true
+
+    # Firebase Messaging Service (for push notifications)
+    Kreait\Firebase\Contract\Messaging:
+        factory: ['@Kreait\Firebase\Factory', 'createMessaging']
+        public: true
