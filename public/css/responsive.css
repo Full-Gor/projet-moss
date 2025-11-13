@@ -1,0 +1,425 @@
+/* ================================================
+   RESPONSIVE UTILITIES - MOSSAIR PROJECT
+   Styles supplémentaires pour mobile/tablet
+================================================ */
+
+/* Utilitaires de texte responsive */
+.text-responsive-sm {
+    font-size: 0.875rem;
+}
+
+.text-responsive-md {
+    font-size: 1rem;
+}
+
+.text-responsive-lg {
+    font-size: 1.125rem;
+}
+
+/* Espacement responsive */
+@media (max-width: 768px) {
+    .py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .my-5 {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
+
+/* Images responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Boutons responsive */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Cards responsive */
+.card {
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Forms responsive */
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        font-size: 16px; /* Évite le zoom sur iOS */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+        font-size: 16px; /* Évite le zoom automatique sur iOS */
+    }
+}
+
+/* Modals responsive */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+}
+
+/* Profile page responsive */
+.profile-page {
+    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 1rem 0;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-info h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Admin dashboard responsive */
+@media (max-width: 992px) {
+    .admin-sidebar {
+        width: 100%;
+        position: relative;
+    }
+
+    .admin-content {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-table {
+        font-size: 0.85rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem;
+    }
+
+    .admin-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .admin-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Panier / Cart responsive */
+.cart-page {
+    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .cart-page {
+        padding: 1rem 0;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cart-item-image {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 1rem;
+    }
+
+    .cart-item-details {
+        width: 100%;
+    }
+
+    .cart-summary {
+        position: static;
+        width: 100%;
+        margin-top: 2rem;
+    }
+}
+
+/* About page responsive */
+.about-page {
+    padding: 3rem 0;
+}
+
+@media (max-width: 768px) {
+    .about-page {
+        padding: 1.5rem 0;
+    }
+
+    .about-section {
+        margin-bottom: 2rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-section p {
+        font-size: 0.95rem;
+    }
+}
+
+/* CGV / Legal pages responsive */
+.legal-page {
+    padding: 2rem 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .legal-page {
+        padding: 1rem 15px;
+    }
+
+    .legal-page h1 {
+        font-size: 1.8rem;
+    }
+
+    .legal-page h2 {
+        font-size: 1.4rem;
+    }
+
+    .legal-page p,
+    .legal-page li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Auth pages (connexion/inscription) responsive */
+.auth-page {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.auth-container {
+    max-width: 450px;
+    width: 100%;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .auth-page {
+        padding: 1rem 15px;
+    }
+
+    .auth-container {
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    .auth-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .auth-form .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 1rem;
+    }
+
+    .auth-container h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Commande / Order history responsive */
+.commande-page {
+    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .commande-page {
+        padding: 1rem 0;
+    }
+
+    .commande-card {
+        margin-bottom: 1rem;
+    }
+
+    .commande-details {
+        font-size: 0.9rem;
+    }
+}
+
+/* Animations responsive */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Touch improvements pour mobile */
+@media (max-width: 992px) {
+    /* Augmenter la zone de toucher des liens/boutons */
+    a,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Désactiver le hover sur mobile */
+    .hover-effect:hover {
+        transform: none;
+    }
+}
+
+/* Amélioration de la lisibilité sur petit écran */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+}
+
+/* Fix pour Safari iOS */
+@supports (-webkit-touch-callout: none) {
+    .navbar {
+        min-height: calc(60px + env(safe-area-inset-top));
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .nav-menu {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    body {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Mode sombre pour système */
+@media (prefers-color-scheme: dark) {
+    /* Optionnel: ajouter des styles pour le mode sombre si nécessaire */
+}
+
+/* Orientation landscape pour mobile */
+@media (max-width: 992px) and (orientation: landscape) {
+    .main-content {
+        min-height: calc(100vh - 60px);
+    }
+
+    .navbar {
+        min-height: 60px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .footer,
+    .hamburger,
+    .btn,
+    button {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-top: 0;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+}
