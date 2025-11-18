@@ -60,12 +60,12 @@ gtag('config', 'G-XXXXXXXXXX');
 					<a href="{{ path('app_home') }}" class="logo" id="siteLogo">
 						MossAir</a>
 
-				<!-- Bouton hamburger pour mobile -->
-				<button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
+					<!-- Bouton hamburger pour mobile -->
+					<button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
 					<ul class="nav-menu" id="navMenu">
 						<li>
 							<a href="{{ path('app_home') }}">Accueil</a>
@@ -189,9 +189,68 @@ gtag('config', 'G-XXXXXXXXXX');
 					</div>
 				</div>
 
-				<script src="{{ asset('js/main.js') }}"></script>
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 				{% block javascripts %}{% endblock %}
+
+				<!-- Script pour le menu burger -->
+				<script>
+					// Menu hamburger - doit s'exécuter en premier
+					(function() {
+						console.log('Script burger chargé');
+
+						function initBurger() {
+							const hamburger = document.getElementById('hamburger');
+							const navMenu = document.getElementById('navMenu');
+
+							console.log('Init burger - Hamburger:', hamburger);
+							console.log('Init burger - NavMenu:', navMenu);
+
+							if (!hamburger || !navMenu) {
+								console.error('Éléments non trouvés!');
+								return;
+							}
+
+							console.log('Éléments trouvés, ajout du listener');
+
+							hamburger.addEventListener('click', function(e) {
+								console.log('=== CLIC DÉTECTÉ ===');
+								e.preventDefault();
+								e.stopPropagation();
+
+								const wasActive = navMenu.classList.contains('active');
+
+								hamburger.classList.toggle('active');
+								navMenu.classList.toggle('active');
+
+								const isActive = navMenu.classList.contains('active');
+								const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+								hamburger.setAttribute('aria-expanded', !isExpanded);
+
+								console.log('État avant:', wasActive);
+								console.log('État après:', isActive);
+								console.log('Classes hamburger:', hamburger.className);
+								console.log('Classes navMenu:', navMenu.className);
+							});
+
+							// Fermer le menu quand on clique sur un lien
+							const navLinks = navMenu.querySelectorAll('a');
+							navLinks.forEach(link => {
+								link.addEventListener('click', function() {
+									hamburger.classList.remove('active');
+									navMenu.classList.remove('active');
+									hamburger.setAttribute('aria-expanded', 'false');
+								});
+							});
+						}
+
+						// Attendre que le DOM soit chargé
+						if (document.readyState === 'loading') {
+							document.addEventListener('DOMContentLoaded', initBurger);
+						} else {
+							initBurger();
+						}
+					})();
+				</script>
 
 				<script>
 					// Attendre que le DOM soit chargé
@@ -374,12 +433,3 @@ console.log('Système admin initialisé !');
 				</style>
 			</body>
 		</html>
-
-
-		<?php
-
-use App\Kernel;
-
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
-
-return function (array $context )
