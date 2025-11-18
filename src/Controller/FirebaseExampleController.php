@@ -37,7 +37,7 @@ class FirebaseExampleController extends AbstractController
      * Exemple: Obtenir un utilisateur par email
      */
     #[Route('/auth/user/{email}', name: 'auth_get_user', methods: ['GET'])]
-    public function getUser(string $email, FirebaseAuthService $authService): JsonResponse
+    public function getFirebaseUser(string $email, FirebaseAuthService $authService): JsonResponse
     {
         $user = $authService->getUserByEmail($email);
 
