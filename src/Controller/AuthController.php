@@ -21,57 +21,77 @@ class AuthController extends AbstractController
             $action = $request->request->get('action');
 
             if ($action === 'login') {
-                // Traitement de la connexion avec la base de données
-                $email = $request->request->get('email');
-                $password = $request->request->get('password');
+                // Traitement de la connexion
+                $prenom = $request->request->get('prenom'); // Récupérer le prénom
+                $password = $request->request->get('password'); // Récupérer le mot de passe
 
                 try {
-                    $result = $connection->executeQuery('SELECT * FROM user WHERE email = ?', [$email]);
+                    // Chercher l'utilisateur par prénom
+                    $result = $connection->executeQuery('SELECT * FROM user WHERE prenom = ?', [$prenom]);
                     $user = $result->fetchAssociative();
 
+                    // Vérifier si l'utilisateur existe et si le mot de passe est correct
                     if ($user && password_verify($password, $user['password'])) {
+                        // Enregistrer l'utilisateur en session
                         $session->set('user', [
                             'id' => $user['id'],
-                            'email' => $user['email'],
+                            'prenom' => $user['prenom'],
                             'nom' => $user['nom'],
+                            'email' => $user['email'],
                             'connecte' => true
                         ]);
                         return $this->redirectToRoute('app_home');
                     } else {
-                        $error = 'Email ou mot de passe incorrect';
+                        $error = 'Prénom ou mot de passe incorrect';
                     }
                 } catch (\Exception $e) {
                     $error = 'Erreur de connexion à la base de données';
                 }
             } elseif ($action === 'register') {
-                // Traitement de l'inscription avec la base de données
-                $nom = $request->request->get('nom');
-                $email = $request->request->get('email');
-                $password = $request->request->get('password');
-                $confirmPassword = $request->request->get('confirm_password');
+                // Traitement de l'inscription
+                $prenom = $request->request->get('prenom'); // Récupérer le prénom
+                $nom = $request->request->get('nom'); // Récupérer le nom
+                $email = $request->request->get('email'); // Récupérer l'email
+                $password = $request->request->get('password'); // Récupérer le mot de passe
+                $confirmPassword = $request->request->get('confirm_password'); // Récupérer la confirmation
 
-                if (empty($nom) || empty($email) || empty($password)) {
+                // Vérifier que tous les champs sont remplis
+                if (empty($prenom) || empty($nom) || empty($email) || empty($password)) {
                     $error = 'Tous les champs sont obligatoires';
-                } elseif ($password !== $confirmPassword) {
+                }
+                // Vérifier que les mots de passe correspondent
+                elseif ($password !== $confirmPassword) {
                     $error = 'Les mots de passe ne correspondent pas';
-                } elseif (strlen($password) < 6) {
+                }
+                // Vérifier la longueur du mot de passe
+                elseif (strlen($password) < 6) {
                     $error = 'Le mot de passe doit contenir au moins 6 caractères';
-                } else {
+                }
+                else {
                     try {
                         // Vérifier si l'email existe déjà
                         $result = $connection->executeQuery('SELECT id FROM user WHERE email = ?', [$email]);
                         if ($result->fetchAssociative()) {
                             $error = 'Cet email est déjà utilisé';
                         } else {
-                            // Créer le nouvel utilisateur
+                            // Crypter le mot de passe
                             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                            $connection->executeStatement('INSERT INTO user (nom, email, password, created_at) VALUES (?, ?, ?, NOW())', [$nom, $email, $hashedPassword]);
 
+                            // Créer le nouvel utilisateur avec prénom et nom
+                            $connection->executeStatement(
+                                'INSERT INTO user (prenom, nom, email, password, created_at) VALUES (?, ?, ?, ?, NOW())',
+                                [$prenom, $nom, $email, $hashedPassword]
+                            );
+
+                            // Récupérer l'ID du nouvel utilisateur
                             $userId = $connection->lastInsertId();
+
+                            // Enregistrer l'utilisateur en session
                             $session->set('user', [
                                 'id' => $userId,
-                                'email' => $email,
+                                'prenom' => $prenom,
                                 'nom' => $nom,
+                                'email' => $email,
                                 'connecte' => true
                             ]);
 
