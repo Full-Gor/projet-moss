@@ -32,12 +32,13 @@ class AuthController extends AbstractController
 
                     // Vérifier si l'utilisateur existe et si le mot de passe est correct
                     if ($user && password_verify($password, $user['password'])) {
-                        // Enregistrer l'utilisateur en session
+                        // Enregistrer l'utilisateur en session (avec son rôle)
                         $session->set('user', [
                             'id' => $user['id'],
                             'prenom' => $user['prenom'],
                             'nom' => $user['nom'],
                             'email' => $user['email'],
+                            'role' => $user['role'] ?? 'user', // Récupérer le rôle (user par défaut)
                             'connecte' => true
                         ]);
                         return $this->redirectToRoute('app_home');
@@ -77,21 +78,22 @@ class AuthController extends AbstractController
                             // Crypter le mot de passe
                             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                            // Créer le nouvel utilisateur avec prénom et nom
+                            // Créer le nouvel utilisateur avec prénom, nom et rôle 'user' par défaut
                             $connection->executeStatement(
-                                'INSERT INTO user (prenom, nom, email, password, created_at) VALUES (?, ?, ?, ?, NOW())',
-                                [$prenom, $nom, $email, $hashedPassword]
+                                'INSERT INTO user (prenom, nom, email, password, role, created_at) VALUES (?, ?, ?, ?, ?, NOW())',
+                                [$prenom, $nom, $email, $hashedPassword, 'user']
                             );
 
                             // Récupérer l'ID du nouvel utilisateur
                             $userId = $connection->lastInsertId();
 
-                            // Enregistrer l'utilisateur en session
+                            // Enregistrer l'utilisateur en session (avec rôle user)
                             $session->set('user', [
                                 'id' => $userId,
                                 'prenom' => $prenom,
                                 'nom' => $nom,
                                 'email' => $email,
+                                'role' => 'user', // Rôle user par défaut
                                 'connecte' => true
                             ]);
 

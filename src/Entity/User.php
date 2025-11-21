@@ -37,6 +37,10 @@ class User
     #[ORM\Column]
     private ?bool $actif = true;
 
+    // Champ pour stocker le rôle de l'utilisateur ('user' ou 'admin')
+    #[ORM\Column(length: 50)]
+    private ?string $role = 'user';
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -139,5 +143,24 @@ class User
     public function getFullName(): string
     {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    // Récupérer le rôle de l'utilisateur
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    // Définir le rôle de l'utilisateur
+    public function setRole(string $role): static
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    // Vérifier si l'utilisateur est admin
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }
