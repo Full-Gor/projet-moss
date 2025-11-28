@@ -47,4 +47,22 @@ public function panier(): Response
     {
         return $this->render('page/cgv.html.twig');
     }
+
+    /**
+     * Route pour la page politique de confidentialité (RGPD)
+     *
+     * #[Route(...)] = Attribut PHP 8 pour définir une route
+     * - '/politique-confidentialite' = URL de la page
+     * - name: 'app_privacy' = nom interne utilisé dans les templates Twig
+     *
+     * Cette page est OBLIGATOIRE selon le RGPD pour informer les utilisateurs
+     * sur la collecte et l'utilisation de leurs données personnelles.
+     */
+    #[Route('/politique-confidentialite', name: 'app_privacy')]
+    public function privacy(): Response
+    {
+        // $this->render() = génère le HTML à partir d'un template Twig
+        // Retourne un objet Response (réponse HTTP)
+        return $this->render('page/privacy.html.twig');
+    }
 }

@@ -1,4 +1,14 @@
 <?php
+/**
+ * ============================================
+ * CONTROLLER D'AUTHENTIFICATION
+ * ============================================
+ *
+ * Gère la connexion, l'inscription et la déconnexion des utilisateurs.
+ *
+ * Un Controller = classe qui reçoit les requêtes HTTP et retourne des réponses
+ * Chaque méthode avec #[Route(...)] = une page/URL du site
+ */
 
 namespace App\Controller;
 
@@ -30,14 +40,28 @@ class AuthController extends AbstractController
                     $result = $connection->executeQuery('SELECT * FROM user WHERE prenom = ?', [$prenom]);
                     $user = $result->fetchAssociative();
 
-                    // Vérifier si l'utilisateur existe et si le mot de passe est correct
+                    /**
+                     * Vérifier si l'utilisateur existe et si le mot de passe est correct
+                     *
+                     * password_verify() = fonction PHP qui compare un mot de passe
+                     * avec son hash (le hash stocké en BDD)
+                     */
                     if ($user && password_verify($password, $user['password'])) {
-                        // Enregistrer l'utilisateur en session
+                        /**
+                         * Enregistrer l'utilisateur en session
+                         *
+                         * La session = espace de stockage temporaire côté serveur
+                         * Permet de garder l'utilisateur connecté entre les pages
+                         *
+                         * On stocke aussi le 'role' pour pouvoir vérifier
+                         * si l'utilisateur est admin dans les autres pages
+                         */
                         $session->set('user', [
                             'id' => $user['id'],
                             'prenom' => $user['prenom'],
                             'nom' => $user['nom'],
                             'email' => $user['email'],
+                            'role' => $user['role'] ?? 'user', // Si pas de rôle, c'est 'user'
                             'connecte' => true
                         ]);
                         return $this->redirectToRoute('app_home');

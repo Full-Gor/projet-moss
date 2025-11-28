@@ -1,4 +1,14 @@
 <?php
+/**
+ * ============================================
+ * CONTROLLER PROFILE - Page profil utilisateur
+ * ============================================
+ *
+ * Gère l'affichage et la modification du profil utilisateur.
+ *
+ * SÉCURITÉ : Toutes les routes sont protégées !
+ * Seuls les utilisateurs CONNECTÉS peuvent accéder à leur profil.
+ */
 
 namespace App\Controller;
 
@@ -11,12 +21,30 @@ use App\Repository\CommandeRepository;
 
 class ProfileController extends AbstractController
 {
+    /**
+     * Affiche la page de profil de l'utilisateur connecté
+     *
+     * PROTECTION : Si l'utilisateur n'est pas connecté,
+     * il est redirigé vers la page de connexion
+     */
     #[Route('/profile', name: 'app_profile')]
     public function index(CommandeRepository $commandeRepository, SessionInterface $session): Response
     {
+        /**
+         * Récupère les données de l'utilisateur depuis la session
+         * $session->get('user') retourne null si pas connecté
+         */
         $user = $session->get('user');
 
+        /**
+         * PROTECTION DE LA ROUTE
+         *
+         * if (!$user) = si $user est null/false/vide
+         * On redirige vers la page de connexion
+         */
         if (!$user) {
+            // Message flash pour informer l'utilisateur
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à votre profil.');
             return $this->redirectToRoute('app_connexion');
         }
 
@@ -42,12 +70,23 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    /**
+     * Modifier les informations du profil
+     *
+     * methods: ['POST'] = uniquement accessible en POST (formulaire)
+     * Empêche la modification par simple visite de l'URL
+     */
     #[Route('/profile/modifier', name: 'app_profile_modifier', methods: ['POST'])]
     public function modifier(Request $request, SessionInterface $session): Response
     {
         $user = $session->get('user');
 
+        /**
+         * PROTECTION DE LA ROUTE
+         * Même principe que pour la page profil
+         */
         if (!$user) {
+            $this->addFlash('error', 'Vous devez être connecté pour modifier votre profil.');
             return $this->redirectToRoute('app_connexion');
         }
 

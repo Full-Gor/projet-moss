@@ -1,0 +1,208 @@
+{# ============================================
+   POLITIQUE DE CONFIDENTIALITÉ - TEMPLATE TWIG
+   ============================================
+
+   PRINCIPE TWIG :
+   - {% extends 'base.html.twig' %} = hérite du template de base
+   - {% block nom %} ... {% endblock %} = définit/remplace un bloc du parent
+   - {{ variable }} = affiche une variable
+
+   Cette page est OBLIGATOIRE selon le RGPD pour :
+   - Informer les utilisateurs sur la collecte de données
+   - Expliquer leurs droits
+   - Indiquer comment exercer ces droits
+#}
+
+{% extends 'base.html.twig' %}
+
+{# Bloc pour personnaliser le titre de la page #}
+{% block title %}Politique de confidentialité - MossAir{% endblock %}
+
+{# Bloc pour la meta description (SEO) #}
+{% block meta_description %}Politique de confidentialité de MossAir. Découvrez comment nous collectons, utilisons et protégeons vos données personnelles conformément au RGPD.{% endblock %}
+
+{# Bloc pour les mots-clés (SEO) #}
+{% block meta_keywords %}politique confidentialité, RGPD, données personnelles, cookies, MossAir, vie privée{% endblock %}
+
+{% block body %}
+<div class="container page-content">
+    {# ============================================
+       TITRE PRINCIPAL
+       Balise h1 = titre de niveau 1 (un seul par page pour le SEO)
+    ============================================ #}
+    <h1>Politique de confidentialité</h1>
+
+    <p><strong>Dernière mise à jour :</strong> {{ "now"|date("d/m/Y") }}</p>
+
+    {# ============================================
+       SECTION 1 : INTRODUCTION
+       Explique qui collecte les données et pourquoi cette page existe
+    ============================================ #}
+    <h2>1. Introduction</h2>
+    <p>
+        MossAir (ci-après "nous", "notre", "nos") s'engage à protéger votre vie privée.
+        Cette politique de confidentialité explique comment nous collectons, utilisons
+        et protégeons vos données personnelles conformément au Règlement Général sur
+        la Protection des Données (RGPD).
+    </p>
+
+    {# ============================================
+       SECTION 2 : RESPONSABLE DU TRAITEMENT
+       OBLIGATOIRE RGPD : identifier qui est responsable des données
+    ============================================ #}
+    <h2>2. Responsable du traitement</h2>
+    <p>
+        Le responsable du traitement des données est :<br>
+        <strong>MossAir</strong><br>
+        Email : contact@mossair.life<br>
+    </p>
+
+    {# ============================================
+       SECTION 3 : DONNÉES COLLECTÉES
+       OBLIGATOIRE RGPD : lister toutes les données collectées
+    ============================================ #}
+    <h2>3. Données collectées</h2>
+    <p>Nous collectons les types de données suivants :</p>
+
+    <h3>3.1 Données que vous nous fournissez</h3>
+    <ul>
+        <li><strong>Données d'identification :</strong> nom, prénom, email</li>
+        <li><strong>Données de commande :</strong> adresse de livraison, historique d'achats</li>
+        <li><strong>Données de compte :</strong> mot de passe (chiffré), photo de profil</li>
+    </ul>
+
+    <h3>3.2 Données collectées automatiquement</h3>
+    <ul>
+        <li><strong>Données de navigation :</strong> pages visitées, durée de visite</li>
+        <li><strong>Données techniques :</strong> adresse IP, type de navigateur, système d'exploitation</li>
+        <li><strong>Cookies :</strong> voir la section dédiée ci-dessous</li>
+    </ul>
+
+    {# ============================================
+       SECTION 4 : FINALITÉS
+       OBLIGATOIRE RGPD : expliquer pourquoi on collecte ces données
+    ============================================ #}
+    <h2>4. Finalités du traitement</h2>
+    <p>Vos données sont utilisées pour :</p>
+    <ul>
+        <li>Gérer votre compte utilisateur</li>
+        <li>Traiter vos commandes et livraisons</li>
+        <li>Vous envoyer des communications relatives à vos commandes</li>
+        <li>Améliorer notre site et nos services (avec votre consentement)</li>
+        <li>Analyser l'utilisation du site (avec votre consentement)</li>
+    </ul>
+
+    {# ============================================
+       SECTION 5 : BASE LÉGALE
+       OBLIGATOIRE RGPD : justifier légalement chaque traitement
+    ============================================ #}
+    <h2>5. Base légale du traitement</h2>
+    <p>Nous traitons vos données sur les bases légales suivantes :</p>
+    <ul>
+        <li><strong>Exécution du contrat :</strong> pour traiter vos commandes</li>
+        <li><strong>Consentement :</strong> pour les cookies analytiques et marketing</li>
+        <li><strong>Intérêt légitime :</strong> pour améliorer nos services</li>
+        <li><strong>Obligation légale :</strong> pour conserver les factures</li>
+    </ul>
+
+    {# ============================================
+       SECTION 6 : COOKIES
+       OBLIGATOIRE RGPD : détailler l'utilisation des cookies
+    ============================================ #}
+    <h2>6. Cookies</h2>
+    <p>
+        Les cookies sont de petits fichiers texte stockés sur votre appareil.
+        Nous utilisons différents types de cookies :
+    </p>
+
+    <h3>6.1 Cookies nécessaires</h3>
+    <p>
+        Ces cookies sont indispensables au fonctionnement du site (session, panier).
+        Ils ne nécessitent pas votre consentement.
+    </p>
+
+    <h3>6.2 Cookies analytiques</h3>
+    <p>
+        Ces cookies nous aident à comprendre comment les visiteurs utilisent le site
+        (Google Analytics). Ils sont activés uniquement avec votre consentement.
+    </p>
+
+    <h3>6.3 Cookies marketing</h3>
+    <p>
+        Ces cookies permettent d'afficher des publicités pertinentes.
+        Ils sont activés uniquement avec votre consentement.
+    </p>
+
+    <p>
+        <strong>Gérer vos préférences :</strong>
+        Vous pouvez modifier vos choix à tout moment en cliquant sur
+        <a href="#" onclick="resetCookieConsent(); return false;">"Gérer mes cookies"</a>.
+    </p>
+
+    {# ============================================
+       SECTION 7 : DURÉE DE CONSERVATION
+       OBLIGATOIRE RGPD : indiquer combien de temps on garde les données
+    ============================================ #}
+    <h2>7. Durée de conservation</h2>
+    <ul>
+        <li><strong>Données de compte :</strong> conservées tant que le compte est actif</li>
+        <li><strong>Données de commande :</strong> 10 ans (obligation légale comptable)</li>
+        <li><strong>Cookies analytiques :</strong> 13 mois maximum</li>
+        <li><strong>Consentement cookies :</strong> 12 mois</li>
+    </ul>
+
+    {# ============================================
+       SECTION 8 : VOS DROITS
+       OBLIGATOIRE RGPD : informer l'utilisateur de ses droits
+    ============================================ #}
+    <h2>8. Vos droits</h2>
+    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+    <ul>
+        <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
+        <li><strong>Droit de rectification :</strong> corriger vos données inexactes</li>
+        <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
+        <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format lisible</li>
+        <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données</li>
+        <li><strong>Droit de retirer votre consentement :</strong> à tout moment</li>
+    </ul>
+
+    <p>
+        Pour exercer ces droits, contactez-nous à :
+        <a href="mailto:contact@mossair.life">contact@mossair.life</a>
+    </p>
+
+    {# ============================================
+       SECTION 9 : SÉCURITÉ
+       Rassure l'utilisateur sur la protection de ses données
+    ============================================ #}
+    <h2>9. Sécurité des données</h2>
+    <p>
+        Nous mettons en œuvre des mesures de sécurité appropriées pour protéger
+        vos données contre tout accès non autorisé, modification, divulgation ou destruction :
+    </p>
+    <ul>
+        <li>Chiffrement des mots de passe</li>
+        <li>Connexion sécurisée (HTTPS)</li>
+        <li>Accès restreint aux données personnelles</li>
+    </ul>
+
+    {# ============================================
+       SECTION 10 : CONTACT
+       OBLIGATOIRE : donner un moyen de contacter le responsable
+    ============================================ #}
+    <h2>10. Contact</h2>
+    <p>
+        Pour toute question concernant cette politique de confidentialité
+        ou pour exercer vos droits, contactez-nous :
+    </p>
+    <ul>
+        <li>Email : <a href="mailto:contact@mossair.life">contact@mossair.life</a></li>
+    </ul>
+
+    <p>
+        Vous avez également le droit d'introduire une réclamation auprès de la CNIL
+        (Commission Nationale de l'Informatique et des Libertés) :
+        <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a>
+    </p>
+</div>
+{% endblock %}

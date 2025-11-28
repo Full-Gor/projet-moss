@@ -1,0 +1,232 @@
+/* ============================================
+   RGPD / COOKIES - STYLES CSS
+   ============================================
+
+   Ce fichier gère l'apparence de la bannière cookies.
+
+   PRINCIPE CSS :
+   - Les sélecteurs (ex: .cookie-banner) ciblent des éléments HTML
+   - Les propriétés (ex: background-color) définissent le style
+   - Les valeurs (ex: #333) donnent la valeur de la propriété
+
+   SYNTAXE : selecteur { propriete: valeur; }
+============================================ */
+
+/* --- BANNIÈRE PRINCIPALE --- */
+/*
+   .cookie-banner = classe CSS appliquée à la div de la bannière
+   position: fixed = reste fixe même quand on scroll
+   bottom: 0 = collée en bas de l'écran
+   left/right: 0 = prend toute la largeur
+   z-index: 9999 = au-dessus de tous les autres éléments
+*/
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #2d4a2b; /* Vert foncé - couleur du thème MossAir */
+    color: white;
+    padding: 1rem 2rem; /* Espacement intérieur : 1rem haut/bas, 2rem gauche/droite */
+    z-index: 9999;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Ombre vers le haut */
+}
+
+/* --- CONTENEUR INTERNE --- */
+/*
+   display: flex = disposition flexible des éléments enfants
+   flex-wrap: wrap = les éléments passent à la ligne si pas assez de place
+   justify-content: space-between = espace égal entre les éléments
+   align-items: center = centrage vertical
+   gap: 1rem = espacement entre les éléments flex
+   max-width: 1200px = largeur maximale
+   margin: 0 auto = centrage horizontal
+*/
+.cookie-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- TEXTE DE LA BANNIÈRE --- */
+/*
+   flex: 1 = prend tout l'espace disponible
+   font-size: 0.9rem = taille de police légèrement réduite (0.9 x taille par défaut)
+   line-height: 1.5 = hauteur de ligne pour une meilleure lisibilité
+*/
+.cookie-text {
+    flex: 1;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* --- LIEN VERS POLITIQUE --- */
+/*
+   color: #90EE90 = vert clair pour le lien (contraste avec le fond vert foncé)
+   text-decoration: underline = souligné pour indiquer que c'est cliquable
+*/
+.cookie-text a {
+    color: #90EE90;
+    text-decoration: underline;
+}
+
+/* --- CONTENEUR DES BOUTONS --- */
+/*
+   display: flex = les boutons sont côte à côte
+   gap: 0.5rem = petit espace entre les boutons
+*/
+.cookie-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* --- STYLE COMMUN DES BOUTONS --- */
+/*
+   padding = espacement intérieur du bouton
+   border: none = pas de bordure
+   border-radius: 5px = coins arrondis
+   cursor: pointer = curseur "main" au survol
+   font-size: 0.9rem = taille du texte
+   transition: all 0.3s = animation douce de 0.3 secondes sur toutes les propriétés
+*/
+.cookie-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+/* --- BOUTON ACCEPTER (vert) --- */
+/*
+   background-color: #4a7c59 = vert du thème MossAir
+   color: white = texte blanc
+*/
+.cookie-btn.accept {
+    background-color: #4a7c59;
+    color: white;
+}
+
+/* --- BOUTON ACCEPTER AU SURVOL --- */
+/*
+   :hover = pseudo-classe qui s'applique quand la souris survole l'élément
+   background-color change pour un vert plus foncé
+*/
+.cookie-btn.accept:hover {
+    background-color: #3d6b4a;
+}
+
+/* --- BOUTON REFUSER (gris) --- */
+.cookie-btn.refuse {
+    background-color: #666;
+    color: white;
+}
+
+.cookie-btn.refuse:hover {
+    background-color: #555;
+}
+
+/* --- BOUTON PERSONNALISER (transparent) --- */
+/*
+   background-color: transparent = fond transparent
+   border: 1px solid white = bordure blanche de 1 pixel
+*/
+.cookie-btn.customize {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.cookie-btn.customize:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Blanc avec 10% d'opacité */
+}
+
+/* --- PANNEAU DE PERSONNALISATION --- */
+/*
+   display: none = caché par défaut
+   margin-top: 1rem = espace au-dessus
+   padding: 1rem = espacement intérieur
+   background-color: rgba(0,0,0,0.2) = noir avec 20% d'opacité (semi-transparent)
+   border-radius: 5px = coins arrondis
+*/
+.cookie-customize-panel {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* --- PANNEAU VISIBLE --- */
+/*
+   .cookie-customize-panel.visible = quand la classe "visible" est ajoutée
+   display: block = devient visible
+*/
+.cookie-customize-panel.visible {
+    display: block;
+}
+
+/* --- GROUPE DE CHECKBOX --- */
+/*
+   Chaque option de cookie (nécessaire, analytics, etc.)
+*/
+.cookie-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* --- LABEL DES OPTIONS --- */
+.cookie-option label {
+    font-size: 0.85rem;
+}
+
+/* --- CHECKBOX DÉSACTIVÉE (cookies nécessaires) --- */
+/*
+   [disabled] = sélecteur d'attribut, cible les éléments avec l'attribut disabled
+   opacity: 0.7 = légèrement transparent pour indiquer qu'on ne peut pas le modifier
+*/
+.cookie-option input[disabled] {
+    opacity: 0.7;
+}
+
+/* --- RESPONSIVE : MOBILE --- */
+/*
+   @media (max-width: 768px) = règles appliquées uniquement si écran < 768px
+   Adapte la bannière pour les petits écrans
+*/
+@media (max-width: 768px) {
+    .cookie-banner {
+        padding: 1rem;
+    }
+
+    .cookie-content {
+        flex-direction: column; /* Éléments empilés verticalement */
+        text-align: center;
+    }
+
+    .cookie-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .cookie-btn {
+        flex: 1;
+        min-width: 100px;
+    }
+}
+
+/* --- CLASSE POUR CACHER LA BANNIÈRE --- */
+/*
+   Utilisée par JavaScript pour masquer la bannière après choix de l'utilisateur
+*/
+.cookie-banner.hidden {
+    display: none;
+}
