@@ -9,23 +9,19 @@
 		</title>
 		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/rgpd.css') }}">
 		<link
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-		<!-- Google Analytics 4 -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-function gtag() {
-dataLayer.push(arguments);
-}
-gtag('js', new Date());
-gtag('config', 'G-XXXXXXXXXX');
-		</script>
+		<!--
+			Google Analytics est chargé dynamiquement par rgpd.js
+			après consentement de l'utilisateur (conformité RGPD)
+		-->
 
 		<!-- Meta tags SEO -->
-		<meta name="description" content="MossAir - Purificateur d'air naturel révolutionnaire utilisant la mousse vivante pour créer un environnement plus sain. Découvrez notre technologie innovante.">
-		<meta name="keywords" content="purificateur d'air, mousse, air pur, environnement sain, MossAir, technologie verte">
+		<meta name="description" content="{% block meta_description %}MossAir - Purificateur d'air naturel révolutionnaire utilisant la mousse vivante pour créer un environnement plus sain. Découvrez notre technologie innovante.{% endblock %}">
+		<meta name="keywords" content="{% block meta_keywords %}purificateur d'air, mousse, air pur, environnement sain, MossAir, technologie verte{% endblock %}">
 		<meta name="author" content="MossAir">
 		<meta
 		name="robots" content="index, follow">
@@ -58,7 +54,14 @@ gtag('config', 'G-XXXXXXXXXX');
 				<div class="nav-container">
 					<a href="{{ path('app_home') }}" class="logo" id="siteLogo">
 						MossAir</a>
-					<ul class="nav-menu">
+
+					<!-- Bouton hamburger pour mobile -->
+					<button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<ul class="nav-menu" id="navMenu">
 						<li>
 							<a href="{{ path('app_home') }}">Accueil</a>
 						</li>
@@ -67,9 +70,6 @@ gtag('config', 'G-XXXXXXXXXX');
 						</li>
 						<li>
 							<a href="{{ path('app_histoire') }}">Histoire</a>
-						</li>
-						<li>
-							<a href="#">Mode d'emploi</a>
 						</li>
 						<li>
 							<a href="{{ path('app_about') }}">À propos</a>
@@ -131,18 +131,20 @@ gtag('config', 'G-XXXXXXXXXX');
 						<div class="footer-column">
 							<h4>Ressources</h4>
 							<ul>
-								<li><ahref="{{ path('app_histoire') }}">Histoire</a></li>
-								<li><a href="#">Mode d'emploi</a></li>
+								<li><a href="{{ path('app_histoire') }}">Histoire</a></li>
 							</ul>
 						</div>
 						<div class="footer-column">
 							<h4>Support</h4>
 							<ul>
 								<li>
-									<a href="#">Politique de confidentialité</a>
+									<a href="{{ path('app_privacy') }}">Politique de confidentialité</a>
 								</li>
 								<li>
 									<a href="{{ path('app_cgv') }}">CGV</a>
+								</li>
+								<li>
+									<a href="#" onclick="resetCookieConsent(); return false;">Gérer mes cookies</a>
 								</li>
 							</ul>
 							<div class="social-links">
@@ -153,6 +155,80 @@ gtag('config', 'G-XXXXXXXXXX');
 						</div>
 					</div>
 				</footer>
+
+				{# ============================================
+				   BANNIÈRE COOKIES RGPD
+				   ============================================
+
+				   Structure HTML de la bannière de consentement.
+
+				   PRINCIPE TWIG :
+				   - {# ... #} = commentaire Twig (non affiché dans le HTML final)
+				   - Les classes CSS correspondent à celles définies dans rgpd.css
+				   - Les onclick appellent les fonctions définies dans rgpd.js
+
+				   PRINCIPE RGPD :
+				   - La bannière doit être visible AVANT tout tracking
+				   - L'utilisateur doit pouvoir accepter, refuser ou personnaliser
+				   - Un lien vers la politique de confidentialité est obligatoire
+				#}
+				<div id="cookie-banner" class="cookie-banner hidden">
+					<div class="cookie-content">
+						{# Texte explicatif - doit être clair et compréhensible #}
+						<div class="cookie-text">
+							Nous utilisons des cookies pour améliorer votre expérience sur notre site.
+							Les cookies nécessaires sont indispensables au fonctionnement du site.
+							Vous pouvez accepter ou refuser les cookies optionnels.
+							<a href="{{ path('app_privacy') }}">En savoir plus</a>
+						</div>
+
+						{# Boutons d'action - doivent être clairement visibles #}
+						<div class="cookie-buttons">
+							{# onclick = événement JavaScript déclenché au clic #}
+							<button class="cookie-btn accept" onclick="acceptAllCookies()">
+								Tout accepter
+							</button>
+							<button class="cookie-btn refuse" onclick="refuseAllCookies()">
+								Tout refuser
+							</button>
+							<button class="cookie-btn customize" onclick="toggleCustomizePanel()">
+								Personnaliser
+							</button>
+						</div>
+
+						{# Panneau de personnalisation - caché par défaut #}
+						<div id="cookie-customize-panel" class="cookie-customize-panel">
+							{# Option cookies nécessaires - toujours cochée et désactivée #}
+							<div class="cookie-option">
+								<input type="checkbox" id="cookie-necessary" checked disabled>
+								<label for="cookie-necessary">
+									<strong>Nécessaires</strong> - Indispensables au fonctionnement du site
+								</label>
+							</div>
+
+							{# Option cookies analytiques - désactivée par défaut #}
+							<div class="cookie-option">
+								<input type="checkbox" id="cookie-analytics">
+								<label for="cookie-analytics">
+									<strong>Analytiques</strong> - Nous aident à comprendre comment vous utilisez le site
+								</label>
+							</div>
+
+							{# Option cookies marketing - désactivée par défaut #}
+							<div class="cookie-option">
+								<input type="checkbox" id="cookie-marketing">
+								<label for="cookie-marketing">
+									<strong>Marketing</strong> - Permettent d'afficher des publicités pertinentes
+								</label>
+							</div>
+
+							{# Bouton pour sauvegarder les préférences personnalisées #}
+							<button class="cookie-btn accept" onclick="saveCustomPreferences()" style="margin-top: 1rem;">
+								Sauvegarder mes préférences
+							</button>
+						</div>
+					</div>
+				</div>
 
 				<!-- Modale Admin -->
 				<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
@@ -189,9 +265,69 @@ gtag('config', 'G-XXXXXXXXXX');
 					</div>
 				</div>
 
-				<script src="{{ asset('js/main.js') }}"></script>
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+				<script src="{{ asset('js/rgpd.js') }}"></script>
 				{% block javascripts %}{% endblock %}
+
+				<!-- Script pour le menu burger -->
+				<script>
+					// Menu hamburger - doit s'exécuter en premier
+					(function() {
+						console.log('Script burger chargé');
+
+						function initBurger() {
+							const hamburger = document.getElementById('hamburger');
+							const navMenu = document.getElementById('navMenu');
+
+							console.log('Init burger - Hamburger:', hamburger);
+							console.log('Init burger - NavMenu:', navMenu);
+
+							if (!hamburger || !navMenu) {
+								console.error('Éléments non trouvés!');
+								return;
+							}
+
+							console.log('Éléments trouvés, ajout du listener');
+
+							hamburger.addEventListener('click', function(e) {
+								console.log('=== CLIC DÉTECTÉ ===');
+								e.preventDefault();
+								e.stopPropagation();
+
+								const wasActive = navMenu.classList.contains('active');
+
+								hamburger.classList.toggle('active');
+								navMenu.classList.toggle('active');
+
+								const isActive = navMenu.classList.contains('active');
+								const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+								hamburger.setAttribute('aria-expanded', !isExpanded);
+
+								console.log('État avant:', wasActive);
+								console.log('État après:', isActive);
+								console.log('Classes hamburger:', hamburger.className);
+								console.log('Classes navMenu:', navMenu.className);
+							});
+
+							// Fermer le menu quand on clique sur un lien
+							const navLinks = navMenu.querySelectorAll('a');
+							navLinks.forEach(link => {
+								link.addEventListener('click', function() {
+									hamburger.classList.remove('active');
+									navMenu.classList.remove('active');
+									hamburger.setAttribute('aria-expanded', 'false');
+								});
+							});
+						}
+
+						// Attendre que le DOM soit chargé
+						if (document.readyState === 'loading') {
+							document.addEventListener('DOMContentLoaded', initBurger);
+						} else {
+							initBurger();
+						}
+					})();
+				</script>
 
 				<script>
 					// Attendre que le DOM soit chargé
@@ -209,34 +345,47 @@ window.location.href = '{{ path('app_admin_dashboard') }}';
 // Système de 3 clics sur le titre pour accéder à l'admin
 let clickCount = 0;
 let clickTimer = null;
+let lastClickTime = 0;
 
 const siteLogo = document.getElementById('siteLogo');
 if (siteLogo) {
-console.log('Logo trouvé, ajout des événements de clic...');
+console.log('=== LOGO TROUVÉ ===');
+console.log('Element:', siteLogo);
+console.log('TagName:', siteLogo.tagName);
+console.log('ID:', siteLogo.id);
 
-siteLogo.addEventListener('click', function () {
-console.log('Clic détecté, compteur:', clickCount + 1);
+siteLogo.addEventListener('click', function (event) {
+// TOUJOURS bloquer la navigation par défaut
+event.preventDefault();
+event.stopPropagation();
+
+// Incrémenter le compteur
 clickCount++;
 
+// Réinitialiser le timer à chaque clic
 if (clickTimer) {
 clearTimeout(clickTimer);
 }
 
-clickTimer = setTimeout(() => {
-if (clickCount === 3) {
-console.log('3 clics détectés, ouverture de la modale...');
-// Afficher la modale admin
-const adminModal = new bootstrap.Modal(document.getElementById('adminModal'));
+// Si 3 clics atteints → ouvrir la modale
+if (clickCount >= 3) {
+const modalElement = document.getElementById('adminModal');
+if (modalElement && typeof bootstrap !== 'undefined') {
+const adminModal = new bootstrap.Modal(modalElement);
 adminModal.show();
-clickCount = 0;
-} else {
-console.log('Pas assez de clics, réinitialisation...');
-clickCount = 0;
 }
-}, 500);
+clickCount = 0;
+return;
+}
+
+// Timer : si pas de 3ème clic dans 600ms → naviguer vers accueil
+clickTimer = setTimeout(() => {
+window.location.href = siteLogo.href;
+clickCount = 0;
+}, 600);
 });
 } else {
-console.error('Logo non trouvé !');
+console.error('LOGO NON TROUVÉ !');
 }
 
 // Vérification du mot de passe admin
@@ -281,7 +430,10 @@ errorDiv.remove();
 
 // Réinitialiser le compteur de clics si on clique ailleurs
 document.addEventListener('click', function (event) {
-if (! event.target.closest('#siteLogo')) {
+const isLogoClick = event.target.closest('#siteLogo');
+console.log('Clic global détecté - sur logo?', isLogoClick ? 'OUI' : 'NON');
+if (!isLogoClick) {
+console.log('Reset compteur (clic hors logo)');
 clickCount = 0;
 if (clickTimer) {
 clearTimeout(clickTimer);
@@ -374,12 +526,3 @@ console.log('Système admin initialisé !');
 				</style>
 			</body>
 		</html>
-
-
-		<?php
-
-use App\Kernel;
-
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
-
-return function (array $context )

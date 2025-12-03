@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}MossAir - Purificateur d'air naturel à mousse vivante{% endblock %}
+{% block meta_description %}MossAir révolutionne la purification de l'air avec la mousse vivante. Créez un environnement plus sain naturellement. Découvrez notre technologie bio-inspirée.{% endblock %}
+{% block meta_keywords %}MossAir, purificateur air naturel, mousse vivante, air pur, technologie verte, environnement sain{% endblock %}
+
 {% block body %}
 	<style>
 		.hero-background {
@@ -45,6 +49,98 @@
 			color: #4a7c59;
 			text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 			font-weight: 500;
+		}
+
+		/* Responsive pour la page d'accueil */
+		@media (max-width: 992px) {
+			.hero-background {
+				min-height: 500px;
+				height: 80vh;
+			}
+
+			.hero-text-right {
+				right: 5%;
+				max-width: 350px;
+			}
+
+			.hero-text-right h2 {
+				font-size: 1.8rem;
+			}
+
+			.hero-text-right p {
+				font-size: 1.1rem;
+			}
+
+			.hero-content h1 {
+				font-size: 2.2rem;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.hero-background {
+				min-height: 400px;
+				height: 70vh;
+			}
+
+			.hero-text-right {
+				position: static;
+				transform: none;
+				text-align: center;
+				max-width: 100%;
+				padding: 2rem 1rem;
+				background: rgba(0, 0, 0, 0.4);
+				margin-top: 20vh;
+			}
+
+			.hero-text-right h2 {
+				font-size: 1.6rem;
+			}
+
+			.hero-text-right p {
+				font-size: 1rem;
+			}
+
+			.hero-content {
+				top: 85%;
+				left: 50%;
+			}
+
+			.hero-content h1 {
+				font-size: 1.8rem;
+			}
+
+			.hero-content .cta-button {
+				padding: 0.8rem 1.5rem;
+				font-size: 1rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.hero-background {
+				min-height: 350px;
+				height: 60vh;
+			}
+
+			.hero-text-right {
+				padding: 1.5rem 0.8rem;
+			}
+
+			.hero-text-right h2 {
+				font-size: 1.4rem;
+			}
+
+			.hero-text-right p {
+				font-size: 0.9rem;
+			}
+
+			.hero-content h1 {
+				font-size: 1.5rem;
+			}
+
+			.hero-content .cta-button {
+				padding: 0.7rem 1.2rem;
+				font-size: 0.9rem;
+			}
 		}
 
 		/* Texte à droite séparé */

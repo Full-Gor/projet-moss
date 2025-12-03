@@ -1,11 +1,45 @@
 // Animation fade-in au chargement
 document.addEventListener('DOMContentLoaded', function() {
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+
+            // Mise à jour de l'attribut aria-expanded
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener('click', function(event) {
+            if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     // Animation des images
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.style.opacity = '0';
         img.style.transition = 'opacity 1s ease-in-out';
-        
+
         if (img.complete) {
             img.style.opacity = '1';
         } else {

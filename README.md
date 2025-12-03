@@ -59,5 +59,4 @@ APP_SECRET=votre_secret_ici
 - ✅ SEO optimisé
 - ✅ Sitemap.xml
 
-### Support
-Pour toute question, consultez la documentation Symfony
+
