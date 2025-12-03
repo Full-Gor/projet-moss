@@ -156,296 +156,170 @@
 					</div>
 				</footer>
 
-				{# ============================================
-				   BANNIÈRE COOKIES RGPD
-				   ============================================
-
-				   Structure HTML de la bannière de consentement.
-
-				   PRINCIPE TWIG :
-				   - {# ... #} = commentaire Twig (non affiché dans le HTML final)
-				   - Les classes CSS correspondent à celles définies dans rgpd.css
-				   - Les onclick appellent les fonctions définies dans rgpd.js
-
-				   PRINCIPE RGPD :
-				   - La bannière doit être visible AVANT tout tracking
-				   - L'utilisateur doit pouvoir accepter, refuser ou personnaliser
-				   - Un lien vers la politique de confidentialité est obligatoire
-				#}
-				<div id="cookie-banner" class="cookie-banner hidden">
-					<div class="cookie-content">
-						{# Texte explicatif - doit être clair et compréhensible #}
-						<div class="cookie-text">
-							Nous utilisons des cookies pour améliorer votre expérience sur notre site.
-							Les cookies nécessaires sont indispensables au fonctionnement du site.
-							Vous pouvez accepter ou refuser les cookies optionnels.
-							<a href="{{ path('app_privacy') }}">En savoir plus</a>
+			{# ========== BANNIÈRE COOKIES RGPD ========== #}
+			<div id="cookie-banner" class="cookie-banner hidden">
+				<div class="cookie-content">
+					<div class="cookie-text">
+						Nous utilisons des cookies pour améliorer votre expérience.
+						<a href="{{ path('app_privacy') }}">En savoir plus</a>
+					</div>
+					<div class="cookie-buttons">
+						<button class="cookie-btn accept" onclick="acceptAllCookies()">Tout accepter</button>
+						<button class="cookie-btn refuse" onclick="refuseAllCookies()">Tout refuser</button>
+						<button class="cookie-btn customize" onclick="toggleCustomizePanel()">Personnaliser</button>
+					</div>
+					{# Panneau personnalisation #}
+					<div id="cookie-customize-panel" class="cookie-customize-panel">
+						<div class="cookie-option">
+							<input type="checkbox" id="cookie-necessary" checked disabled>
+							<label for="cookie-necessary"><strong>Nécessaires</strong> - Indispensables</label>
 						</div>
-
-						{# Boutons d'action - doivent être clairement visibles #}
-						<div class="cookie-buttons">
-							{# onclick = événement JavaScript déclenché au clic #}
-							<button class="cookie-btn accept" onclick="acceptAllCookies()">
-								Tout accepter
-							</button>
-							<button class="cookie-btn refuse" onclick="refuseAllCookies()">
-								Tout refuser
-							</button>
-							<button class="cookie-btn customize" onclick="toggleCustomizePanel()">
-								Personnaliser
-							</button>
+						<div class="cookie-option">
+							<input type="checkbox" id="cookie-analytics">
+							<label for="cookie-analytics"><strong>Analytiques</strong> - Statistiques</label>
 						</div>
-
-						{# Panneau de personnalisation - caché par défaut #}
-						<div id="cookie-customize-panel" class="cookie-customize-panel">
-							{# Option cookies nécessaires - toujours cochée et désactivée #}
-							<div class="cookie-option">
-								<input type="checkbox" id="cookie-necessary" checked disabled>
-								<label for="cookie-necessary">
-									<strong>Nécessaires</strong> - Indispensables au fonctionnement du site
-								</label>
-							</div>
-
-							{# Option cookies analytiques - désactivée par défaut #}
-							<div class="cookie-option">
-								<input type="checkbox" id="cookie-analytics">
-								<label for="cookie-analytics">
-									<strong>Analytiques</strong> - Nous aident à comprendre comment vous utilisez le site
-								</label>
-							</div>
-
-							{# Option cookies marketing - désactivée par défaut #}
-							<div class="cookie-option">
-								<input type="checkbox" id="cookie-marketing">
-								<label for="cookie-marketing">
-									<strong>Marketing</strong> - Permettent d'afficher des publicités pertinentes
-								</label>
-							</div>
-
-							{# Bouton pour sauvegarder les préférences personnalisées #}
-							<button class="cookie-btn accept" onclick="saveCustomPreferences()" style="margin-top: 1rem;">
-								Sauvegarder mes préférences
-							</button>
+						<div class="cookie-option">
+							<input type="checkbox" id="cookie-marketing">
+							<label for="cookie-marketing"><strong>Marketing</strong> - Publicités</label>
 						</div>
+						<button class="cookie-btn accept" onclick="saveCustomPreferences()" style="margin-top: 1rem;">
+							Sauvegarder
+						</button>
 					</div>
 				</div>
+			</div>
 
-				<!-- Modale Admin -->
-				<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="adminModalLabel">
-									<i class="fas fa-lock"></i>
-									Accès Administrateur
-								</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<div class="alert alert-info">
-									<i class="fas fa-info-circle"></i>
-									<strong>Accès sécurisé :</strong>
-									Entrez le mot de passe administrateur pour accéder au CRUD des produits.
+			{# ========== MODALE ADMIN (3 clics sur logo) ========== #}
+			<div class="modal fade" id="adminModal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title"><i class="fas fa-lock"></i> Accès Admin</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						</div>
+						<div class="modal-body">
+							<form id="adminForm">
+								<div class="mb-3">
+									<label for="adminPassword" class="form-label">Mot de passe</label>
+									<input type="password" class="form-control" id="adminPassword" required>
 								</div>
-								<form id="adminForm">
-									<div class="mb-3">
-										<label for="adminPassword" class="form-label">Mot de passe</label>
-										<input type="password" class="form-control" id="adminPassword" placeholder="Entrez le mot de passe" required autocomplete="new-password">
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-								<button type="button" class="btn btn-primary" onclick="checkAdminPassword()">
-									<i class="fas fa-sign-in-alt"></i>
-									Accéder
-								</button>
-							</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+							<button type="button" class="btn btn-primary" onclick="checkAdminPassword()">Accéder</button>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-				<script src="{{ asset('js/rgpd.js') }}"></script>
-				{% block javascripts %}{% endblock %}
+			{# ========== SCRIPTS ========== #}
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+			<script src="{{ asset('js/rgpd.js') }}"></script>
+			{% block javascripts %}{% endblock %}
 
-				<!-- Script pour le menu burger -->
-				<script>
-					// Menu hamburger - doit s'exécuter en premier
-					(function() {
-						console.log('Script burger chargé');
+			<script>
+			// Menu hamburger responsive
+			(function() {
+				function initBurger() {
+					const hamburger = document.getElementById('hamburger');
+					const navMenu = document.getElementById('navMenu');
+					if (!hamburger || !navMenu) return;
 
-						function initBurger() {
-							const hamburger = document.getElementById('hamburger');
-							const navMenu = document.getElementById('navMenu');
+					hamburger.addEventListener('click', function(e) {
+						e.preventDefault();
+						hamburger.classList.toggle('active');
+						navMenu.classList.toggle('active');
+						hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+					});
 
-							console.log('Init burger - Hamburger:', hamburger);
-							console.log('Init burger - NavMenu:', navMenu);
+					navMenu.querySelectorAll('a').forEach(link => {
+						link.addEventListener('click', () => {
+							hamburger.classList.remove('active');
+							navMenu.classList.remove('active');
+							hamburger.setAttribute('aria-expanded', 'false');
+						});
+					});
+				}
 
-							if (!hamburger || !navMenu) {
-								console.error('Éléments non trouvés!');
-								return;
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', initBurger);
+				} else {
+					initBurger();
+				}
+			})();
+
+			// Accès admin (Ctrl+A ou 3 clics sur logo)
+			document.addEventListener('DOMContentLoaded', function() {
+				let clickCount = 0;
+				let clickTimer = null;
+
+				document.addEventListener('keydown', function(e) {
+					if (e.ctrlKey && e.key === 'a') {
+						e.preventDefault();
+						window.location.href = '{{ path('app_admin_dashboard') }}';
+					}
+				});
+
+				const siteLogo = document.getElementById('siteLogo');
+				if (siteLogo) {
+					siteLogo.addEventListener('click', function(e) {
+						e.preventDefault();
+						e.stopPropagation();
+						clickCount++;
+						if (clickTimer) clearTimeout(clickTimer);
+
+						if (clickCount >= 3) {
+							const modal = document.getElementById('adminModal');
+							if (modal && typeof bootstrap !== 'undefined') {
+								new bootstrap.Modal(modal).show();
 							}
-
-							console.log('Éléments trouvés, ajout du listener');
-
-							hamburger.addEventListener('click', function(e) {
-								console.log('=== CLIC DÉTECTÉ ===');
-								e.preventDefault();
-								e.stopPropagation();
-
-								const wasActive = navMenu.classList.contains('active');
-
-								hamburger.classList.toggle('active');
-								navMenu.classList.toggle('active');
-
-								const isActive = navMenu.classList.contains('active');
-								const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-								hamburger.setAttribute('aria-expanded', !isExpanded);
-
-								console.log('État avant:', wasActive);
-								console.log('État après:', isActive);
-								console.log('Classes hamburger:', hamburger.className);
-								console.log('Classes navMenu:', navMenu.className);
-							});
-
-							// Fermer le menu quand on clique sur un lien
-							const navLinks = navMenu.querySelectorAll('a');
-							navLinks.forEach(link => {
-								link.addEventListener('click', function() {
-									hamburger.classList.remove('active');
-									navMenu.classList.remove('active');
-									hamburger.setAttribute('aria-expanded', 'false');
-								});
-							});
+							clickCount = 0;
+							return;
 						}
 
-						// Attendre que le DOM soit chargé
-						if (document.readyState === 'loading') {
-							document.addEventListener('DOMContentLoaded', initBurger);
-						} else {
-							initBurger();
+						clickTimer = setTimeout(() => {
+							window.location.href = siteLogo.href;
+							clickCount = 0;
+						}, 600);
+					});
+				}
+
+				document.addEventListener('click', function(e) {
+					if (!e.target.closest('#siteLogo')) {
+						clickCount = 0;
+						if (clickTimer) clearTimeout(clickTimer);
+					}
+				});
+
+				window.checkAdminPassword = function() {
+					const input = document.getElementById('adminPassword');
+					const password = input.value;
+
+					if (password === 'admin123') {
+						window.location.href = '{{ path('app_admin_dashboard') }}';
+					} else {
+						input.value = '';
+						input.classList.add('is-invalid');
+
+						let errorDiv = document.querySelector('.invalid-feedback');
+						if (!errorDiv) {
+							errorDiv = document.createElement('div');
+							errorDiv.className = 'invalid-feedback d-block';
+							errorDiv.textContent = 'Mot de passe incorrect !';
+							input.parentNode.appendChild(errorDiv);
 						}
-					})();
-				</script>
 
-				<script>
-					// Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', function () {
-console.log('DOM chargé, initialisation du système admin...');
+						setTimeout(() => {
+							input.classList.remove('is-invalid');
+							if (errorDiv) errorDiv.remove();
+						}, 3000);
+					}
+				};
+			});
+			</script>
 
-// Ctrl+A pour accéder au dashboard admin
-document.addEventListener('keydown', function (event) {
-if (event.ctrlKey && event.key === 'a') {
-event.preventDefault();
-window.location.href = '{{ path('app_admin_dashboard') }}';
-}
-});
-
-// Système de 3 clics sur le titre pour accéder à l'admin
-let clickCount = 0;
-let clickTimer = null;
-let lastClickTime = 0;
-
-const siteLogo = document.getElementById('siteLogo');
-if (siteLogo) {
-console.log('=== LOGO TROUVÉ ===');
-console.log('Element:', siteLogo);
-console.log('TagName:', siteLogo.tagName);
-console.log('ID:', siteLogo.id);
-
-siteLogo.addEventListener('click', function (event) {
-// TOUJOURS bloquer la navigation par défaut
-event.preventDefault();
-event.stopPropagation();
-
-// Incrémenter le compteur
-clickCount++;
-
-// Réinitialiser le timer à chaque clic
-if (clickTimer) {
-clearTimeout(clickTimer);
-}
-
-// Si 3 clics atteints → ouvrir la modale
-if (clickCount >= 3) {
-const modalElement = document.getElementById('adminModal');
-if (modalElement && typeof bootstrap !== 'undefined') {
-const adminModal = new bootstrap.Modal(modalElement);
-adminModal.show();
-}
-clickCount = 0;
-return;
-}
-
-// Timer : si pas de 3ème clic dans 600ms → naviguer vers accueil
-clickTimer = setTimeout(() => {
-window.location.href = siteLogo.href;
-clickCount = 0;
-}, 600);
-});
-} else {
-console.error('LOGO NON TROUVÉ !');
-}
-
-// Vérification du mot de passe admin
-window.checkAdminPassword = function () {
-const password = document.getElementById('adminPassword').value;
-const correctPassword = 'admin123';
-
-console.log('Vérification du mot de passe...');
-
-if (password === correctPassword) {
-console.log('Mot de passe correct, redirection...');
-// Mot de passe correct, rediriger vers l'admin
-window.location.href = '{{ path('app_admin_dashboard') }}';
-} else {
-console.log('Mot de passe incorrect');
-// Mot de passe incorrect
-document.getElementById('adminPassword').value = '';
-document.getElementById('adminPassword').classList.add('is-invalid');
-
-// Afficher un message d'erreur
-const errorDiv = document.createElement('div');
-errorDiv.className = 'invalid-feedback d-block';
-errorDiv.textContent = 'Mot de passe incorrect !';
-
-const existingError = document.querySelector('.invalid-feedback');
-if (existingError) {
-existingError.remove();
-}
-
-document.getElementById('adminPassword').parentNode.appendChild(errorDiv);
-
-// Retirer la classe d'erreur après 3 secondes
-setTimeout(() => {
-document.getElementById('adminPassword').classList.remove('is-invalid');
-const errorDiv = document.querySelector('.invalid-feedback');
-if (errorDiv) {
-errorDiv.remove();
-}
-}, 3000);
-}
-};
-
-// Réinitialiser le compteur de clics si on clique ailleurs
-document.addEventListener('click', function (event) {
-const isLogoClick = event.target.closest('#siteLogo');
-console.log('Clic global détecté - sur logo?', isLogoClick ? 'OUI' : 'NON');
-if (!isLogoClick) {
-console.log('Reset compteur (clic hors logo)');
-clickCount = 0;
-if (clickTimer) {
-clearTimeout(clickTimer);
-}
-}
-});
-
-console.log('Système admin initialisé !');
-});
-				</script>
-
-				<style>
+			<style>
 					.navbar {
 						background: linear-gradient(135deg, #4a7c59, #6b8e7a);
 						padding: 1.5rem 0;
