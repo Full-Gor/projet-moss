@@ -22,12 +22,16 @@ class AuthController extends AbstractController
 
             if ($action === 'login') {
                 // Traitement de la connexion
-                $prenom = $request->request->get('prenom'); // Récupérer le prénom
+                $identifier = $request->request->get('prenom'); // Peut être un prénom ou un email
                 $password = $request->request->get('password'); // Récupérer le mot de passe
 
                 try {
-                    // Chercher l'utilisateur par prénom
-                    $result = $connection->executeQuery('SELECT * FROM user WHERE prenom = ?', [$prenom]);
+                    // Chercher l'utilisateur par prénom OU par email
+                    // IMPORTANT : permet aux admins de se connecter avec leur email
+                    $result = $connection->executeQuery(
+                        'SELECT * FROM user WHERE prenom = ? OR email = ?',
+                        [$identifier, $identifier]
+                    );
                     $user = $result->fetchAssociative();
 
                     // Vérifier si l'utilisateur existe et si le mot de passe est correct
@@ -41,9 +45,20 @@ class AuthController extends AbstractController
                             'role' => $user['role'] ?? 'user', // Récupérer le rôle (user par défaut)
                             'connecte' => true
                         ]);
+
+                        /**
+                         * Redirection intelligente selon le rôle
+                         * - Si admin : redirige vers le dashboard admin
+                         * - Si user : redirige vers l'accueil
+                         */
+                        $role = $user['role'] ?? 'user';
+                        if ($role === 'admin') {
+                            return $this->redirectToRoute('app_admin_dashboard');
+                        }
+
                         return $this->redirectToRoute('app_home');
                     } else {
-                        $error = 'Prénom ou mot de passe incorrect';
+                        $error = 'Identifiant ou mot de passe incorrect';
                     }
                 } catch (\Exception $e) {
                     $error = 'Erreur de connexion à la base de données';

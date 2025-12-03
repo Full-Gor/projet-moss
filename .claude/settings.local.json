@@ -6,7 +6,11 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(git stash:*)",
-      "Bash(git stash pop:*)"
+      "Bash(git stash pop:*)",
+      "Bash(php bin/console doctrine:query:sql:*)",
+      "Bash(php -r:*)",
+      "Bash(php:*)",
+      "Bash(del temp_hash.php update_admin_password.php)"
     ],
     "deny": [],
     "ask": []
