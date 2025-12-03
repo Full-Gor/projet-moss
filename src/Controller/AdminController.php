@@ -57,9 +57,10 @@ class AdminController extends AbstractController
             $produit->setActif($request->request->get('actif') === 'on');
             $produit->setUpdatedAt(new \DateTimeImmutable());
 
-            // Gestion de l'image
+            // Gestion de l'image (seulement si un nouveau fichier est uploadé)
             $imageFile = $request->files->get('image');
-            if ($imageFile) {
+            // Vérifier qu'un fichier est uploadé ET qu'il n'est pas vide
+            if ($imageFile && $imageFile->getClientOriginalName()) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
@@ -104,9 +105,10 @@ class AdminController extends AbstractController
             $produit->setActif($request->request->get('actif') === 'on');
             $produit->setUpdatedAt(new \DateTimeImmutable());
 
-            // Gestion de l'image
+            // Gestion de l'image (seulement si un nouveau fichier est uploadé)
             $imageFile = $request->files->get('image');
-            if ($imageFile) {
+            // Vérifier qu'un fichier est uploadé ET qu'il n'est pas vide
+            if ($imageFile && $imageFile->getClientOriginalName()) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();

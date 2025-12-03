@@ -78,6 +78,14 @@ gtag('config', 'G-XXXXXXXXXX');
 							<a href="{{ path('app_panier') }}" class="cart">Panier</a>
 						</li>
 						{% if app.session.get('user') %}
+							{# Si l'utilisateur est admin, afficher le lien Dashboard #}
+							{% if app.session.get('user').role == 'admin' %}
+								<li>
+									<a href="{{ path('app_admin_dashboard') }}" class="admin-link" style="background-color: #dc3545; padding: 0.5rem 1rem; border-radius: 20px;">
+										<i class="fas fa-crown"></i> Dashboard
+									</a>
+								</li>
+							{% endif %}
 							<li>
 								<a href="{{ path('app_profile') }}" class="profile-link">
 									<img src="{{ asset('images/profiles/' ~ (app.session.get('user').photo ?? 'default-avatar.jpg')) }}" alt="Photo de profil">
