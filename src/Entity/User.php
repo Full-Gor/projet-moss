@@ -1,16 +1,4 @@
 <?php
-/**
- * ============================================
- * ENTITÉ USER - Représente un utilisateur
- * ============================================
- *
- * Une entité = une classe PHP qui correspond à une table en base de données
- * Chaque propriété = une colonne de la table
- *
- * Les attributs #[ORM\...] sont des "annotations" qui configurent Doctrine :
- * - #[ORM\Entity] = cette classe est une entité Doctrine
- * - #[ORM\Column] = cette propriété est une colonne en BDD
- */
 
 namespace App\Entity;
 
@@ -20,11 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
-    /**
-     * ID unique de l'utilisateur (clé primaire)
-     * #[ORM\Id] = c'est la clé primaire
-     * #[ORM\GeneratedValue] = auto-incrémenté
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -54,16 +37,8 @@ class User
     #[ORM\Column]
     private ?bool $actif = true;
 
-    /**
-     * Rôle de l'utilisateur
-     *
-     * Valeurs possibles :
-     * - 'user' = utilisateur normal (par défaut)
-     * - 'admin' = administrateur (accès au dashboard admin)
-     *
-     * nullable: true = peut être null (pour les anciens utilisateurs)
-     */
-    #[ORM\Column(length: 50, nullable: true)]
+    // Champ pour stocker le rôle de l'utilisateur ('user' ou 'admin')
+    #[ORM\Column(length: 50)]
     private ?string $role = 'user';
 
     public function __construct()
@@ -170,36 +145,22 @@ class User
         return $this->prenom . ' ' . $this->nom;
     }
 
-    /**
-     * Récupère le rôle de l'utilisateur
-     *
-     * @return string|null Le rôle ('user', 'admin') ou null
-     */
+    // Récupérer le rôle de l'utilisateur
     public function getRole(): ?string
     {
         return $this->role;
     }
 
-    /**
-     * Définit le rôle de l'utilisateur
-     *
-     * @param string|null $role Le nouveau rôle
-     * @return static Pour permettre le chaînage (ex: $user->setRole('admin')->setNom('Test'))
-     */
-    public function setRole(?string $role): static
+    // Définir le rôle de l'utilisateur
+    public function setRole(string $role): static
     {
         $this->role = $role;
         return $this;
     }
 
-    /**
-     * Vérifie si l'utilisateur est administrateur
-     *
-     * @return bool true si admin, false sinon
-     */
+    // Vérifier si l'utilisateur est admin
     public function isAdmin(): bool
     {
-        // === compare la valeur ET le type (plus sûr que ==)
         return $this->role === 'admin';
     }
 }

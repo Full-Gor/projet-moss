@@ -1,14 +1,4 @@
 <?php
-/**
- * ============================================
- * CONTROLLER D'AUTHENTIFICATION
- * ============================================
- *
- * Gère la connexion, l'inscription et la déconnexion des utilisateurs.
- *
- * Un Controller = classe qui reçoit les requêtes HTTP et retourne des réponses
- * Chaque méthode avec #[Route(...)] = une page/URL du site
- */
 
 namespace App\Controller;
 
@@ -40,28 +30,15 @@ class AuthController extends AbstractController
                     $result = $connection->executeQuery('SELECT * FROM user WHERE prenom = ?', [$prenom]);
                     $user = $result->fetchAssociative();
 
-                    /**
-                     * Vérifier si l'utilisateur existe et si le mot de passe est correct
-                     *
-                     * password_verify() = fonction PHP qui compare un mot de passe
-                     * avec son hash (le hash stocké en BDD)
-                     */
+                    // Vérifier si l'utilisateur existe et si le mot de passe est correct
                     if ($user && password_verify($password, $user['password'])) {
-                        /**
-                         * Enregistrer l'utilisateur en session
-                         *
-                         * La session = espace de stockage temporaire côté serveur
-                         * Permet de garder l'utilisateur connecté entre les pages
-                         *
-                         * On stocke aussi le 'role' pour pouvoir vérifier
-                         * si l'utilisateur est admin dans les autres pages
-                         */
+                        // Enregistrer l'utilisateur en session (avec son rôle)
                         $session->set('user', [
                             'id' => $user['id'],
                             'prenom' => $user['prenom'],
                             'nom' => $user['nom'],
                             'email' => $user['email'],
-                            'role' => $user['role'] ?? 'user', // Si pas de rôle, c'est 'user'
+                            'role' => $user['role'] ?? 'user', // Récupérer le rôle (user par défaut)
                             'connecte' => true
                         ]);
                         return $this->redirectToRoute('app_home');
@@ -101,21 +78,22 @@ class AuthController extends AbstractController
                             // Crypter le mot de passe
                             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                            // Créer le nouvel utilisateur avec prénom et nom
+                            // Créer le nouvel utilisateur avec prénom, nom et rôle 'user' par défaut
                             $connection->executeStatement(
-                                'INSERT INTO user (prenom, nom, email, password, created_at) VALUES (?, ?, ?, ?, NOW())',
-                                [$prenom, $nom, $email, $hashedPassword]
+                                'INSERT INTO user (prenom, nom, email, password, role, created_at) VALUES (?, ?, ?, ?, ?, NOW())',
+                                [$prenom, $nom, $email, $hashedPassword, 'user']
                             );
 
                             // Récupérer l'ID du nouvel utilisateur
                             $userId = $connection->lastInsertId();
 
-                            // Enregistrer l'utilisateur en session
+                            // Enregistrer l'utilisateur en session (avec rôle user)
                             $session->set('user', [
                                 'id' => $userId,
                                 'prenom' => $prenom,
                                 'nom' => $nom,
                                 'email' => $email,
+                                'role' => 'user', // Rôle user par défaut
                                 'connecte' => true
                             ]);
 
