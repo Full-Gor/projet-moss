@@ -29,4 +29,50 @@ class CommandeController extends AbstractController
             'commandes' => $commandeRepository->findBy([], ['date_commande' => 'DESC'])
         ]);
     }
+
+    #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Commande $commande, EntityManagerInterface $em): Response
+    {
+        if ($request->isMethod('POST')) {
+            $commande->setQuantite((int) $request->request->get('quantite'));
+            $em->flush();
+
+            $this->addFlash('success', 'Commande modifiée avec succès !');
+            return $this->redirectToRoute('app_profile');
+        }
+
+        return $this->render('commande/edit.html.twig', [
+            'commande' => $commande
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'app_commande_delete', methods: ['POST'])]
+    public function delete(Request $request, Commande $commande, EntityManagerInterface $em): Response
+    {
+        if ($this->isCsrfTokenValid('delete_commande' . $commande->getId(), $request->request->get('_token'))) {
+            $em->remove($commande);
+            $em->flush();
+
+            $this->addFlash('success', 'Commande supprimée avec succès !');
+        }
+
+        return $this->redirectToRoute('app_profile');
+    }
+
+    #[Route('/delete-all', name: 'app_commande_delete_all', methods: ['POST'])]
+    public function deleteAll(Request $request, CommandeRepository $commandeRepository, EntityManagerInterface $em): Response
+    {
+        if ($this->isCsrfTokenValid('delete_all_commandes', $request->request->get('_token'))) {
+            $commandes = $commandeRepository->findAll();
+
+            foreach ($commandes as $commande) {
+                $em->remove($commande);
+            }
+            $em->flush();
+
+            $this->addFlash('success', 'Toutes les commandes ont été supprimées !');
+        }
+
+        return $this->redirectToRoute('app_profile');
+    }
 }

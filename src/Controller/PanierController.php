@@ -137,6 +137,63 @@ class PanierController extends AbstractController
         // Message de confirmation
         $this->addFlash('success', "{$produit->getNom()} ajouté au panier !");
 
+        // Rediriger vers la page d'origine (produit) ou le panier
+        $referer = $request->headers->get('referer');
+        if ($referer) {
+            return $this->redirect($referer);
+        }
+        return $this->redirectToRoute('app_produit');
+    }
+
+    // Augmenter la quantité d'un produit dans le panier
+    #[Route('/panier/augmenter/{productId}', name: 'app_panier_augmenter')]
+    public function augmenter(int $productId, SessionInterface $session, ProduitRepository $produitRepo): Response
+    {
+        $panier = $session->get('panier', []);
+        $produit = $produitRepo->find($productId);
+
+        if (!$produit) {
+            $this->addFlash('error', 'Produit introuvable !');
+            return $this->redirectToRoute('app_panier');
+        }
+
+        foreach ($panier as $key => $item) {
+            if ($item['productId'] === $productId) {
+                // Vérifier le stock avant d'augmenter
+                if ($item['quantity'] + 1 > $produit->getStock()) {
+                    $this->addFlash('error', "Stock insuffisant ! Maximum {$produit->getStock()} disponible(s).");
+                    return $this->redirectToRoute('app_panier');
+                }
+                $panier[$key]['quantity']++;
+                break;
+            }
+        }
+
+        $session->set('panier', $panier);
+        return $this->redirectToRoute('app_panier');
+    }
+
+    // Diminuer la quantité d'un produit dans le panier
+    #[Route('/panier/diminuer/{productId}', name: 'app_panier_diminuer')]
+    public function diminuer(int $productId, SessionInterface $session): Response
+    {
+        $panier = $session->get('panier', []);
+
+        foreach ($panier as $key => $item) {
+            if ($item['productId'] === $productId) {
+                if ($item['quantity'] > 1) {
+                    // Diminuer la quantité
+                    $panier[$key]['quantity']--;
+                } else {
+                    // Si quantité = 1, supprimer le produit
+                    unset($panier[$key]);
+                    $panier = array_values($panier);
+                }
+                break;
+            }
+        }
+
+        $session->set('panier', $panier);
         return $this->redirectToRoute('app_panier');
     }
 
@@ -215,6 +272,7 @@ class PanierController extends AbstractController
                 $commande->setProduit($produit->getNom());
                 $commande->setQuantite($item['quantity']);
                 $commande->setPrix($produit->getPrix());
+                $commande->setImage($produit->getImage());
                 $commande->setDateCommande(new \DateTime());
                 $commande->setCreatedAt(new \DateTimeImmutable());
 
