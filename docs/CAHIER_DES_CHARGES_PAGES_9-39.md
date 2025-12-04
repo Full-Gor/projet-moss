@@ -2025,6 +2025,168 @@ public function decrementStock(int $quantity): static
 
 ---
 
+## 13. Structure du Projet Symfony
+
+### Arborescence du Répertoire `src/`
+
+**Commande utilisée** : `tree src/ -L 2` ou `find src/ -maxdepth 2`
+
+```
+src/
+├── Controller/                    # Contrôleurs (logique des routes)
+│   ├── AdminController.php        # Gestion admin (CRUD produits, stocks)
+│   ├── AuthController.php         # Authentification (login, register)
+│   ├── CommandeController.php     # Gestion des commandes
+│   ├── HistoireController.php     # Page "Histoire"
+│   ├── PageController.php         # Pages statiques
+│   ├── PanierController.php       # Gestion du panier et stock
+│   ├── ProduitController.php      # Affichage des produits
+│   ├── ProfileController.php      # Profil utilisateur
+│   ├── SitemapController.php      # Sitemap XML
+│   └── FirebaseExampleController.php  # Exemple Firebase (optionnel)
+│
+├── Entity/                        # Entités Doctrine (modèles de données)
+│   ├── Commande.php              # Entité Commande (historique)
+│   ├── Produit.php               # Entité Produit avec champ stock
+│   └── User.php                  # Entité User (avec rôles)
+│
+├── Repository/                    # Repositories (requêtes BDD)
+│   ├── CommandeRepository.php    # Requêtes pour les commandes
+│   ├── ProduitRepository.php     # Requêtes pour les produits
+│   └── UserRepository.php        # Requêtes pour les utilisateurs
+│
+├── Service/                       # Services (logique métier)
+│   ├── FirebaseAuthService.php   # Authentification Firebase
+│   └── FirebaseStorageService.php # Stockage Firebase
+│
+└── Kernel.php                     # Noyau Symfony (configuration)
+```
+
+**Points clés** :
+- **Controllers** : Gestion des requêtes HTTP et de la logique métier
+- **Entities** : Représentation PHP des tables de la base de données
+- **Repositories** : Requêtes personnalisées pour accéder aux données
+- **Services** : Fonctionnalités réutilisables (ex: Firebase, email, etc.)
+
+---
+
+### Fichiers de Migrations Doctrine
+
+**Commande utilisée** : `ls -la migrations/`
+
+```
+migrations/
+├── .gitignore
+├── Version20251028105658.php     # Migration initiale (création tables user, produit, commande)
+├── Version20251121000000.php     # Migration intermédiaire (ajouts/modifications)
+├── Version20251128090112.php     # Migration (modifications structure)
+└── Version20251203150000.php     # ⭐ Migration ajout colonne STOCK
+```
+
+**Migration cruciale** : `Version20251203150000.php` (Ajout du stock)
+
+### 📄 Contenu du Fichier de Migration Stock
+
+**Fichier** : `migrations/Version20251203150000.php`
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace DoctrineMigrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+/**
+ * Migration pour ajouter la colonne 'stock' à la table produit
+ *
+ * PRINCIPE :
+ * - up() = Ajoute la colonne stock (exécuté lors de php bin/console doctrine:migrations:migrate)
+ * - down() = Supprime la colonne stock (pour annuler la migration)
+ */
+final class Version20251203150000 extends AbstractMigration
+{
+    public function getDescription(): string
+    {
+        return 'Ajouter la colonne stock à la table produit pour gérer les quantités disponibles';
+    }
+
+    // Méthode exécutée pour appliquer la migration
+    public function up(Schema $schema): void
+    {
+        // Ajouter la colonne 'stock' de type INT (nombre entier)
+        // NOT NULL = obligatoire
+        // DEFAULT 0 = valeur par défaut à 0 si aucune valeur n'est fournie
+        $this->addSql('ALTER TABLE produit ADD COLUMN stock INT NOT NULL DEFAULT 0');
+    }
+
+    // Méthode exécutée pour annuler la migration
+    public function down(Schema $schema): void
+    {
+        // Supprimer la colonne 'stock'
+        $this->addSql('ALTER TABLE produit DROP COLUMN stock');
+    }
+}
+```
+
+**Explication détaillée** :
+
+1. **Classe** : `Version20251203150000` hérite de `AbstractMigration`
+   - Nom basé sur la date : `20251203150000` = 3 décembre 2025 à 15h00
+
+2. **Méthode `getDescription()`** :
+   - Description claire de ce que fait la migration
+   - Utile pour la documentation et les logs
+
+3. **Méthode `up()`** :
+   - Exécutée quand on lance `php bin/console doctrine:migrations:migrate`
+   - Ajoute la colonne `stock` de type `INT`
+   - `NOT NULL` : la colonne ne peut pas être vide
+   - `DEFAULT 0` : si aucune valeur n'est spécifiée, la valeur sera 0
+
+4. **Méthode `down()`** :
+   - Exécutée quand on annule la migration avec `php bin/console doctrine:migrations:migrate prev`
+   - Supprime la colonne `stock`
+   - Permet de revenir en arrière si nécessaire
+
+**Commandes Symfony pour les migrations** :
+
+```bash
+# Créer une nouvelle migration (génère automatiquement le fichier)
+php bin/console make:migration
+
+# Voir le statut des migrations (appliquées ou non)
+php bin/console doctrine:migrations:status
+
+# Appliquer toutes les migrations en attente
+php bin/console doctrine:migrations:migrate
+
+# Annuler la dernière migration
+php bin/console doctrine:migrations:migrate prev
+
+# Voir le SQL qui sera exécuté sans l'appliquer
+php bin/console doctrine:migrations:migrate --dry-run
+```
+
+**Workflow typique** :
+
+1. Modifier une Entity (ex: ajouter `private ?int $stock`)
+2. Générer la migration : `php bin/console make:migration`
+3. Vérifier le fichier de migration généré dans `migrations/`
+4. Appliquer la migration : `php bin/console doctrine:migrations:migrate`
+5. La table est modifiée en base de données
+
+**Avantages des migrations** :
+- ✅ Historique complet des modifications de la BDD
+- ✅ Versioning : chaque migration a un numéro unique
+- ✅ Réversibilité : possibilité de revenir en arrière
+- ✅ Travail en équipe : les migrations se partagent via Git
+- ✅ Automatisation : pas besoin d'écrire le SQL manuellement
+
+---
+
 ## Conclusion de la Section Technique
 
 Ce cahier des charges technique démontre la mise en place d'un **système e-commerce complet** avec :
