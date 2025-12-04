@@ -314,6 +314,479 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ---
 
+### 📸 Screenshots : Formulaires d'Authentification et Profil
+
+#### Screenshot 21 : Formulaire de Connexion
+
+**Page de connexion** (`/connexion`) :
+
+**Header** :
+- Lien **"Connexion"** visible pour les utilisateurs non connectés
+
+**Formulaire avec onglets** :
+- **Onglet "Connexion"** (actif - bordure verte)
+- **Onglet "Inscription"** (inactif - lien cliquable)
+
+**Champs du formulaire** :
+1. **👤 Prénom** (input texte)
+2. **🔒 Mot de passe** (input password)
+3. **☑️ Se souvenir de moi** (checkbox)
+4. **Bouton vert "🔓 Se connecter"** (pleine largeur)
+
+**Code Twig correspondant** :
+```twig
+{# templates/auth/login.html.twig #}
+<div class="auth-tabs">
+    <button class="tab active">Connexion</button>
+    <a href="{{ path('app_register') }}" class="tab">Inscription</a>
+</div>
+
+<form method="POST" action="{{ path('app_login') }}">
+    <div class="form-group">
+        <label>👤 Prénom</label>
+        <input type="text" name="prenom" required>
+    </div>
+
+    <div class="form-group">
+        <label>🔒 Mot de passe</label>
+        <input type="password" name="password" required>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" name="remember_me" id="remember">
+        <label for="remember">Se souvenir de moi</label>
+    </div>
+
+    <button type="submit" class="btn-submit">🔓 Se connecter</button>
+</form>
+```
+
+**Controller PHP** :
+```php
+#[Route('/connexion', name: 'app_login', methods: ['GET', 'POST'])]
+public function login(Request $request, SessionInterface $session, UserRepository $userRepo): Response
+{
+    if ($request->isMethod('POST')) {
+        $prenom = $request->request->get('prenom');
+        $password = $request->request->get('password');
+
+        // Chercher l'utilisateur par prénom
+        $user = $userRepo->findOneBy(['prenom' => $prenom]);
+
+        // Vérifier le mot de passe
+        if ($user && password_verify($password, $user->getPassword())) {
+            // Stocker l'utilisateur en session
+            $session->set('user', [
+                'id' => $user->getId(),
+                'prenom' => $user->getPrenom(),
+                'nom' => $user->getNom(),
+                'email' => $user->getEmail(),
+                'role' => $user->getRole()
+            ]);
+
+            $this->addFlash('success', 'Connexion réussie !');
+            return $this->redirectToRoute('app_home');
+        }
+
+        $this->addFlash('error', 'Identifiants incorrects');
+    }
+
+    return $this->render('auth/login.html.twig');
+}
+```
+
+---
+
+#### Screenshot 22 : Formulaire d'Inscription
+
+**Page d'inscription** (`/inscription`) :
+
+**Formulaire avec onglets** :
+- **Onglet "Connexion"** (inactif - lien cliquable)
+- **Onglet "Inscription"** (actif - bordure verte)
+
+**Champs du formulaire** :
+1. **👤 Prénom** (input texte)
+2. **👤 Nom** (input texte)
+3. **📧 Email** (input email)
+4. **🔒 Mot de passe** (input password)
+   - Indication : *"Minimum 6 caractères"*
+5. **🔒 Confirmer le mot de passe** (input password)
+6. **☑️ J'accepte les conditions d'utilisation** (checkbox avec lien bleu)
+7. **Bouton vert "👥 S'inscrire"** (pleine largeur)
+
+**Code Twig** :
+```twig
+{# templates/auth/register.html.twig #}
+<form method="POST" action="{{ path('app_register') }}">
+    <div class="form-group">
+        <label>👤 Prénom</label>
+        <input type="text" name="prenom" required>
+    </div>
+
+    <div class="form-group">
+        <label>👤 Nom</label>
+        <input type="text" name="nom" required>
+    </div>
+
+    <div class="form-group">
+        <label>📧 Email</label>
+        <input type="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+        <label>🔒 Mot de passe</label>
+        <input type="password" name="password" required minlength="6">
+        <small>Minimum 6 caractères</small>
+    </div>
+
+    <div class="form-group">
+        <label>🔒 Confirmer le mot de passe</label>
+        <input type="password" name="password_confirm" required>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" name="accept_terms" required>
+        <label>J'accepte les <a href="#">conditions d'utilisation</a></label>
+    </div>
+
+    <button type="submit" class="btn-submit">👥 S'inscrire</button>
+</form>
+```
+
+**Controller PHP** :
+```php
+#[Route('/inscription', name: 'app_register', methods: ['GET', 'POST'])]
+public function register(Request $request, EntityManagerInterface $em): Response
+{
+    if ($request->isMethod('POST')) {
+        $password = $request->request->get('password');
+        $passwordConfirm = $request->request->get('password_confirm');
+
+        // Vérifier que les mots de passe correspondent
+        if ($password !== $passwordConfirm) {
+            $this->addFlash('error', 'Les mots de passe ne correspondent pas');
+            return $this->redirectToRoute('app_register');
+        }
+
+        // Créer l'utilisateur
+        $user = new User();
+        $user->setPrenom($request->request->get('prenom'));
+        $user->setNom($request->request->get('nom'));
+        $user->setEmail($request->request->get('email'));
+        $user->setPassword(password_hash($password, PASSWORD_DEFAULT)); // Hachage bcrypt
+        $user->setRole('user'); // Rôle par défaut
+        $user->setCreatedAt(new \DateTimeImmutable());
+        $user->setUpdatedAt(new \DateTimeImmutable());
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', 'Inscription réussie ! Vous pouvez vous connecter.');
+        return $this->redirectToRoute('app_login');
+    }
+
+    return $this->render('auth/register.html.twig');
+}
+```
+
+**Validation** :
+- Mot de passe minimum 6 caractères (HTML5 `minlength="6"`)
+- Email valide (HTML5 `type="email"`)
+- Acceptation des CGU obligatoire (`required`)
+- Vérification de correspondance des mots de passe côté serveur
+
+---
+
+#### Screenshot 23 : Modal Modification du Profil Utilisateur
+
+**Popup de modification du profil** :
+
+**Header du modal** :
+- Titre : **"👤 Modifier le profil"**
+- Bouton fermer **×** (en haut à droite)
+
+**Formulaire de modification** :
+
+**Section photo** :
+- Photo de profil actuelle (cercle)
+- Texte : **"Changer la photo"**
+- Bouton **"Choisir un fichier"** | **"Au...oisi"**
+- Info : *"Formats acceptés : JPG, PNG (max 5MB)"*
+
+**Champs du formulaire** :
+1. **👤 Nom complet** : `user` (pré-rempli)
+2. **📧 Email** : `user@gmail.com` (pré-rempli)
+3. **📞 Téléphone** : `Non défini` (optionnel)
+4. **📍 Adresse** : `Non définie` (textarea)
+
+**Boutons d'action** :
+- Bouton gris **"× Annuler"** (ferme le modal)
+- Bouton vert **"💾 Sauvegarder"** (enregistre les modifications)
+
+**Code JavaScript (ouverture du modal)** :
+```javascript
+document.getElementById('btnModifierProfil').addEventListener('click', function() {
+    // Charger les données utilisateur depuis la session
+    const user = {{ app.session.get('user')|json_encode|raw }};
+
+    // Pré-remplir les champs
+    document.getElementById('inputNomComplet').value = user.prenom + ' ' + user.nom;
+    document.getElementById('inputEmail').value = user.email;
+    document.getElementById('inputTelephone').value = user.telephone || 'Non défini';
+    document.getElementById('inputAdresse').value = user.adresse || 'Non définie';
+
+    // Afficher le modal Bootstrap
+    var profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
+    profileModal.show();
+});
+```
+
+**Controller PHP (mise à jour)** :
+```php
+#[Route('/profil/update', name: 'app_profile_update', methods: ['POST'])]
+public function updateProfile(
+    Request $request,
+    SessionInterface $session,
+    UserRepository $userRepo,
+    EntityManagerInterface $em
+): Response {
+    $user = $session->get('user');
+    $userEntity = $userRepo->find($user['id']);
+
+    // Gérer l'upload de photo
+    $photoFile = $request->files->get('photo');
+    if ($photoFile) {
+        $newFilename = uniqid() . '.' . $photoFile->guessExtension();
+        $photoFile->move($this->getParameter('photos_directory'), $newFilename);
+        $userEntity->setPhoto($newFilename);
+    }
+
+    // Mettre à jour les champs
+    $userEntity->setTelephone($request->request->get('telephone'));
+    $userEntity->setAdresse($request->request->get('adresse'));
+    $userEntity->setUpdatedAt(new \DateTimeImmutable());
+
+    $em->flush();
+
+    $this->addFlash('success', 'Profil mis à jour avec succès');
+    return $this->redirectToRoute('app_profile');
+}
+```
+
+---
+
+### 📸 Screenshots : Pages de Contenu
+
+#### Screenshot 24 : Page "Histoire"
+
+**Route** : `/histoire`
+
+**Header** :
+- Navigation complète
+- Badge utilisateur **"user"** connecté
+
+**Hero Section** :
+- **Grande image de fond** : Mousse verte en gros plan avec effet bokeh
+- **Overlay** : Dégradé pour améliorer la lisibilité
+- **Texte principal (centré)** :
+  - *"Libérez la puissance de la nature avec la mousse."*
+  - *"Purifiez votre air, augmentez l'humidité, créez un environnement paisible."*
+  - *"Sublimez votre espace avec la beauté et les bienfaits de la mousse."*
+
+**Design** :
+- Typographie en blanc avec ombre portée
+- Image immersive (plein écran)
+- Ambiance naturelle et zen
+
+**Code Twig** :
+```twig
+{# templates/page/histoire.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="hero-histoire" style="background-image: url('{{ asset('images/moss-nature.jpg') }}');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Libérez la puissance de la nature avec la mousse.</h1>
+            <p>Purifiez votre air, augmentez l'humidité, créez un environnement paisible.</p>
+            <p>Sublimez votre espace avec la beauté et les bienfaits de la mousse.</p>
+        </div>
+    </section>
+{% endblock %}
+```
+
+**CSS pour l'effet parallaxe** :
+```css
+.hero-histoire {
+    position: relative;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Effet parallaxe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Overlay sombre */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+}
+```
+
+---
+
+#### Screenshot 25 : Page "À propos" + Footer
+
+**Route** : `/a-propos`
+
+**Contenu principal** :
+- Titre : **"À propos de MossAir"**
+- **3 paragraphes** :
+  1. Présentation d'Arnaud Barotteaux (créateur)
+  2. Philosophie du projet (respiration consciente, neurochimie positive)
+  3. Description de MossAir (purificateur d'air avec mousse vivante)
+
+**Footer du site** (fond noir) :
+
+**4 colonnes** :
+
+1. **Environ** (vert) :
+   - Texte : "Mosslab considère la beauté et les avantages de la mousse comme une alternative concise et durable à la verdure traditionnelle..."
+
+2. **Boutique** (vert) :
+   - Moss Air
+   - Double Air Mousse
+   - Sac à dos tout-en-un Moss Air
+   - Filtre à mousse
+
+3. **Ressources** (vert) :
+   - Histoire
+   - (autres liens)
+
+4. **Support** (vert) :
+   - Politique de confidentialité
+   - CGV
+   - Gérer mes cookies
+
+**Code Twig du footer** :
+```twig
+{# templates/includes/footer.html.twig #}
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>Environ</h3>
+            <p>Mosslab considère la beauté et les avantages de la mousse comme une
+            alternative concise et durable à la verdure traditionnelle. Notre mission
+            est de reconnecter l'humain à la nature.</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Boutique</h3>
+            <ul>
+                <li><a href="{{ path('app_produit') }}">Moss Air</a></li>
+                <li><a href="#">Double Air Mousse</a></li>
+                <li><a href="#">Sac à dos tout-en-un Moss Air</a></li>
+                <li><a href="#">Filtre à mousse</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Ressources</h3>
+            <ul>
+                <li><a href="{{ path('app_histoire') }}">Histoire</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="#">Politique de confidentialité</a></li>
+                <li><a href="#">CGV</a></li>
+                <li><a href="#">Gérer mes cookies</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+```
+
+**CSS du footer** :
+```css
+.site-footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 3rem 0 1rem;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-col h3 {
+    color: #6b8e7a; /* Vert MossAir */
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover {
+    color: #6b8e7a;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+```
+
+---
+
 ## 3. PHP et Gestion du Site avec Symfony
 
 Le projet utilise le framework **Symfony** pour gérer les interactions côté serveur, traiter les données et garantir la sécurité.
