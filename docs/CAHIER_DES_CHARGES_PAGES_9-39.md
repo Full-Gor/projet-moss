@@ -1351,6 +1351,201 @@ $entityManager->flush(); // Sauvegarder tout
 
 ---
 
+#### Screenshot 17 : Modal de Suppression d'Article du Panier
+
+**Confirmation JavaScript avant suppression** :
+
+**Contenu du modal** :
+- URL : **127.0.0.1:8000** (serveur de développement Symfony)
+- Titre : *"127.0.0.1:8000 indique"*
+- Message : **"Supprimer Moss Air 3 du panier ?"**
+- Bouton bleu foncé **"OK"** (confirme la suppression)
+- Bouton bleu clair **"Annuler"** (annule l'action)
+
+**Code JavaScript correspondant** :
+```javascript
+// Fonction de suppression avec confirmation
+document.querySelectorAll('.btn-supprimer-item').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productName = this.getAttribute('data-product-name');
+
+        // Confirmation native du navigateur
+        if (confirm(`Supprimer ${productName} du panier ?`)) {
+            // Si OK, soumettre le formulaire de suppression
+            this.closest('form').submit();
+        }
+    });
+});
+```
+
+**Route backend** :
+```php
+#[Route('/panier/retirer/{product_id}', name: 'app_panier_retirer', methods: ['POST'])]
+public function retirer(int $product_id, SessionInterface $session): Response
+{
+    $panier = $session->get('panier', []);
+
+    // Retirer le produit du panier
+    $panier = array_filter($panier, function($item) use ($product_id) {
+        return $item['product_id'] !== $product_id;
+    });
+
+    // Réindexer le tableau
+    $panier = array_values($panier);
+
+    // Mettre à jour la session
+    $session->set('panier', $panier);
+
+    $this->addFlash('success', 'Produit retiré du panier');
+    return $this->redirectToRoute('app_panier');
+}
+```
+
+**UX** : Empêche les suppressions accidentelles avec une confirmation claire
+
+---
+
+#### Screenshot 18 : Page Détail Produit avec Message de Succès
+
+**Vue détaillée d'un produit après ajout au panier** :
+
+**Message de confirmation** :
+- Alerte verte en haut : **"Moss Air 3 ajouté au panier !"** (flash message)
+- Affichage temporaire (disparaît après quelques secondes)
+
+**Informations produit** :
+- Grande image : Moss Air 3 (fond noir)
+- Nom : **Moss Air 3**
+- Prix : **199,99€**
+- Badge vert : **✓ En stock (3 disponible(s))**
+- Description : *"Purificateur d'air haut de gamme avec technologie avancée de mousse stabilisée. Le meilleur de notre gamme."*
+- Input **"Quantité :"** avec sélecteur
+- Bouton vert : **"Ajouter au panier"**
+
+**Caractéristiques listées** :
+- ✓ Filtration naturelle par mousse vivante
+- ✓ Réduction de 90% des particules fines
+- ✓ Diminution de 60% des COV
+- ✓ Réduction de 40% du CO2
+- ✓ Design minimaliste et élégant
+- ✓ Entretien minimal
+
+**Code Twig pour le message** :
+```twig
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+{% endfor %}
+```
+
+**Code PHP (ajout au panier)** :
+```php
+$this->addFlash('success', "{$produit->getNom()} ajouté au panier !");
+return $this->redirectToRoute('app_produit_show', ['id' => $produit->getId()]);
+```
+
+**Badge de stock dynamique** :
+- **3 disponible(s)** → Stock faible affiché en vert avec ✓
+- Si stock = 0 → Badge rouge "Rupture de stock" + bouton désactivé
+
+---
+
+#### Screenshot 19 : Page Produits - Version Mobile Responsive (1)
+
+**Vue mobile de la page produits** :
+
+**Header mobile** :
+- Logo **"MossAir"** avec menu hamburger (☰)
+
+**Produits affichés verticalement** :
+
+1. **Moss Air 3** (199,99€)
+   - Image pleine largeur
+   - Badge vert : **✓ En stock (3 disponible(s))**
+   - Description courte
+   - **Quantité :** input avec valeur par défaut 1
+   - Bouton vert : **"Ajouter au panier"** (pleine largeur)
+   - **Caractéristiques :** liste complète (6 points)
+
+2. **Moss Air 2** (179,99€)
+   - Image pleine largeur (fond blanc avec bureau)
+   - Badge vert : **✓ En stock (4 disponible(s))**
+   - Description
+   - Input quantité
+   - Bouton **"Ajouter au panier"**
+   - **Caractéristiques :** liste commencée (3 points visibles)
+
+**Adaptations responsive** :
+- Layout vertical (1 colonne) au lieu de grille
+- Images 100% de largeur
+- Boutons étendus sur toute la largeur
+- Espacement augmenté pour faciliter le tactile
+- Texte et badges lisibles sur petit écran
+
+**Media query correspondante** :
+```css
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* 1 colonne au lieu de 3 */
+    }
+
+    .product-card {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .btn-add-to-cart {
+        width: 100%; /* Bouton pleine largeur */
+        padding: 15px;
+        font-size: 16px;
+    }
+}
+```
+
+---
+
+#### Screenshot 20 : Page Produits - Version Mobile Responsive (2)
+
+**Vue mobile alternative** - Même structure mais scroll différent :
+
+**Produits visibles** :
+1. **Moss Air 3** (bas de la carte)
+   - Caractéristiques listées
+   - Quantité + bouton d'ajout
+
+2. **Moss Air 2** (carte complète visible)
+   - Image du produit
+   - Prix : **179,99€**
+   - Badge : **✓ En stock (4 disponible(s))**
+   - Description complète
+   - Liste des caractéristiques :
+     - ✓ Filtration naturelle par mousse vivante
+     - ✓ Réduction de 90% des particules fines
+     - ✓ Diminution de 60% des COV
+
+**Points clés de la version mobile** :
+- Navigation par scroll vertical fluide
+- Toutes les informations restent accessibles
+- Pas de perte de fonctionnalité vs desktop
+- Touch-friendly (zones de clic larges)
+- Badges de stock bien visibles
+
+**Test de responsive** :
+```javascript
+// Détection de l'écran mobile
+if (window.innerWidth <= 768) {
+    // Adapter les interactions tactiles
+    document.querySelectorAll('.btn-add-to-cart').forEach(btn => {
+        btn.style.minHeight = '48px'; // Taille minimale pour tactile
+    });
+}
+```
+
+---
+
 ## 9. Base de Données : Structure et Relations
 
 ### Modèle Logique de Données (MLD)
