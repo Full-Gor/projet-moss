@@ -1127,6 +1127,93 @@ CREATE TABLE commande (
 - Décrémenter automatiquement après une commande
 - Afficher des badges colorés dans le dashboard admin
 
+#### Screenshot 3 : Structure de la table `commande`
+
+**Vue dans phpMyAdmin** - Voici la structure réelle de la table commande :
+
+| # | Nom | Type | Null | Valeur par défaut | Extra | Commentaires |
+|---|-----|------|------|-------------------|-------|--------------|
+| 1 | **id** | int | Non | Aucun(e) | AUTO_INCREMENT | Identifiant unique |
+| 2 | **nom_client** | varchar(255) | Non | Aucun(e) | | Nom du client |
+| 3 | **produit** | varchar(255) | Non | Aucun(e) | | Nom du produit commandé |
+| 4 | **quantite** | int | Non | Aucun(e) | | Quantité commandée |
+| 5 | **date_commande** | datetime | Non | Aucun(e) | | Date et heure de la commande |
+| 6 | **couleur** | varchar(255) | Oui | NULL | | Couleur du produit (optionnel) |
+| 7 | **prix** | decimal(10,2) | Oui | NULL | | Prix unitaire au moment de la commande |
+| 8 | **created_at** | datetime | Oui | NULL | (DC2Type:datetime_immutable) | Date de création |
+| 9 | **image** | varchar(255) | Oui | NULL | | Image du produit commandé |
+
+**Clé primaire** : id (PRIMARY - BTREE)
+
+**Points importants** :
+- Cette table stocke l'historique de toutes les commandes passées
+- Le champ `nom_client` correspond au prénom de l'utilisateur
+- Le champ `quantite` indique combien d'unités ont été commandées
+- Le prix est stocké en `decimal(10,2)` pour éviter les erreurs d'arrondi
+
+---
+
+### 📸 Screenshots : Données Réelles dans les Tables (phpMyAdmin)
+
+#### Screenshot 4 : Données dans la table `produit`
+
+**Exemples de produits avec leurs stocks** :
+
+| id | nom | description | prix | image | actif | created_at | updated_at | stock ⭐ |
+|----|-----|-------------|------|-------|-------|------------|------------|----------|
+| 2 | gsqlkn | gsmai | 25.00 | Capture-d-ecran-2025-09-23... | 1 | 2025-10-28 11:23:06 | 2025-12-04 10:28:32 | **9** |
+| 3 | sedf | sdf | 251.00 | videoframe-6368-693045935c408.png | 1 | 2025-12-03 14:13:39 | 2025-12-04 10:28:32 | **9** |
+| 4 | Moss Air 1 | Purificateur d'air naturel avec mousse végétale. D... | 149.99 | hero1.jpg | 1 | 2025-12-04 11:40:06 | 2025-12-04 10:55:45 | **9** |
+| 5 | Moss Air 2 | Purificateur d'air premium avec double filtration ... | 179.99 | hero2.jpg | 1 | 2025-12-04 11:40:08 | 2025-12-04 10:55:45 | **4** |
+| 6 | Moss Air 3 | Purificateur d'air haut de gamme avec technologie ... | 199.99 | hero3.jpg | 1 | 2025-12-04 11:40:25 | 2025-12-04 10:55:45 | **4** |
+
+**Observations** :
+- Les produits **Moss Air 1** ont un stock confortable de **9 unités** (badge vert dans le dashboard)
+- Les produits **Moss Air 2** et **Moss Air 3** ont un stock **faible de 4 unités** (badge orange dans le dashboard)
+- Tous les produits sont actifs (`actif = 1`)
+- Les dates `updated_at` montrent les dernières modifications de stock après les commandes
+
+#### Screenshot 5 : Données dans la table `user`
+
+**Exemples d'utilisateurs avec leurs rôles** :
+
+| id | email | password | nom | prenom | photo | created_at | updated_at | actif | role |
+|----|-------|----------|-----|--------|-------|------------|------------|-------|------|
+| 1 | arnaudbarotteaux@gmail.com | $2y$10$peHolbQPH71hqmdDGRKZ.3JJZ0OuboTN31pFqR53cn... | arnaud | NULL | NULL | 2025-10-28 12:07:11 | 0000-00-00 00:00:00 | 0 | **admin** |
+| 5 | user@gmail.com | $2y$10$I39j8a2SS0eX8oNB5KYk4.CxEmTtrpjeC0nadEHMNgl... | user | user | NULL | 2025-12-03 16:04:18 | 0000-00-00 00:00:00 | 0 | **user** |
+
+**Observations** :
+- **Utilisateur 1** (arnaudbarotteaux@gmail.com) a le rôle **"admin"** → Accès au dashboard admin
+- **Utilisateur 5** (user@gmail.com) a le rôle **"user"** → Utilisateur normal sans accès admin
+- Les mots de passe sont **hachés avec bcrypt** (`$2y$10$...`) pour la sécurité
+- Le champ `actif` est à 0 pour les deux (désactivé temporairement)
+
+**Différence entre les rôles** :
+- **admin** : Peut accéder à `/admin`, gérer les produits, modifier les stocks, gérer les utilisateurs
+- **user** : Peut naviguer sur le site, ajouter au panier, passer des commandes
+
+#### Screenshot 6 : Données dans la table `commande`
+
+**Exemples de commandes passées** :
+
+| id | nom_client | produit | quantite | date_commande | couleur | prix | created_at | image |
+|----|------------|---------|----------|---------------|---------|------|------------|-------|
+| 18 | user | Moss Air 3 | 4 | 2025-12-04 10:55:45 | NULL | 199.99 | 2025-12-04 10:55:45 | hero3.jpg |
+| 19 | user | Moss Air 2 | 4 | 2025-12-04 10:55:45 | NULL | 179.99 | 2025-12-04 10:55:45 | hero2.jpg |
+| 20 | user | Moss Air 1 | 3 | 2025-12-04 10:55:45 | NULL | 149.99 | 2025-12-04 10:55:45 | hero1.jpg |
+
+**Observations** :
+- L'utilisateur **"user"** a passé **3 commandes** le 4 décembre 2025 à 10h55
+- **Commande 18** : 4 unités de Moss Air 3 → Le stock du produit est passé de 8 à 4
+- **Commande 19** : 4 unités de Moss Air 2 → Le stock du produit est passé de 8 à 4
+- **Commande 20** : 3 unités de Moss Air 1 → Le stock du produit est passé de 12 à 9
+- Les prix sont enregistrés au moment de la commande pour garder l'historique exact
+
+**Lien avec le système de stock** :
+- Quand une commande est validée via `PanierController::paiementEffectue()`
+- Le système décrémente automatiquement le stock avec `$produit->decrementStock($quantite)`
+- Une entrée est créée dans la table `commande` pour l'historique
+
 ---
 
 ### Modèle Conceptuel de Données (MCD)
