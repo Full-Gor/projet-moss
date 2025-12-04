@@ -1130,6 +1130,227 @@ public function new(
 
 ---
 
+### 📸 Screenshots : Pages Produits, Panier et Dashboard Admin
+
+#### Screenshot 12 : Page Produits - Liste des Purificateurs
+
+**Vue de la page produits** :
+
+**Produits affichés (3 articles)** :
+
+1. **Moss Air 3** (199,99€)
+   - Badge : ✅ **En stock (4 disponibles)**
+   - Image du produit avec mousse végétale
+   - Caractéristiques listées :
+     - Purificateur naturel des espaces intérieurs
+     - Mousse végétale vivante et auto-entretenue
+     - Technologie de filtration écologique
+     - Dimensions de 90% de CO2
+     - Design innovant et design éco-responsable
+     - Entretien simplifié
+   - Input quantité avec sélecteur
+   - Bouton vert **"Ajouter au panier"**
+
+2. **Moss Air 2** (179,99€)
+   - Badge : ✅ **En stock (4 disponibles)**
+   - Description similaire
+   - Caractéristiques complètes
+   - Bouton **"Ajouter au panier"**
+
+3. **Moss Air 1** (149,99€)
+   - Badge : ✅ **En stock (9 disponibles)**
+   - Design fond noir
+   - Caractéristiques détaillées
+   - Bouton **"Ajouter au panier"**
+
+**Points importants** :
+- Les **badges de stock** informent l'utilisateur en temps réel de la disponibilité
+- Si le stock était à 0, le badge afficherait "Rupture de stock" en rouge
+- Le formulaire d'ajout au panier est intégré directement dans chaque carte produit
+
+---
+
+#### Screenshot 13 : Panier Vide
+
+**Vue du panier sans article** :
+
+**Éléments affichés** :
+- Titre : **"Mon Panier"**
+- Message : *"Votre panier est vide."*
+- Bouton bleu : **"Continuer mes achats"** → Redirige vers `/produit`
+
+**Code correspondant** (dans `panier/index.html.twig`) :
+```twig
+{% if panier is empty %}
+    <div class="alert alert-info text-center">
+        <p>Votre panier est vide.</p>
+        <a href="{{ path('app_produit') }}" class="btn btn-primary">
+            Continuer mes achats
+        </a>
+    </div>
+{% endif %}
+```
+
+**UX** : Affichage clair pour inciter l'utilisateur à découvrir les produits
+
+---
+
+#### Screenshot 14 : Panier avec Produit - Affichage du Stock Restant
+
+**Vue du panier avec un article** :
+
+**Contenu du panier** :
+- **Produit** : Moss Air 3
+- **Prix unitaire** : 199,99€
+- **Quantité** : 1
+- **Stock restant** : **4** ⭐ (affiché en vert)
+- **Prix total** : 199,99€
+
+**Actions disponibles** :
+- Boutons **+** et **-** pour modifier la quantité
+- Bouton rouge **poubelle** pour retirer du panier
+- Bouton jaune **"Vider le panier"** (supprime tout)
+- Bouton vert **"Passer commande"** (lance le paiement)
+- Lien **"Continuer mes achats"** (retour aux produits)
+
+**Information cruciale : Stock restant**
+```twig
+<strong>Stock restant:</strong>
+<span class="stock-badge {% if item.stock < 10 %}text-warning{% else %}text-success{% endif %}">
+    {{ item.stock }}
+</span>
+```
+
+**Pourquoi c'est important ?**
+- L'utilisateur voit **combien d'unités sont encore disponibles**
+- Si le stock est faible (< 10), le badge devient orange pour alerter
+- Empêche les frustrations : l'utilisateur sait s'il peut commander plus
+
+**Vérification backend** :
+```php
+// PanierController::ajouter()
+if ($nouvelleQuantite > $produit->getStock()) {
+    $this->addFlash('error', "Stock insuffisant ! Seulement {$produit->getStock()} disponible(s).");
+    return $this->redirectToRoute('app_panier');
+}
+```
+
+---
+
+#### Screenshot 15 : Modal de Confirmation de Commande
+
+**Popup de validation avant paiement** :
+
+**Contenu du modal** :
+- Titre : **"Confirmer la commande"**
+- Question : *"Êtes-vous sûr de vouloir valider cette commande ?"*
+- Total affiché : **Total: 199,99€**
+- Bouton gris **"Annuler"** (ferme le modal)
+- Bouton vert **"✓ Valider le paiement"** (confirme et décrémente le stock)
+
+**Code JavaScript (déclenchement)** :
+```javascript
+document.getElementById('btnPasserCommande').addEventListener('click', function(e) {
+    e.preventDefault();
+    // Afficher le modal Bootstrap
+    var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    confirmModal.show();
+});
+```
+
+**Action après confirmation** :
+```php
+// PanierController::paiementEffectue()
+foreach ($panier as $item) {
+    $produit = $produitRepo->find($item['product_id']);
+
+    // Décrémenter le stock
+    $produit->decrementStock($item['quantite']);
+
+    // Créer la commande
+    $commande = new Commande();
+    $commande->setNomClient($user['prenom']);
+    $commande->setProduit($produit->getNom());
+    $commande->setQuantite($item['quantite']);
+    // ...
+    $entityManager->persist($commande);
+}
+
+$entityManager->flush(); // Sauvegarder tout
+```
+
+**Résultat** : Le stock est mis à jour en base de données et une entrée est créée dans la table `commande`
+
+---
+
+#### Screenshot 16 : Dashboard Admin - Gestion des Stocks avec Badges Colorés
+
+**Interface d'administration** :
+
+**Header** :
+- Titre : **"Dashboard Admin"**
+- Bouton cyan **"👥 Utilisateurs"** (gestion des utilisateurs)
+- Bouton bleu **"+ Nouveau Produit"** (créer un produit)
+
+**Message de confirmation** :
+- Alerte verte : **"Produit supprimé avec succès !"** (flash message)
+
+**Tableau de gestion des produits** :
+
+| ID | Image | Nom | Prix | Stock | Statut | Date création | Actions |
+|----|-------|-----|------|-------|--------|---------------|---------|
+| 4 | 🖼️ | Moss Air 1 | 149,99€ | **9 (Faible)** 🟡 | Actif ✅ | 04/12/2025 11:40 | ✏️ 🗑️ |
+| 5 | 🖼️ | Moss Air 2 | 179,99€ | **4 (Faible)** 🟡 | Actif ✅ | 04/12/2025 11:40 | ✏️ 🗑️ |
+| 6 | 🖼️ | Moss Air 3 | 199,99€ | **3 (Faible)** 🟡 | Actif ✅ | 04/12/2025 11:40 | ✏️ 🗑️ |
+
+**Système de badges colorés** :
+
+1. **Badge jaune "9 (Faible)"** :
+   ```twig
+   {% if produit.stock < 10 %}
+       <span class="badge bg-warning text-dark">
+           {{ produit.stock }} (Faible)
+       </span>
+   {% endif %}
+   ```
+   - Stock entre 1 et 9 → Alerte orange/jaune
+   - L'admin doit réapprovisionner
+
+2. **Badge rouge "Rupture"** (non visible ici mais dans le code) :
+   ```twig
+   {% if produit.stock == 0 %}
+       <span class="badge bg-danger">Rupture</span>
+   {% endif %}
+   ```
+   - Stock à 0 → Rouge critique
+   - Le produit ne peut plus être commandé
+
+3. **Badge vert (stock ≥ 10)** :
+   ```twig
+   {% else %}
+       <span class="badge bg-success">{{ produit.stock }}</span>
+   {% endif %}
+   ```
+   - Stock confortable → Vert
+
+**Actions disponibles** :
+- **Bouton jaune (✏️)** : Modifier le produit (nom, prix, **stock**, image)
+- **Bouton rouge (🗑️)** : Supprimer le produit (avec confirmation CSRF)
+
+**Workflow admin pour gérer le stock** :
+1. Voir les badges colorés pour identifier les produits à faible stock
+2. Cliquer sur ✏️ pour modifier
+3. Augmenter la valeur du champ `stock`
+4. Sauvegarder
+5. Le badge passe de jaune à vert si le stock dépasse 10
+
+**Sécurité** :
+- Accès restreint aux admins uniquement via `checkAdmin()`
+- Tokens CSRF sur toutes les actions de suppression
+- Confirmation JavaScript avant suppression
+
+---
+
 ## 9. Base de Données : Structure et Relations
 
 ### Modèle Logique de Données (MLD)
