@@ -1069,6 +1069,66 @@ CREATE TABLE commande (
 - `date_commande` : Date et heure de la commande
 - `created_at` : Date de création de l'enregistrement
 
+---
+
+### 📸 Screenshots : Structure Réelle des Tables (phpMyAdmin)
+
+#### Screenshot 1 : Structure de la table `user`
+
+**Vue dans phpMyAdmin** - Voici la structure réelle de la table user telle qu'elle existe en base de données :
+
+| # | Nom | Type | Null | Valeur par défaut | Extra | Commentaires |
+|---|-----|------|------|-------------------|-------|--------------|
+| 1 | **id** | int | Non | Aucun(e) | AUTO_INCREMENT | Identifiant unique |
+| 2 | **email** | varchar(255) | Non | Aucun(e) | | Email de connexion |
+| 3 | **password** | varchar(255) | Non | Aucun(e) | | Mot de passe haché |
+| 4 | **nom** | varchar(255) | Non | Aucun(e) | | Nom de famille |
+| 5 | **prenom** | varchar(255) | Non | Aucun(e) | | Prénom |
+| 6 | **photo** | varchar(255) | Oui | NULL | | Photo de profil |
+| 7 | **created_at** | datetime | Non | Aucun(e) | (DC2Type:datetime_immutable) | Date de création |
+| 8 | **updated_at** | datetime | Non | Aucun(e) | (DC2Type:datetime_immutable) | Date de modification |
+| 9 | **actif** | tinyint(1) | Non | Aucun(e) | | Compte actif ou non |
+| 10 | **role** | varchar(50) | Oui | user | | Rôle (user/admin) |
+
+**Clé primaire** : id (PRIMARY - BTREE)
+
+**Points importants** :
+- Le champ `role` a une valeur par défaut à **"user"**
+- Les mots de passe sont stockés en `varchar(255)` pour supporter le hachage bcrypt
+- Les dates utilisent le type Doctrine `datetime_immutable` pour éviter les modifications accidentelles
+
+#### Screenshot 2 : Structure de la table `produit`
+
+**Vue dans phpMyAdmin** - Voici la structure réelle de la table produit avec le champ stock :
+
+| # | Nom | Type | Null | Valeur par défaut | Extra | Commentaires |
+|---|-----|------|------|-------------------|-------|--------------|
+| 1 | **id** | int | Non | Aucun(e) | AUTO_INCREMENT | Identifiant unique |
+| 2 | **nom** | varchar(255) | Non | Aucun(e) | | Nom du produit |
+| 3 | **description** | longtext | Oui | NULL | | Description détaillée |
+| 4 | **prix** | double | Non | Aucun(e) | | Prix en euros |
+| 5 | **image** | varchar(255) | Oui | NULL | | Nom du fichier image |
+| 6 | **actif** | tinyint(1) | Non | Aucun(e) | | Produit actif/inactif |
+| 7 | **created_at** | datetime | Non | Aucun(e) | (DC2Type:datetime_immutable) | Date de création |
+| 8 | **updated_at** | datetime | Non | Aucun(e) | (DC2Type:datetime_immutable) | Date de modification |
+| 9 | **stock** ⭐ | int | Oui | **0** | | **Quantité en stock** |
+
+**Clé primaire** : id (PRIMARY - BTREE)
+
+**Points importants** :
+- La colonne **`stock`** (ligne 9) a été ajoutée via la migration `Version20251203150000`
+- Valeur par défaut : **0** (pas de stock par défaut)
+- Type `int` pour stocker des nombres entiers uniquement
+- Accepte NULL mais avec défaut 0 pour éviter les valeurs nulles
+
+**Cette colonne est cruciale pour** :
+- Vérifier la disponibilité avant ajout au panier
+- Empêcher les surventes
+- Décrémenter automatiquement après une commande
+- Afficher des badges colorés dans le dashboard admin
+
+---
+
 ### Modèle Conceptuel de Données (MCD)
 
 ```
