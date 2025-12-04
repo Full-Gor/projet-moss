@@ -27,7 +27,3 @@
 ###> Firebase ###
 /config/firebase-credentials.json
 ###< Firebase ###
-
-###> Documentation ###
-/docs/
-###< Documentation ###
