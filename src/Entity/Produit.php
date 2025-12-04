@@ -28,6 +28,12 @@ class Produit
     #[ORM\Column]
     private ?bool $actif = true;
 
+    // Champ stock : quantité disponible en stock
+    // Type int = nombre entier (0, 1, 2, 3...)
+    // Par défaut = 0 (aucun stock)
+    #[ORM\Column]
+    private ?int $stock = 0;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -119,6 +125,37 @@ class Produit
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    // Récupérer le stock disponible
+    // Retourne un nombre entier (ex: 10, 50, 0)
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    // Définir le stock disponible
+    // Exemple : setStock(100) pour mettre 100 produits en stock
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
+        return $this;
+    }
+
+    // Vérifier s'il reste du stock
+    // Retourne true si stock > 0, false sinon
+    public function hasStock(): bool
+    {
+        return $this->stock > 0;
+    }
+
+    // Décrémenter le stock (enlever une quantité)
+    // Exemple : decrementStock(2) enlève 2 produits du stock
+    public function decrementStock(int $quantity): static
+    {
+        // Empêcher le stock de devenir négatif
+        $this->stock = max(0, $this->stock - $quantity);
         return $this;
     }
 }

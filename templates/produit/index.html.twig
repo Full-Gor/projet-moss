@@ -6,6 +6,19 @@
 
 {% block body %}
 	<div class="product-page">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		{% endfor %}
 		{% if produits is empty %}
 			<div class="no-products">
 				<h2>Aucun produit disponible</h2>
@@ -25,19 +38,48 @@
 						<h1>{{ produit.nom }}</h1>
 						<p class="price">{{ produit.prix }}€</p>
 
+						{# Affichage du stock disponible #}
+						<div class="stock-info">
+							{% if produit.stock > 0 %}
+								<span class="badge-stock available">✓ En stock ({{ produit.stock }} disponible(s))</span>
+							{% else %}
+								<span class="badge-stock unavailable">✗ Rupture de stock</span>
+							{% endif %}
+						</div>
+
 						{% if produit.description %}
 							<div class="product-description">
 								<p>{{ produit.description }}</p>
 							</div>
 						{% endif %}
+						
 
+						{# Formulaire d'ajout au panier #}
 						<form action="{{ path('app_panier_ajouter') }}" method="POST">
+							{# Input caché pour envoyer l'ID du produit #}
+							<input type="hidden" name="product_id" value="{{ produit.id }}">
+
 							<div class="quantity-selection">
-								<label for="quantite">Quantité :</label>
-								<input type="number" id="quantite" name="quantite" value="1" min="1" max="10" class="quantity-input">
+								<label for="quantite-{{ produit.id }}">Quantité :</label>
+								{# max = limiter la quantité au stock disponible #}
+								<input type="number"
+									   id="quantite-{{ produit.id }}"
+									   name="quantite"
+									   value="1"
+									   min="1"
+									   max="{{ produit.stock }}"
+									   class="quantity-input"
+									   {% if produit.stock == 0 %}disabled{% endif %}>
 							</div>
 
-							<button type="submit" class="add-to-cart">Ajouter au panier</button>
+							{# Bouton désactivé si rupture de stock #}
+							<button type="submit" class="add-to-cart" {% if produit.stock == 0 %}disabled{% endif %}>
+								{% if produit.stock > 0 %}
+									Ajouter au panier
+								{% else %}
+									Produit indisponible
+								{% endif %}
+							</button>
 						</form>
 					</div>
 				</div>
@@ -188,6 +230,44 @@
 		.no-products h2 {
 			color: #2c5530;
 			margin-bottom: 1rem;
+		}
+
+		/* Styles pour le badge de stock */
+		.stock-info {
+			margin-bottom: 1.5rem;
+		}
+
+		.badge-stock {
+			display: inline-block;
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			font-weight: 600;
+			font-size: 0.9rem;
+		}
+
+		.badge-stock.available {
+			background-color: #d4edda;
+			color: #155724;
+			border: 1px solid #c3e6cb;
+		}
+
+		.badge-stock.unavailable {
+			background-color: #f8d7da;
+			color: #721c24;
+			border: 1px solid #f5c6cb;
+		}
+
+		/* Bouton désactivé */
+		.add-to-cart:disabled {
+			background: #ccc;
+			cursor: not-allowed;
+			opacity: 0.6;
+		}
+
+		.add-to-cart:disabled:hover {
+			background: #ccc;
+			transform: none;
+			box-shadow: none;
 		}
 
 		@media(max-width: 768px) {

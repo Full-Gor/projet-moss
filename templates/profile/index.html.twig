@@ -51,11 +51,19 @@
 			<!-- Historique des commandes -->
 			<div class="col-md-8">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header d-flex justify-content-between align-items-center">
 						<h5 class="mb-0">
 							<i class="fas fa-history"></i>
 							Historique des commandes
 						</h5>
+						{% if commandes is not empty %}
+							<form action="{{ path('app_commande_delete_all') }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer TOUTES vos commandes ?')">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete_all_commandes') }}">
+								<button type="submit" class="btn btn-sm btn-outline-danger">
+									<i class="fas fa-trash-alt"></i> Tout supprimer
+								</button>
+							</form>
+						{% endif %}
 					</div>
 					<div class="card-body">
 						{% if commandes is empty %}
@@ -77,6 +85,7 @@
 											<th>Prix</th>
 											<th>Date</th>
 											<th>Statut</th>
+											<th class="text-center">Actions</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -84,7 +93,11 @@
 											<tr>
 												<td>
 													<div class="d-flex align-items-center">
-														<img src="{{ asset('images/hero3.jpg') }}" alt="Produit" class="product-thumb me-2">
+														{% if commande.image %}
+															<img src="{{ asset('images/produits/' ~ commande.image) }}" alt="{{ commande.produit }}" class="product-thumb me-2">
+														{% else %}
+															<img src="{{ asset('images/default-avatar.jpg') }}" alt="Image non disponible" class="product-thumb me-2">
+														{% endif %}
 														<span>{{ commande.produit }}</span>
 													</div>
 												</td>
@@ -93,6 +106,14 @@
 												<td>{{ commande.dateCommande|date('d/m/Y H:i') }}</td>
 												<td>
 													<span class="badge bg-success">Livré</span>
+												</td>
+												<td class="text-center">
+													<form action="{{ path('app_commande_delete', {id: commande.id}) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette commande ?')">
+														<input type="hidden" name="_token" value="{{ csrf_token('delete_commande' ~ commande.id) }}">
+														<button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer">
+															<i class="fas fa-trash"></i>
+														</button>
+													</form>
 												</td>
 											</tr>
 										{% endfor %}

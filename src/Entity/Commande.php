@@ -33,6 +33,9 @@ class Commande
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $createdAt;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +107,17 @@ class Commande
     public function setCreatedAt(?\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
         return $this;
     }
 }

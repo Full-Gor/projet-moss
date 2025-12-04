@@ -34,6 +34,22 @@
 								</div>
 							</div>
 
+							{# Champ stock : quantité disponible #}
+							<div class="mb-3">
+								<label for="stock" class="form-label">Stock disponible *</label>
+								<div class="input-group">
+									<input type="number"
+										   class="form-control"
+										   id="stock"
+										   name="stock"
+										   value="{{ produit ? produit.stock : 0 }}"
+										   min="0"
+										   required>
+									<span class="input-group-text">unité(s)</span>
+								</div>
+								<small class="text-muted">Nombre de produits disponibles à la vente</small>
+							</div>
+
 							<div class="mb-3">
 								<label for="image" class="form-label">Image</label>
 								<input type="file" class="form-control" id="image" name="image" accept="image/*">
