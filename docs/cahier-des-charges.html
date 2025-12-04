@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier des Charges - MossAir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2d5a27;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #2d5a27;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2d5a27;
+        }
+        h3 {
+            color: #444;
+            margin: 20px 0 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .badge-admin {
+            background-color: #dc3545;
+            color: white;
+        }
+        .badge-user {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .badge-stock {
+            background-color: #28a745;
+            color: white;
+        }
+        .badge-livré {
+            background-color: #28a745;
+            color: white;
+        }
+        .screenshot {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .screenshot img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .screenshot-caption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cahier des Charges - MossAir</h1>
+
+        <!-- Section Données de Test -->
+        <div class="section">
+            <h2>Données de Test</h2>
+
+            <!-- Utilisateurs -->
+            <h3>Utilisateurs de Test</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                        <th>Date inscription</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>arnaud</td>
+                        <td>-</td>
+                        <td>arnaudbarotteaux@gmail.com</td>
+                        <td><span class="badge badge-admin">Admin</span></td>
+                        <td>28/10/2025 12:07</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>user</td>
+                        <td>user</td>
+                        <td>user@gmail.com</td>
+                        <td><span class="badge badge-user">Utilisateur</span></td>
+                        <td>03/12/2025 16:04</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Capture d'écran Utilisateurs -->
+            <div class="screenshot">
+                <img src="screenshots/liste-utilisateurs.png" alt="Liste des Utilisateurs">
+                <p class="screenshot-caption">Capture d'écran : Liste des Utilisateurs</p>
+            </div>
+
+            <!-- Produits -->
+            <h3>Produits de Test</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Stock</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Moss Air 1</td>
+                        <td>149,99 €</td>
+                        <td><span class="badge badge-stock">En stock</span></td>
+                        <td>Purificateur d'air entrée de gamme</td>
+                    </tr>
+                    <tr>
+                        <td>Moss Air 2</td>
+                        <td>179,99 €</td>
+                        <td><span class="badge badge-stock">En stock</span></td>
+                        <td>Purificateur d'air milieu de gamme</td>
+                    </tr>
+                    <tr>
+                        <td>Moss Air 3</td>
+                        <td>199,99 €</td>
+                        <td><span class="badge badge-stock">3 disponible(s)</span></td>
+                        <td>Purificateur d'air haut de gamme avec technologie avancée de mousse stabilisée. Le meilleur de notre gamme.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Capture d'écran Produit -->
+            <div class="screenshot">
+                <img src="screenshots/produit-moss-air-3.png" alt="Fiche produit Moss Air 3">
+                <p class="screenshot-caption">Capture d'écran : Fiche produit Moss Air 3</p>
+            </div>
+
+            <!-- Commandes -->
+            <h3>Historique des Commandes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Moss Air 3</td>
+                        <td>4</td>
+                        <td>199,99 €</td>
+                        <td>04/12/2025 10:55</td>
+                        <td><span class="badge badge-livré">Livré</span></td>
+                    </tr>
+                    <tr>
+                        <td>Moss Air 2</td>
+                        <td>4</td>
+                        <td>179,99 €</td>
+                        <td>04/12/2025 10:55</td>
+                        <td><span class="badge badge-livré">Livré</span></td>
+                    </tr>
+                    <tr>
+                        <td>Moss Air 1</td>
+                        <td>3</td>
+                        <td>149,99 €</td>
+                        <td>04/12/2025 10:55</td>
+                        <td><span class="badge badge-livré">Livré</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Capture d'écran Commandes -->
+            <div class="screenshot">
+                <img src="screenshots/historique-commandes.png" alt="Historique des commandes">
+                <p class="screenshot-caption">Capture d'écran : Historique des commandes</p>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
