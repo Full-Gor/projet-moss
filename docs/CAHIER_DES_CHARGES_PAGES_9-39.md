@@ -70,6 +70,146 @@ J'ai testé le site sur plusieurs tailles d'écran en utilisant les outils de d�
 
 ---
 
+### 📸 Screenshots : Interface Utilisateur Responsive
+
+#### Screenshot 7 : Page d'Accueil - Version Desktop
+
+**Vue Desktop** - Interface complète sur grand écran :
+
+**Header de navigation** :
+- Logo **"MossAir"** à gauche
+- Menu horizontal : `Accueil | Produit | Histoire | À propos`
+- Bouton vert **"Panier"** (accès au panier)
+- Bouton rouge **"Dashboard"** (visible uniquement pour les admins)
+- Badge utilisateur **"arnaud"** avec icône (utilisateur connecté)
+- Lien **"Déconnexion"** en rouge
+
+**Hero Section (Section principale)** :
+- Grande image de fond montrant le purificateur d'air avec mousse végétale
+- Titre principal : **"MossAir"**
+- Sous-titre : *"Purificateur d'air naturel révolutionnaire qui utilise la mousse vivante pour créer un environnement plus sain"*
+- Design épuré et professionnel
+
+**Navigation visible** : Tous les éléments sont alignés horizontalement dans le header
+
+---
+
+#### Screenshot 8 : Page d'Accueil - Version Mobile
+
+**Vue Mobile** - Interface responsive adaptée aux petits écrans :
+
+**Changements responsive** :
+- Logo **"MossAir"** reste visible
+- Menu hamburger (icône ☰) remplace la navigation horizontale
+- Le hero image s'adapte à la largeur de l'écran
+- Bouton call-to-action : **"Découvrir MossAir"** (centré)
+- Texte responsive : taille et espacement adaptés
+
+**Section "Environ"** visible en bas :
+- Titre de section avec fond sombre
+- Contenu texte adapté à la largeur mobile
+
+**Layout** : Les éléments passent d'une disposition horizontale à verticale pour une meilleure lisibilité sur mobile
+
+---
+
+#### Screenshot 9 : Menu Hamburger Mobile Ouvert
+
+**Menu de navigation mobile déployé** :
+
+**Structure du menu latéral** :
+- Fond vert foncé (`background-color: #333`)
+- Panneau qui glisse depuis la droite (`right: -250px` → `right: 0`)
+- Animation fluide (`transition: all 0.4s linear`)
+
+**Liens de navigation (ordre vertical)** :
+1. **Accueil**
+2. **Produit**
+3. **Histoire**
+4. **À propos**
+5. **Panier** (bouton vert)
+6. **Dashboard** (bouton rouge, visible car admin connecté)
+7. **"bonjour arnaud"** (badge utilisateur cerclé)
+8. **Déconnexion** (lien rouge)
+
+**Comportement** :
+- Clic sur hamburger → Menu s'ouvre
+- Clic sur un lien → Menu se ferme automatiquement
+- Overlay semi-transparent derrière le menu
+
+**Code correspondant** :
+```javascript
+// Menu hamburger toggle
+hamburger.classList.toggle('active');
+navMenu.classList.toggle('active');
+```
+
+---
+
+#### Screenshot 10 : Header - Utilisateur Normal (non-admin)
+
+**Vue header pour un utilisateur standard** :
+
+**Éléments visibles** :
+- Logo **"MossAir"**
+- Navigation : `Accueil | Produit | Histoire | À propos`
+- Bouton **"Panier"** (vert)
+- Badge utilisateur : **"user"** (au lieu de "arnaud")
+- Lien **"Déconnexion"** (rouge)
+
+**Élément MANQUANT** :
+- ❌ Bouton **"Dashboard"** → Non visible car `role !== 'admin'`
+
+**Logique de contrôle d'accès** :
+```twig
+{% if app.session.get('user') and app.session.get('user').role == 'admin' %}
+    <a href="{{ path('app_admin_dashboard') }}" class="btn-dashboard">
+        Dashboard
+    </a>
+{% endif %}
+```
+
+**Différence clé** : Un utilisateur normal ne peut pas accéder au dashboard admin, donc le bouton est masqué.
+
+---
+
+#### Screenshot 11 : Header - Administrateur Connecté
+
+**Vue header pour un administrateur** :
+
+**Éléments visibles** :
+- Logo **"MossAir"**
+- Navigation complète : `Accueil | Produit | Histoire | À propos`
+- Bouton **"Panier"** (vert)
+- Bouton **"Dashboard"** (rouge) ✅ **VISIBLE**
+- Badge utilisateur : **"arnaud"** (admin)
+- Lien **"Déconnexion"** (rouge)
+
+**Élément PRÉSENT** :
+- ✅ Bouton **"Dashboard"** en rouge → Visible car `role === 'admin'`
+
+**Contrôle dans le code** :
+```php
+// Dans AdminController
+private function checkAdmin(SessionInterface $session): bool
+{
+    $user = $session->get('user');
+    return $user && isset($user['role']) && $user['role'] === 'admin';
+}
+
+// Vérification avant chaque action admin
+if (!$this->checkAdmin($session)) {
+    $this->addFlash('error', 'Accès refusé. Réservé aux administrateurs.');
+    return $this->redirectToRoute('app_home');
+}
+```
+
+**Sécurité** :
+- Le bouton n'est affiché que si l'utilisateur a le rôle `admin` en session
+- Même si un utilisateur modifie le HTML pour afficher le bouton, l'accès à la route `/admin` est bloqué côté serveur
+
+---
+
 ## 2. JavaScript et Interactivité
 
 JavaScript est utilisé pour ajouter des fonctionnalités interactives et améliorer l'expérience utilisateur.
