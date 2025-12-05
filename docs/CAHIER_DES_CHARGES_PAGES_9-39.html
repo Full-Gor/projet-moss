@@ -153,6 +153,30 @@
         page-break-inside: avoid;
       }
     }
+    /* PDF Page numbering - starts at page 9 */
+    @page {
+      size: A4;
+      margin: 2.5cm 2cm 3cm 2cm;
+      counter-reset: page 8;
+      @top-center {
+        content: "Cahier des Charges - Projet MossAir";
+        font-size: 10pt;
+        color: #4a7c59;
+      }
+      @bottom-center {
+        content: "Page " counter(page);
+        font-size: 10pt;
+        color: #333;
+      }
+      @bottom-right {
+        content: "MossAir © 2025";
+        font-size: 9pt;
+        color: #666;
+      }
+    }
+    @page :first {
+      @top-center { content: none; }
+    }
     p {
       margin: 1em 0;
     }
