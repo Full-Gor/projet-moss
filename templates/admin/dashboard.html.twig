@@ -47,6 +47,7 @@
 									<th>Image</th>
 									<th>Nom</th>
 									<th>Prix</th>
+									<th>Stock</th>
 									<th>Statut</th>
 									<th>Date création</th>
 									<th>Actions</th>
@@ -66,8 +67,17 @@
 											{% endif %}
 										</td>
 										<td>{{ produit.nom }}</td>
-										<td>{{ produit.prix|number_format(2, ',', ' ') }}
-											€</td>
+										<td>{{ produit.prix|number_format(2, ',', ' ') }}€</td>
+										<td>
+											{# Afficher le stock avec badge coloré selon la quantité #}
+											{% if produit.stock == 0 %}
+												<span class="badge bg-danger">Rupture</span>
+											{% elseif produit.stock < 10 %}
+												<span class="badge bg-warning text-dark">{{ produit.stock }} (Faible)</span>
+											{% else %}
+												<span class="badge bg-success">{{ produit.stock }}</span>
+											{% endif %}
+										</td>
 										<td>
 											<span class="badge bg-{{ produit.actif ? 'success' : 'danger' }}">
 												{{ produit.actif ? 'Actif' : 'Inactif' }}

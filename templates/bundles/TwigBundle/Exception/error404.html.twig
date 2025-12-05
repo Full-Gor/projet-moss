@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée - MossAir{% endblock %}
+
+{% block body %}
+<div class="error-page">
+    <div class="error-container">
+        <div class="error-icon">
+            <span>🌿</span>
+        </div>
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Page non trouvée</h2>
+        <p class="error-message">
+            Oups ! La page que vous recherchez semble avoir disparu dans la nature...
+        </p>
+        <p class="error-submessage">
+            Elle a peut-être été déplacée, supprimée, ou n'a jamais existé.
+        </p>
+
+        <div class="error-actions">
+            <a href="{{ path('app_home') }}" class="btn-home">
+                <i class="fas fa-home"></i> Retour à l'accueil
+            </a>
+            <a href="{{ path('app_produit') }}" class="btn-products">
+                <i class="fas fa-leaf"></i> Voir nos produits
+            </a>
+        </div>
+
+        <div class="error-search">
+            <p>Vous cherchiez peut-être :</p>
+            <ul>
+                <li><a href="{{ path('app_produit') }}">Nos purificateurs d'air</a></li>
+                <li><a href="{{ path('app_histoire') }}">Notre histoire</a></li>
+                <li><a href="{{ path('app_about') }}">À propos de MossAir</a></li>
+                <li><a href="{{ path('app_panier') }}">Votre panier</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-page {
+        min-height: calc(100vh - 160px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f9fdf9 0%, #e8f5e9 100%);
+    }
+
+    .error-container {
+        text-align: center;
+        max-width: 600px;
+        padding: 3rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(74, 124, 89, 0.15);
+    }
+
+    .error-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .error-code {
+        font-size: 8rem;
+        font-weight: bold;
+        color: #4a7c59;
+        margin: 0;
+        line-height: 1;
+        text-shadow: 3px 3px 0 #e8f5e9;
+    }
+
+    .error-title {
+        font-size: 2rem;
+        color: #2d4a2b;
+        margin: 1rem 0;
+    }
+
+    .error-message {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .error-submessage {
+        font-size: 1rem;
+        color: #888;
+        margin-bottom: 2rem;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .btn-home, .btn-products {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-home {
+        background: linear-gradient(135deg, #4a7c59, #6b8e7a);
+        color: white;
+    }
+
+    .btn-home:hover {
+        background: linear-gradient(135deg, #3d6b4a, #5a7a66);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(74, 124, 89, 0.3);
+        color: white;
+    }
+
+    .btn-products {
+        background: white;
+        color: #4a7c59;
+        border: 2px solid #4a7c59;
+    }
+
+    .btn-products:hover {
+        background: #4a7c59;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .error-search {
+        padding-top: 2rem;
+        border-top: 1px solid #e8f5e9;
+    }
+
+    .error-search p {
+        color: #666;
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+
+    .error-search ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1.5rem;
+    }
+
+    .error-search a {
+        color: #4a7c59;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .error-search a:hover {
+        color: #2d4a2b;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 576px) {
+        .error-code {
+            font-size: 5rem;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+        }
+
+        .error-message {
+            font-size: 1rem;
+        }
+
+        .error-container {
+            padding: 2rem 1.5rem;
+        }
+
+        .error-actions {
+            flex-direction: column;
+        }
+
+        .btn-home, .btn-products {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}

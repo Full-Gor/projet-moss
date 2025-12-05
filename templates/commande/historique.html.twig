@@ -12,7 +12,9 @@
 					<tr>
 						<th>N° Commande</th>
 						<th>Date</th>
+						<th>Image</th>
 						<th>Produit</th>
+						<th>Prix</th>
 						<th>Nom Client</th>
 						<th>Quantité</th>
 					</tr>
@@ -22,7 +24,15 @@
 						<tr>
 							<td>#{{ commande.id }}</td>
 							<td>{{ commande.dateCommande|date('d/m/Y H:i') }}</td>
+							<td>
+								{% if commande.image %}
+									<img src="{{ asset('images/produits/' ~ commande.image) }}" alt="{{ commande.produit }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+								{% else %}
+									<img src="{{ asset('images/default-avatar.jpg') }}" alt="Image non disponible" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+								{% endif %}
+							</td>
 							<td>{{ commande.produit }}</td>
+							<td>{{ commande.prix ? commande.prix ~ ' €' : '-' }}</td>
 							<td>{{ commande.nomClient }}</td>
 							<td>{{ commande.quantite }}</td>
 						</tr>

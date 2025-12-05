@@ -55,6 +55,8 @@ class AdminController extends AbstractController
             $produit->setDescription($request->request->get('description'));
             $produit->setPrix((float) $request->request->get('prix'));
             $produit->setActif($request->request->get('actif') === 'on');
+            // Récupérer le stock depuis le formulaire (par défaut 0)
+            $produit->setStock((int) $request->request->get('stock', 0));
             $produit->setUpdatedAt(new \DateTimeImmutable());
 
             // Gestion de l'image (seulement si un nouveau fichier est uploadé)
@@ -103,6 +105,8 @@ class AdminController extends AbstractController
             $produit->setDescription($request->request->get('description'));
             $produit->setPrix((float) $request->request->get('prix'));
             $produit->setActif($request->request->get('actif') === 'on');
+            // Mettre à jour le stock
+            $produit->setStock((int) $request->request->get('stock', 0));
             $produit->setUpdatedAt(new \DateTimeImmutable());
 
             // Gestion de l'image (seulement si un nouveau fichier est uploadé)

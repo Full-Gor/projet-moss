@@ -1,0 +1,176 @@
+/* ===========================================
+   HEADER / NAVIGATION
+   =========================================== */
+
+/* Navigation principale */
+.navbar {
+    background: rgba(45, 74, 43, 0.3) !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: none;
+    border: none;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    gap: 3rem;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.nav-menu a:hover {
+    opacity: 0.8;
+}
+
+.cart {
+    background-color: #4a7c59;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+/* Menu Hamburger */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+    width: 35px;
+    height: 30px;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.hamburger span {
+    display: block !important;
+    width: 25px;
+    height: 3px;
+    background-color: white !important;
+    border-radius: 2px;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ===========================================
+   HEADER RESPONSIVE
+   =========================================== */
+
+@media (max-width: 1400px) {
+    .nav-container {
+        flex-wrap: wrap;
+        position: relative;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    .logo {
+        order: 1;
+    }
+
+    .hamburger {
+        display: flex !important;
+        order: 2;
+    }
+
+    .nav-menu {
+        display: none !important;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #2d4a2b 0%, #4a7c59 100%);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        z-index: 1000;
+        order: 3;
+    }
+
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 1rem 2rem;
+        width: 100%;
+    }
+
+    .cart {
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 0;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .nav-menu {
+        top: 70px;
+        max-height: calc(100vh - 70px);
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .hamburger span {
+        width: 20px;
+    }
+}
+
+@media (max-width: 992px) and (orientation: landscape) {
+    .nav-menu {
+        max-height: calc(100vh - 60px);
+    }
+}
