@@ -555,9 +555,40 @@
             <div class="badge">CAHIER DES CHARGES TECHNIQUE</div>
 
             <p style="margin-top: 40px; opacity: 0.8;">
-                Pages 9-39 : Frontend & Backend<br>
+                Cahier des Charges Technique<br>
                 Année 2024-2025
             </p>
+        </div>
+
+        <!-- TABLE DES MATIÈRES -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Table des Matières</h2>
+                <span class="number">📑</span>
+            </div>
+
+            <div class="toc">
+                <ul>
+                    <li><span>Introduction</span></li>
+                    <li><span>Résumé du Projet</span></li>
+                    <li><span>Technologies Utilisées</span></li>
+                    <li><span>1. CSS et Media Queries : Design Responsive</span></li>
+                    <li><span>2. JavaScript et Interactivité</span></li>
+                    <li><span>3. PHP et Gestion du Site avec Symfony</span></li>
+                    <li><span>4. Entity Produit avec Gestion du Stock</span></li>
+                    <li><span>5. Migration : Ajout de la Colonne Stock</span></li>
+                    <li><span>6. PanierController : Gestion du Panier</span></li>
+                    <li><span>7. Screenshots : Panier et Dashboard Admin</span></li>
+                    <li><span>8. Screenshots : Authentification et Produits</span></li>
+                    <li><span>9. Base de Données : Structure et Relations</span></li>
+                    <li><span>10. Flux de Gestion du Stock</span></li>
+                    <li><span>11. Sécurité : Points Clés</span></li>
+                    <li><span>12-13. Utilisation de Symfony et Structure</span></li>
+                    <li><span>14. Pages Additionnelles</span></li>
+                    <li><span>Annexes : Wireframes et Maquettes</span></li>
+                    <li><span>Conclusion</span></li>
+                </ul>
+            </div>
         </div>
 
         <!-- INTRODUCTION -->
@@ -712,36 +743,6 @@
 ├── user          → Gestion des utilisateurs (admin, user)
 ├── produit       → Catalogue des produits Moss Air
 └── commande      → Historique des commandes</pre>
-            </div>
-        </div>
-
-        <!-- TABLE OF CONTENTS -->
-        <div class="page">
-            <div class="section-header">
-                <h2>Table des Matières</h2>
-                <span class="number">📑</span>
-            </div>
-
-            <div class="toc">
-                <ul>
-                    <li><span>Introduction</span></li>
-                    <li><span>Résumé du Projet</span></li>
-                    <li><span>Technologies Utilisées</span></li>
-                    <li><span>1. CSS et Media Queries : Design Responsive</span></li>
-                    <li><span>2. JavaScript et Interactivité</span></li>
-                    <li><span>3. PHP et Gestion du Site avec Symfony</span></li>
-                    <li><span>4. Entity Produit avec Gestion du Stock</span></li>
-                    <li><span>5. Migration : Ajout de la Colonne Stock</span></li>
-                    <li><span>6. PanierController : Gestion du Panier</span></li>
-                    <li><span>7. Screenshots : Panier et Dashboard Admin</span></li>
-                    <li><span>8. Screenshots : Authentification et Produits</span></li>
-                    <li><span>9. Base de Données : Structure et Relations</span></li>
-                    <li><span>10. Flux de Gestion du Stock</span></li>
-                    <li><span>11. Sécurité : Points Clés</span></li>
-                    <li><span>12-13. Utilisation de Symfony et Structure</span></li>
-                    <li><span>14. Pages Additionnelles</span></li>
-                    <li><span>Conclusion</span></li>
-                </ul>
             </div>
         </div>
 
@@ -1817,6 +1818,80 @@ migrations/
             <div class="screenshot-box">
                 <img src="screenshots/screen_40.png" alt="Alerte stock" class="screenshot-img medium">
                 <p class="screenshot-caption">Message d'alerte lorsque le stock est insuffisant</p>
+            </div>
+        </div>
+
+        <!-- ANNEXES : WIREFRAMES ET MAQUETTES -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Annexes : Wireframes et Maquettes</h2>
+                <span class="number">📐</span>
+            </div>
+
+            <p>Cette section présente les wireframes SVG créés pour la conception du site MossAir. Ces maquettes illustrent l'architecture des pages, les flux de navigation et le design responsive prévu.</p>
+
+            <h3>A. Wireframes Complets (Desktop, Mobile, Tablette)</h3>
+            <div class="info-box">
+                <p>Le fichier <code>index2.html</code> contient les wireframes détaillés de toutes les pages du site :</p>
+                <ul>
+                    <li><strong>Page d'accueil</strong> : Présentation des produits Moss Air 1, 2, 3</li>
+                    <li><strong>Page Produit</strong> : Détail avec sélection couleur et quantité</li>
+                    <li><strong>Panier</strong> : Liste des articles avec total (149.99€, 179.99€, 199.99€)</li>
+                    <li><strong>Paiement Stripe</strong> : Interface sécurisée avec récapitulatif</li>
+                    <li><strong>Dashboard Utilisateur</strong> : Historique des commandes</li>
+                    <li><strong>Dashboard Admin</strong> : Gestion des produits et stocks</li>
+                    <li><strong>Versions Mobile</strong> : Adaptations responsive de chaque page</li>
+                    <li><strong>Version Tablette</strong> : Grille 3 colonnes pour la boutique</li>
+                </ul>
+            </div>
+
+            <h3>B. Architecture et Flux de Navigation</h3>
+            <div class="info-box">
+                <p>Le fichier <code>index3.html</code> présente le schéma d'architecture :</p>
+                <ul>
+                    <li><strong>Zone Publique</strong> : Accueil → Boutique (3 produits) → Histoire → À propos</li>
+                    <li><strong>Zone Membre</strong> : Panier → Paiement → Dashboard utilisateur</li>
+                    <li><strong>Zone Admin</strong> : Dashboard admin avec CRUD produits/commandes/utilisateurs</li>
+                    <li><strong>Flux de navigation</strong> : Schéma des interactions entre les pages</li>
+                </ul>
+            </div>
+
+            <h3>C. Guide des Animations CSS/JavaScript</h3>
+            <div class="info-box">
+                <p>Le fichier <code>index4.html</code> documente les animations utilisées :</p>
+                <ul>
+                    <li><strong>Hover States</strong> : Boutons avec <code>transition: all 0.3s ease</code></li>
+                    <li><strong>Cards Produits</strong> : Effet de survol avec élévation et ombre</li>
+                    <li><strong>Page Transitions</strong> : Fade-in via <code>@keyframes fadeIn</code></li>
+                    <li><strong>Menu Mobile</strong> : Drawer avec <code>translateX</code></li>
+                    <li><strong>Loading States</strong> : Spinner CSS et skeleton screens</li>
+                    <li><strong>Scroll Animations</strong> : Intersection Observer API</li>
+                    <li><strong>Stack</strong> : CSS3 + JavaScript vanilla (pas de Framer Motion)</li>
+                </ul>
+            </div>
+
+            <h3>D. Planning de Développement Symfony</h3>
+            <div class="info-box">
+                <p>Le fichier <code>index5.html</code> détaille le planning projet :</p>
+                <ul>
+                    <li><strong>Phase 1 (Sem. 1-2)</strong> : Setup Symfony 6, Doctrine, MySQL, Bootstrap 5</li>
+                    <li><strong>Phase 2 (Sem. 3-5)</strong> : Controllers publics, Templates Twig, Panier</li>
+                    <li><strong>Phase 3 (Sem. 6-8)</strong> : Stripe, Admin CRUD, Responsive</li>
+                    <li><strong>Phase 4 (Sem. 9-10)</strong> : Tests PHPUnit, Sécurité, SEO</li>
+                    <li><strong>Phase 5 (Sem. 11)</strong> : Déploiement et lancement</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Stack technique :</strong> PHP 8, Symfony 6, Doctrine ORM, MySQL 8, Twig, Bootstrap 5, Stripe PHP SDK</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>Fichiers Wireframes</h4>
+                <p>Les wireframes SVG sont disponibles dans le dossier <code>/docs/</code> :</p>
+                <ul>
+                    <li><code>index2.html</code> - Wireframes de toutes les pages (Desktop/Mobile/Tablette)</li>
+                    <li><code>index3.html</code> - Architecture et flux de navigation</li>
+                    <li><code>index4.html</code> - Guide des animations CSS/JS</li>
+                    <li><code>index5.html</code> - Planning de développement Symfony</li>
+                </ul>
             </div>
         </div>
 
