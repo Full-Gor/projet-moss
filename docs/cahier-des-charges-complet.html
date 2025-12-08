@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier des Charges - Projet MossAir (Pages 9-39)</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Cover Page */
+        .cover {
+            background: linear-gradient(135deg, #2d4a2b 0%, #4a7c59 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            page-break-after: always;
+        }
+
+        .cover h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cover .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cover .badge {
+            display: inline-block;
+            background: #dc3545;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+
+        .cover .info {
+            margin-top: 50px;
+            font-size: 1.1rem;
+        }
+
+        /* Page styling */
+        .page {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Section headers */
+        .section-header {
+            background: linear-gradient(135deg, #2d4a2b 0%, #4a7c59 100%);
+            color: white;
+            padding: 25px 30px;
+            margin: -40px -40px 30px -40px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .section-header .number {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        /* Headings */
+        h3 {
+            color: #2d4a2b;
+            margin: 30px 0 15px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 10px;
+        }
+
+        h4 {
+            color: #4a7c59;
+            margin: 20px 0 10px 0;
+            font-size: 1.15rem;
+        }
+
+        h5 {
+            color: #666;
+            margin: 15px 0 10px 0;
+            font-size: 1rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #e8f5e9;
+            color: #2d4a2b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .variable { color: #9cdcfe; }
+        .class { color: #4ec9b0; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #2d4a2b;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fdf9;
+        }
+
+        tr:hover {
+            background: #e8f5e9;
+        }
+
+        /* Info boxes */
+        .info-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4a7c59;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box h4 {
+            color: #2d4a2b;
+            margin-top: 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Screenshot boxes */
+        .screenshot-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .screenshot-box h4 {
+            color: #2d4a2b;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .screenshot-box h4::before {
+            content: "📸";
+            font-size: 1.3rem;
+        }
+
+        .screenshot-content {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .badge-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .badge-primary {
+            background: #4a7c59;
+            color: white;
+        }
+
+        /* Architecture box */
+        .architecture-box {
+            background: #f5f5f5;
+            border: 2px solid #4a7c59;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+        }
+
+        /* Flow diagram */
+        .flow-diagram {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f9fdf9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #4a7c59;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* MCD Schema */
+        .mcd-box {
+            background: linear-gradient(135deg, #f5f5f5, #e8f5e9);
+            border: 2px solid #4a7c59;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .entity-box {
+            display: inline-block;
+            background: white;
+            border: 2px solid #2d4a2b;
+            border-radius: 10px;
+            margin: 10px;
+            min-width: 200px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .entity-header {
+            background: #2d4a2b;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .entity-body {
+            padding: 15px;
+        }
+
+        .entity-body p {
+            margin: 5px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .pk { color: #dc3545; font-weight: bold; }
+        .fk { color: #007bff; }
+
+        /* Images - Screenshots */
+        .screenshot-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .screenshot-img.small {
+            max-width: 60%;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .screenshot-img.medium {
+            max-width: 80%;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .screenshot-grid img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .screenshot-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Code blocks - prevent overflow */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .page {
+                box-shadow: none;
+                margin-bottom: 0;
+            }
+
+            .cover {
+                margin-bottom: 0;
+            }
+
+            pre {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                font-size: 0.7rem;
+            }
+
+            .screenshot-img {
+                max-width: 90%;
+                page-break-inside: avoid;
+            }
+
+            .screenshot-grid {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-header .number {
+                font-size: 2rem;
+            }
+
+            pre {
+                font-size: 0.8rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- COVER PAGE -->
+        <div class="cover">
+            <h1>🌿 MossAir</h1>
+            <p class="subtitle">Purificateur d'air naturel révolutionnaire</p>
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">Site E-Commerce Symfony</p>
+
+            <div style="width: 150px; height: 150px; background: rgba(255,255,255,0.15); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin: 30px 0;">
+                <span style="font-size: 4rem;">🌿</span>
+            </div>
+
+            <div class="info">
+                <p><strong>Projet de formation</strong></p>
+                <p>RNCP Niveau 5 - BAC +2</p>
+                <p>Développeur Web et Web Mobile</p>
+            </div>
+
+            <div class="badge">CAHIER DES CHARGES TECHNIQUE</div>
+
+            <p style="margin-top: 40px; opacity: 0.8;">
+                Pages 9-39 : Frontend & Backend<br>
+                Année 2024-2025
+            </p>
+        </div>
+
+        <!-- INTRODUCTION -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Introduction</h2>
+                <span class="number">📖</span>
+            </div>
+
+            <p>D'aussi loin que je me souvienne, j'ai toujours été curieux de ce qui vit, de ce souffle invisible qui traverse la nature. Grand lecteur de science-fiction et amateur de films comme <em>Sunshine</em>, <em>Matrix</em> ou <em>Interstellar</em>, je suis captivé par ce point de rencontre entre le vivant et la technologie. Pendant longtemps, je me suis retrouvé coincé dans le quotidien exigeant de la restauration, avec en tête ce rêve un peu flou : exercer un métier créatif, connecté, où je pourrais gérer mon temps librement — un monde que je croyais réservé aux as du code ou aux autodidactes précoces.</p>
+
+            <p>Le déclic est venu quand j'ai découvert les bienfaits de la respiration consciente, des étirements dynamiques et des mécanismes de la neurochimie positive. Petit à petit, j'ai laissé derrière moi la fatigue chronique et les rythmes hachés, pour construire un mode de vie plus sain, où bien-être, sport, alimentation ciblée et souplesse cognitive sont devenus mes nouveaux fondamentaux. C'est dans cet élan que je me suis formé au développement web, avec une idée claire en tête : créer des interfaces vivantes, qui permettent aux gens de se reconnecter à eux-mêmes.</p>
+
+            <p>C'est en mêlant cette façon d'envisager la vie, mon attrait pour le design inspiré de la nature et mes convictions écologiques qu'est né mon projet : un site dédié à <strong>Moss Air</strong>, un purificateur d'air à la fois innovant et organique, basé sur la mousse vivante. Ce produit, qui respire littéralement avec son environnement, représente pour moi le lien parfait entre ville et nature, une manière douce de réintroduire de l'intelligence naturelle dans nos espaces urbains.</p>
+
+            <div class="info-box">
+                <h4>Objectif du projet</h4>
+                <p>L'objectif de cette plateforme est simple : proposer une expérience d'achat qui ait du sens, qui invite à ralentir, à respirer, et à repenser la technologie non pas comme un simple outil, mais comme une extension apaisante de notre corps et de notre quotidien.</p>
+            </div>
+        </div>
+
+        <!-- RÉSUMÉ DU PROJET -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Résumé du Projet</h2>
+                <span class="number">📋</span>
+            </div>
+
+            <h3>Le Produit : Moss Air</h3>
+            <p><strong>Moss Air</strong> est un purificateur d'air révolutionnaire utilisant la mousse vivante stabilisée pour filtrer naturellement l'air intérieur. Contrairement aux purificateurs électriques traditionnels, Moss Air fonctionne sans filtre à changer, sans bruit et sans consommation électrique.</p>
+
+            <h3>La Gamme de Produits</h3>
+            <table>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>Moss Air 1</strong></td>
+                    <td>149,99€</td>
+                    <td>Modèle d'entrée de gamme, idéal pour les petits espaces</td>
+                </tr>
+                <tr>
+                    <td><strong>Moss Air 2</strong></td>
+                    <td>179,99€</td>
+                    <td>Version premium avec double filtration naturelle</td>
+                </tr>
+                <tr>
+                    <td><strong>Moss Air 3</strong></td>
+                    <td>199,99€</td>
+                    <td>Haut de gamme avec technologie avancée de mousse stabilisée</td>
+                </tr>
+            </table>
+
+            <h3>Fonctionnalités du Site E-Commerce</h3>
+            <ul>
+                <li><strong>Catalogue produits</strong> : Présentation détaillée des 3 modèles Moss Air</li>
+                <li><strong>Panier d'achat</strong> : Gestion dynamique avec vérification du stock en temps réel</li>
+                <li><strong>Authentification</strong> : Inscription, connexion et gestion du profil utilisateur</li>
+                <li><strong>Historique des commandes</strong> : Suivi des achats pour les utilisateurs connectés</li>
+                <li><strong>Dashboard administrateur</strong> : Gestion des produits, stocks et utilisateurs</li>
+                <li><strong>Design responsive</strong> : Interface adaptée mobile, tablette et desktop</li>
+            </ul>
+
+            <h3>Utilisateurs du Système</h3>
+            <table>
+                <tr>
+                    <th>Rôle</th>
+                    <th>Utilisateur</th>
+                    <th>Accès</th>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-danger">Admin</span></td>
+                    <td>arnaud</td>
+                    <td>Dashboard, gestion produits/stocks/utilisateurs</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-primary">User</span></td>
+                    <td>user</td>
+                    <td>Catalogue, panier, commandes, profil</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- TECHNOLOGIES UTILISÉES -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Technologies Utilisées</h2>
+                <span class="number">🛠️</span>
+            </div>
+
+            <h3>Stack Technique</h3>
+            <table>
+                <tr>
+                    <th>Catégorie</th>
+                    <th>Technologies</th>
+                    <th>Version</th>
+                </tr>
+                <tr>
+                    <td><strong>Backend</strong></td>
+                    <td>PHP, Symfony</td>
+                    <td>PHP 8.x, Symfony 6</td>
+                </tr>
+                <tr>
+                    <td><strong>ORM</strong></td>
+                    <td>Doctrine</td>
+                    <td>Dernière version</td>
+                </tr>
+                <tr>
+                    <td><strong>Base de données</strong></td>
+                    <td>MySQL</td>
+                    <td>8.x</td>
+                </tr>
+                <tr>
+                    <td><strong>Frontend</strong></td>
+                    <td>HTML5, CSS3, JavaScript</td>
+                    <td>ES6+</td>
+                </tr>
+                <tr>
+                    <td><strong>Framework CSS</strong></td>
+                    <td>Bootstrap</td>
+                    <td>5.x</td>
+                </tr>
+                <tr>
+                    <td><strong>Templating</strong></td>
+                    <td>Twig</td>
+                    <td>3.x</td>
+                </tr>
+                <tr>
+                    <td><strong>Versioning</strong></td>
+                    <td>Git, GitHub</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            <h3>Pourquoi Symfony ?</h3>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Architecture MVC</strong> : Séparation claire entre modèles, vues et contrôleurs</li>
+                    <li><strong>Doctrine ORM</strong> : Gestion simplifiée de la base de données avec des entités PHP</li>
+                    <li><strong>Sécurité intégrée</strong> : Protection CSRF, hachage des mots de passe, contrôle d'accès</li>
+                    <li><strong>Twig</strong> : Moteur de templates sécurisé avec protection XSS automatique</li>
+                    <li><strong>Migrations</strong> : Historique et versioning des modifications de base de données</li>
+                    <li><strong>Communauté active</strong> : Documentation riche et écosystème de bundles</li>
+                </ul>
+            </div>
+
+            <h3>Base de données : projet-symf-1</h3>
+            <div class="architecture-box">
+<pre>Tables principales :
+├── user          → Gestion des utilisateurs (admin, user)
+├── produit       → Catalogue des produits Moss Air
+└── commande      → Historique des commandes</pre>
+            </div>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Table des Matières</h2>
+                <span class="number">📑</span>
+            </div>
+
+            <div class="toc">
+                <ul>
+                    <li><span>Introduction</span></li>
+                    <li><span>Résumé du Projet</span></li>
+                    <li><span>Technologies Utilisées</span></li>
+                    <li><span>1. CSS et Media Queries : Design Responsive</span></li>
+                    <li><span>2. JavaScript et Interactivité</span></li>
+                    <li><span>3. PHP et Gestion du Site avec Symfony</span></li>
+                    <li><span>4. Entity Produit avec Gestion du Stock</span></li>
+                    <li><span>5. Migration : Ajout de la Colonne Stock</span></li>
+                    <li><span>6. PanierController : Gestion du Panier</span></li>
+                    <li><span>7. Screenshots : Panier et Dashboard Admin</span></li>
+                    <li><span>8. Screenshots : Authentification et Produits</span></li>
+                    <li><span>9. Base de Données : Structure et Relations</span></li>
+                    <li><span>10. Flux de Gestion du Stock</span></li>
+                    <li><span>11. Sécurité : Points Clés</span></li>
+                    <li><span>12-13. Utilisation de Symfony et Structure</span></li>
+                    <li><span>14. Pages Additionnelles</span></li>
+                    <li><span>Conclusion</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 1: CSS et Media Queries -->
+        <div class="page">
+            <div class="section-header">
+                <h2>1. CSS et Media Queries : Design Responsive</h2>
+                <span class="number">01</span>
+            </div>
+
+            <p>
+                Pour garantir que le site soit <strong>responsive</strong> et s'adapte à tous les types d'appareils,
+                j'ai utilisé <strong>CSS3</strong> et les <strong>media queries</strong>. Les media queries permettent
+                d'appliquer des styles spécifiques en fonction de la taille de l'écran.
+            </p>
+
+            <h3>Exemple : Header Responsive</h3>
+            <p>Le header du site s'adapte automatiquement selon la taille de l'écran. Sur mobile, un menu hamburger apparaît pour une navigation optimale.</p>
+
+            <pre><code><span class="comment">/* Header pour desktop */</span>
+<span class="class">.header-section</span> {
+    <span class="keyword">width</span>: 100%;
+    <span class="keyword">height</span>: auto;
+    <span class="keyword">display</span>: flex;
+    <span class="keyword">flex-direction</span>: column;
+    <span class="keyword">justify-content</span>: center;
+    <span class="keyword">align-items</span>: center;
+    <span class="keyword">padding</span>: 15px 0;
+    <span class="keyword">background</span>: linear-gradient(135deg, #4a7c59, #6b8e7a);
+}
+
+<span class="comment">/* Media query pour tablettes (largeur max 990px) */</span>
+<span class="keyword">@media</span> (max-width: 990px) {
+    <span class="class">.header-section</span> {
+        <span class="keyword">height</span>: 80px;
+        <span class="keyword">background</span>: #4a7c59;
+        <span class="keyword">padding</span>: 10px;
+        <span class="keyword">align-items</span>: flex-start;
+    }
+
+    <span class="class">.list ul</span> {
+        <span class="keyword">flex-direction</span>: column;
+        <span class="keyword">height</span>: 100vh;
+        <span class="keyword">width</span>: 250px;
+        <span class="keyword">position</span>: fixed;
+        <span class="keyword">top</span>: 0;
+        <span class="keyword">right</span>: -250px; <span class="comment">/* Caché par défaut */</span>
+        <span class="keyword">background-color</span>: #333;
+        <span class="keyword">transition</span>: all 0.4s linear;
+        <span class="keyword">z-index</span>: 999;
+    }
+
+    <span class="comment">/* Quand le menu est actif (ouvert) */</span>
+    <span class="class">.list ul.active</span> {
+        <span class="keyword">right</span>: 0; <span class="comment">/* Menu visible */</span>
+    }
+}</code></pre>
+
+            <div class="info-box">
+                <h4>Explication</h4>
+                <ul>
+                    <li>Sur desktop, le header affiche tous les liens de navigation horizontalement</li>
+                    <li>Sur tablette/mobile (max-width: 990px), le menu devient un panneau latéral qui glisse depuis la droite</li>
+                    <li>La propriété <code>transition</code> rend l'animation fluide</li>
+                </ul>
+            </div>
+
+            <h3>Tests de Responsive</h3>
+            <p>J'ai testé le site sur plusieurs tailles d'écran en utilisant les outils de développement du navigateur (F12 > Mode responsive) pour m'assurer qu'il fonctionne bien sur :</p>
+            <ul>
+                <li><strong>Desktop</strong> : 1920x1080px</li>
+                <li><strong>Tablette</strong> : 768x1024px</li>
+                <li><strong>Mobile</strong> : 375x667px</li>
+            </ul>
+
+            <!-- Screenshots Section -->
+            <div class="screenshot-box">
+                <h4>Design Responsive : Desktop vs Mobile</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_16.png" alt="Page d'accueil Desktop" class="screenshot-img">
+                        <p class="screenshot-caption">Version Desktop</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_17.png" alt="Page d'accueil Mobile" class="screenshot-img">
+                        <p class="screenshot-caption">Version Mobile</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screenshot-box">
+                <h4>Menu Hamburger Mobile</h4>
+                <img src="screenshots/screen_18.png" alt="Menu hamburger ouvert" class="screenshot-img small">
+                <p class="screenshot-caption">Menu latéral déployé avec navigation complète</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: JavaScript et Interactivité -->
+        <div class="page">
+            <div class="section-header">
+                <h2>2. JavaScript et Interactivité</h2>
+                <span class="number">02</span>
+            </div>
+
+            <p>JavaScript est utilisé pour ajouter des fonctionnalités interactives et améliorer l'expérience utilisateur.</p>
+
+            <h3>Exemple 1 : Menu Hamburger Responsive</h3>
+            <p>Le menu hamburger permet d'ouvrir/fermer le menu de navigation sur mobile.</p>
+
+            <pre><code><span class="comment">// Menu hamburger pour mobile/tablette</span>
+(<span class="keyword">function</span>() {
+    <span class="keyword">function</span> <span class="function">initBurger</span>() {
+        <span class="keyword">const</span> <span class="variable">hamburger</span> = document.<span class="function">getElementById</span>(<span class="string">'hamburger'</span>);
+        <span class="keyword">const</span> <span class="variable">navMenu</span> = document.<span class="function">getElementById</span>(<span class="string">'navMenu'</span>);
+
+        <span class="keyword">if</span> (!hamburger || !navMenu) <span class="keyword">return</span>;
+
+        <span class="comment">// Toggle menu au clic sur le bouton hamburger</span>
+        hamburger.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>(e) {
+            e.<span class="function">preventDefault</span>();
+            hamburger.classList.<span class="function">toggle</span>(<span class="string">'active'</span>);
+            navMenu.classList.<span class="function">toggle</span>(<span class="string">'active'</span>);
+            hamburger.<span class="function">setAttribute</span>(<span class="string">'aria-expanded'</span>,
+                navMenu.classList.<span class="function">contains</span>(<span class="string">'active'</span>));
+        });
+
+        <span class="comment">// Fermer le menu au clic sur un lien</span>
+        navMenu.<span class="function">querySelectorAll</span>(<span class="string">'a'</span>).<span class="function">forEach</span>(link => {
+            link.<span class="function">addEventListener</span>(<span class="string">'click'</span>, () => {
+                hamburger.classList.<span class="function">remove</span>(<span class="string">'active'</span>);
+                navMenu.classList.<span class="function">remove</span>(<span class="string">'active'</span>);
+            });
+        });
+    }
+
+    <span class="comment">// Initialiser au chargement du DOM</span>
+    <span class="keyword">if</span> (document.readyState === <span class="string">'loading'</span>) {
+        document.<span class="function">addEventListener</span>(<span class="string">'DOMContentLoaded'</span>, initBurger);
+    } <span class="keyword">else</span> {
+        <span class="function">initBurger</span>();
+    }
+})();</code></pre>
+
+            <div class="info-box">
+                <h4>Explication</h4>
+                <ul>
+                    <li><strong>IIFE</strong> (fonction auto-exécutée) pour isoler le code</li>
+                    <li><code>toggle('active')</code> ajoute/retire la classe CSS qui montre/cache le menu</li>
+                    <li>Le menu se ferme automatiquement après avoir cliqué sur un lien</li>
+                </ul>
+            </div>
+
+            <h3>Exemple 2 : Accès Admin Secret</h3>
+            <p>Un système d'accès admin caché via 3 clics sur le logo ou Ctrl+A.</p>
+
+            <pre><code><span class="comment">// Accès admin (Ctrl+A ou 3 clics sur logo)</span>
+document.<span class="function">addEventListener</span>(<span class="string">'DOMContentLoaded'</span>, <span class="keyword">function</span>() {
+    <span class="keyword">let</span> <span class="variable">clickCount</span> = 0;
+    <span class="keyword">let</span> <span class="variable">clickTimer</span> = <span class="keyword">null</span>;
+
+    <span class="comment">// Raccourci clavier Ctrl+A</span>
+    document.<span class="function">addEventListener</span>(<span class="string">'keydown'</span>, <span class="keyword">function</span>(e) {
+        <span class="keyword">if</span> (e.ctrlKey && e.key === <span class="string">'a'</span>) {
+            e.<span class="function">preventDefault</span>();
+            window.location.href = <span class="string">'/admin'</span>;
+        }
+    });
+
+    <span class="comment">// 3 clics sur le logo</span>
+    <span class="keyword">const</span> <span class="variable">siteLogo</span> = document.<span class="function">getElementById</span>(<span class="string">'siteLogo'</span>);
+    <span class="keyword">if</span> (siteLogo) {
+        siteLogo.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>(e) {
+            e.<span class="function">preventDefault</span>();
+            clickCount++;
+
+            <span class="keyword">if</span> (clickTimer) <span class="function">clearTimeout</span>(clickTimer);
+
+            <span class="comment">// Si 3 clics, ouvrir modale admin</span>
+            <span class="keyword">if</span> (clickCount >= 3) {
+                <span class="keyword">const</span> <span class="variable">modal</span> = document.<span class="function">getElementById</span>(<span class="string">'adminModal'</span>);
+                <span class="keyword">if</span> (modal && <span class="keyword">typeof</span> bootstrap !== <span class="string">'undefined'</span>) {
+                    <span class="keyword">new</span> bootstrap.<span class="function">Modal</span>(modal).<span class="function">show</span>();
+                }
+                clickCount = 0;
+                <span class="keyword">return</span>;
+            }
+
+            <span class="comment">// Timer: navigation normale après 600ms</span>
+            clickTimer = <span class="function">setTimeout</span>(() => {
+                window.location.href = siteLogo.href;
+                clickCount = 0;
+            }, 600);
+        });
+    }
+});</code></pre>
+        </div>
+
+        <!-- SECTION 3: PHP et Symfony -->
+        <div class="page">
+            <div class="section-header">
+                <h2>3. PHP et Gestion du Site avec Symfony</h2>
+                <span class="number">03</span>
+            </div>
+
+            <p>Le projet utilise le framework <strong>Symfony</strong> pour gérer les interactions côté serveur, traiter les données et garantir la sécurité.</p>
+
+            <h3>Architecture Symfony</h3>
+
+            <div class="architecture-box">
+<pre>src/
+├── Controller/
+│   ├── PanierController.php      # Gestion du panier
+│   ├── AdminController.php       # Dashboard admin
+│   ├── ProduitController.php     # Liste des produits
+│   └── SecurityController.php    # Authentification
+├── Entity/
+│   ├── Produit.php               # Entité Produit (avec stock)
+│   ├── User.php                  # Entité Utilisateur
+│   └── Commande.php              # Entité Commande
+├── Repository/
+│   ├── ProduitRepository.php
+│   └── UserRepository.php
+migrations/
+└── Version20251203150000.php     # Migration ajout stock</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Entity Produit -->
+        <div class="page">
+            <div class="section-header">
+                <h2>4. Entity Produit avec Gestion du Stock</h2>
+                <span class="number">04</span>
+            </div>
+
+            <p>L'entité <code>Produit</code> représente un produit en base de données avec Doctrine ORM.</p>
+
+            <h3>Code de l'Entity Produit</h3>
+
+            <pre><code><span class="keyword">&lt;?php</span>
+
+<span class="keyword">namespace</span> App\Entity;
+
+<span class="keyword">use</span> App\Repository\ProduitRepository;
+<span class="keyword">use</span> Doctrine\ORM\Mapping <span class="keyword">as</span> ORM;
+
+#[<span class="class">ORM\Entity</span>(repositoryClass: ProduitRepository::class)]
+<span class="keyword">class</span> <span class="class">Produit</span>
+{
+    <span class="comment">// Identifiant unique auto-incrémenté</span>
+    #[<span class="class">ORM\Id</span>]
+    #[<span class="class">ORM\GeneratedValue</span>]
+    #[<span class="class">ORM\Column</span>]
+    <span class="keyword">private</span> ?<span class="class">int</span> <span class="variable">$id</span> = <span class="keyword">null</span>;
+
+    <span class="comment">// Nom du produit (obligatoire, max 255 caractères)</span>
+    #[<span class="class">ORM\Column</span>(length: 255)]
+    <span class="keyword">private</span> ?<span class="class">string</span> <span class="variable">$nom</span> = <span class="keyword">null</span>;
+
+    <span class="comment">// Prix du produit (nombre décimal)</span>
+    #[<span class="class">ORM\Column</span>]
+    <span class="keyword">private</span> ?<span class="class">float</span> <span class="variable">$prix</span> = <span class="keyword">null</span>;
+
+    <span class="comment">// === CHAMP STOCK ===</span>
+    <span class="comment">// Quantité disponible en stock</span>
+    #[<span class="class">ORM\Column</span>]
+    <span class="keyword">private</span> ?<span class="class">int</span> <span class="variable">$stock</span> = 0;
+
+    <span class="comment">// === MÉTHODES DE GESTION DU STOCK ===</span>
+
+    <span class="comment">/**
+     * Récupérer le stock disponible
+     */</span>
+    <span class="keyword">public function</span> <span class="function">getStock</span>(): ?<span class="class">int</span>
+    {
+        <span class="keyword">return</span> <span class="variable">$this</span>->stock;
+    }
+
+    <span class="comment">/**
+     * Définir le stock disponible
+     */</span>
+    <span class="keyword">public function</span> <span class="function">setStock</span>(<span class="class">int</span> <span class="variable">$stock</span>): <span class="class">static</span>
+    {
+        <span class="variable">$this</span>->stock = <span class="variable">$stock</span>;
+        <span class="keyword">return</span> <span class="variable">$this</span>;
+    }
+
+    <span class="comment">/**
+     * Vérifier s'il reste du stock
+     */</span>
+    <span class="keyword">public function</span> <span class="function">hasStock</span>(): <span class="class">bool</span>
+    {
+        <span class="keyword">return</span> <span class="variable">$this</span>->stock > 0;
+    }
+
+    <span class="comment">/**
+     * Décrémenter le stock (enlever une quantité)
+     * La fonction max(0, ...) empêche le stock de devenir négatif
+     */</span>
+    <span class="keyword">public function</span> <span class="function">decrementStock</span>(<span class="class">int</span> <span class="variable">$quantity</span>): <span class="class">static</span>
+    {
+        <span class="variable">$this</span>->stock = <span class="function">max</span>(0, <span class="variable">$this</span>->stock - <span class="variable">$quantity</span>);
+        <span class="keyword">return</span> <span class="variable">$this</span>;
+    }
+}</code></pre>
+
+            <div class="success-box">
+                <h4>Points clés</h4>
+                <ul>
+                    <li>Le champ <code>stock</code> est de type <code>INT</code> avec une valeur par défaut à 0</li>
+                    <li>La méthode <code>hasStock()</code> vérifie rapidement si le produit est disponible</li>
+                    <li>La méthode <code>decrementStock()</code> diminue le stock de façon sécurisée (jamais négatif)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Migration -->
+        <div class="page">
+            <div class="section-header">
+                <h2>5. Migration : Ajout de la Colonne Stock</h2>
+                <span class="number">05</span>
+            </div>
+
+            <p>Pour ajouter la colonne <code>stock</code> à la table <code>produit</code>, j'ai créé une migration Doctrine.</p>
+
+            <h3>Code de la Migration</h3>
+
+            <pre><code><span class="keyword">&lt;?php</span>
+
+<span class="keyword">declare</span>(strict_types=1);
+
+<span class="keyword">namespace</span> DoctrineMigrations;
+
+<span class="keyword">use</span> Doctrine\DBAL\Schema\Schema;
+<span class="keyword">use</span> Doctrine\Migrations\AbstractMigration;
+
+<span class="comment">/**
+ * Migration pour ajouter la colonne 'stock' à la table produit
+ *
+ * PRINCIPE :
+ * - up() = Ajoute la colonne stock
+ * - down() = Supprime la colonne stock (pour annuler)
+ */</span>
+<span class="keyword">final class</span> <span class="class">Version20251203150000</span> <span class="keyword">extends</span> <span class="class">AbstractMigration</span>
+{
+    <span class="keyword">public function</span> <span class="function">getDescription</span>(): <span class="class">string</span>
+    {
+        <span class="keyword">return</span> <span class="string">'Ajouter la colonne stock à la table produit'</span>;
+    }
+
+    <span class="comment">// Méthode exécutée pour appliquer la migration</span>
+    <span class="keyword">public function</span> <span class="function">up</span>(<span class="class">Schema</span> <span class="variable">$schema</span>): <span class="keyword">void</span>
+    {
+        <span class="comment">// Ajouter la colonne 'stock' de type INT</span>
+        <span class="comment">// NOT NULL = obligatoire</span>
+        <span class="comment">// DEFAULT 0 = valeur par défaut</span>
+        <span class="variable">$this</span>-><span class="function">addSql</span>(<span class="string">'ALTER TABLE produit ADD COLUMN stock INT NOT NULL DEFAULT 0'</span>);
+    }
+
+    <span class="comment">// Méthode pour annuler la migration</span>
+    <span class="keyword">public function</span> <span class="function">down</span>(<span class="class">Schema</span> <span class="variable">$schema</span>): <span class="keyword">void</span>
+    {
+        <span class="variable">$this</span>-><span class="function">addSql</span>(<span class="string">'ALTER TABLE produit DROP COLUMN stock'</span>);
+    }
+}</code></pre>
+
+            <h3>Commandes pour exécuter la migration</h3>
+
+            <pre><code><span class="comment"># Créer une nouvelle migration</span>
+php bin/console make:migration
+
+<span class="comment"># Appliquer la migration</span>
+php bin/console doctrine:migrations:migrate
+
+<span class="comment"># Vérifier que la colonne a été ajoutée</span>
+php bin/console doctrine:schema:validate</code></pre>
+
+            <h3>Résultat en base de données</h3>
+
+            <pre><code><span class="comment">-- Table produit après migration</span>
+<span class="keyword">CREATE TABLE</span> produit (
+    id <span class="class">INT</span> AUTO_INCREMENT <span class="keyword">NOT NULL</span>,
+    nom <span class="class">VARCHAR</span>(255) <span class="keyword">NOT NULL</span>,
+    description <span class="class">LONGTEXT</span> <span class="keyword">DEFAULT NULL</span>,
+    prix <span class="class">DOUBLE PRECISION</span> <span class="keyword">NOT NULL</span>,
+    image <span class="class">VARCHAR</span>(255) <span class="keyword">DEFAULT NULL</span>,
+    actif <span class="class">TINYINT</span>(1) <span class="keyword">NOT NULL</span>,
+    stock <span class="class">INT</span> <span class="keyword">NOT NULL DEFAULT</span> 0,  <span class="comment">-- NOUVELLE COLONNE</span>
+    created_at <span class="class">DATETIME</span> <span class="keyword">NOT NULL</span>,
+    updated_at <span class="class">DATETIME</span> <span class="keyword">NOT NULL</span>,
+    <span class="keyword">PRIMARY KEY</span>(id)
+);</code></pre>
+        </div>
+
+        <!-- SECTION 6: PanierController -->
+        <div class="page">
+            <div class="section-header">
+                <h2>6. PanierController : Gestion Complète du Panier</h2>
+                <span class="number">06</span>
+            </div>
+
+            <p>Le <code>PanierController</code> gère toutes les opérations liées au panier : ajout, suppression, modification de quantité et validation de commande.</p>
+
+            <h3>Structure du Panier en Session</h3>
+            <p>Le panier est stocké dans la <strong>session PHP</strong> :</p>
+
+            <pre><code><span class="comment">// Structure d'un article dans le panier</span>
+<span class="variable">$panier</span> = [
+    [
+        <span class="string">'productId'</span> => 1,    <span class="comment">// ID du produit</span>
+        <span class="string">'quantity'</span> => 2      <span class="comment">// Quantité demandée</span>
+    ],
+    [
+        <span class="string">'productId'</span> => 5,
+        <span class="string">'quantity'</span> => 1
+    ]
+];</code></pre>
+
+            <h3>Méthode : Afficher le Panier</h3>
+
+            <pre><code><span class="comment">/**
+ * Affiche la page panier avec tous les produits
+ */</span>
+#[<span class="class">Route</span>(<span class="string">'/panier'</span>, name: <span class="string">'app_panier'</span>)]
+<span class="keyword">public function</span> <span class="function">index</span>(<span class="class">SessionInterface</span> <span class="variable">$session</span>, <span class="class">ProduitRepository</span> <span class="variable">$produitRepo</span>): <span class="class">Response</span>
+{
+    <span class="comment">// Récupérer le panier depuis la session</span>
+    <span class="variable">$panier</span> = <span class="variable">$session</span>-><span class="function">get</span>(<span class="string">'panier'</span>, []);
+
+    <span class="variable">$panierComplet</span> = [];
+    <span class="variable">$total</span> = 0;
+
+    <span class="comment">// Pour chaque article du panier</span>
+    <span class="keyword">foreach</span> (<span class="variable">$panier</span> <span class="keyword">as</span> <span class="variable">$item</span>) {
+        <span class="variable">$produit</span> = <span class="variable">$produitRepo</span>-><span class="function">find</span>(<span class="variable">$item</span>[<span class="string">'productId'</span>]);
+
+        <span class="keyword">if</span> (<span class="variable">$produit</span>) {
+            <span class="variable">$sousTotal</span> = <span class="variable">$produit</span>-><span class="function">getPrix</span>() * <span class="variable">$item</span>[<span class="string">'quantity'</span>];
+
+            <span class="variable">$panierComplet</span>[] = [
+                <span class="string">'productId'</span> => <span class="variable">$produit</span>-><span class="function">getId</span>(),
+                <span class="string">'name'</span> => <span class="variable">$produit</span>-><span class="function">getNom</span>(),
+                <span class="string">'price'</span> => <span class="variable">$produit</span>-><span class="function">getPrix</span>(),
+                <span class="string">'quantity'</span> => <span class="variable">$item</span>[<span class="string">'quantity'</span>],
+                <span class="string">'total'</span> => <span class="variable">$sousTotal</span>,
+                <span class="string">'stock'</span> => <span class="variable">$produit</span>-><span class="function">getStock</span>() <span class="comment">// Stock disponible</span>
+            ];
+
+            <span class="variable">$total</span> += <span class="variable">$sousTotal</span>;
+        }
+    }
+
+    <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">render</span>(<span class="string">'panier/index.html.twig'</span>, [
+        <span class="string">'panier'</span> => <span class="variable">$panierComplet</span>,
+        <span class="string">'total'</span> => <span class="variable">$total</span>
+    ]);
+}</code></pre>
+
+            <h3>Méthode : Ajouter un Produit au Panier</h3>
+
+            <pre><code><span class="comment">/**
+ * Ajoute un produit au panier avec vérification du stock
+ */</span>
+#[<span class="class">Route</span>(<span class="string">'/panier/ajouter'</span>, name: <span class="string">'app_panier_ajouter'</span>, methods: [<span class="string">'POST'</span>])]
+<span class="keyword">public function</span> <span class="function">ajouter</span>(
+    <span class="class">Request</span> <span class="variable">$request</span>,
+    <span class="class">SessionInterface</span> <span class="variable">$session</span>,
+    <span class="class">ProduitRepository</span> <span class="variable">$produitRepo</span>
+): <span class="class">Response</span> {
+    <span class="variable">$productId</span> = (<span class="class">int</span>) <span class="variable">$request</span>->request-><span class="function">get</span>(<span class="string">'product_id'</span>);
+    <span class="variable">$quantite</span> = (<span class="class">int</span>) <span class="variable">$request</span>->request-><span class="function">get</span>(<span class="string">'quantite'</span>, 1);
+
+    <span class="variable">$produit</span> = <span class="variable">$produitRepo</span>-><span class="function">find</span>(<span class="variable">$productId</span>);
+
+    <span class="keyword">if</span> (!<span class="variable">$produit</span>) {
+        <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>, <span class="string">'Produit introuvable !'</span>);
+        <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_panier'</span>);
+    }
+
+    <span class="variable">$panier</span> = <span class="variable">$session</span>-><span class="function">get</span>(<span class="string">'panier'</span>, []);
+
+    <span class="comment">// Chercher si le produit est déjà dans le panier</span>
+    <span class="keyword">foreach</span> (<span class="variable">$panier</span> <span class="keyword">as</span> <span class="variable">$key</span> => <span class="variable">$item</span>) {
+        <span class="keyword">if</span> (<span class="variable">$item</span>[<span class="string">'productId'</span>] === <span class="variable">$productId</span>) {
+            <span class="variable">$nouvelleQuantite</span> = <span class="variable">$item</span>[<span class="string">'quantity'</span>] + <span class="variable">$quantite</span>;
+
+            <span class="comment">// === VÉRIFICATION DU STOCK ===</span>
+            <span class="keyword">if</span> (<span class="variable">$nouvelleQuantite</span> > <span class="variable">$produit</span>-><span class="function">getStock</span>()) {
+                <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>,
+                    <span class="string">"Stock insuffisant ! Seulement {$produit->getStock()} disponible(s)."</span>);
+                <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_panier'</span>);
+            }
+
+            <span class="variable">$panier</span>[<span class="variable">$key</span>][<span class="string">'quantity'</span>] = <span class="variable">$nouvelleQuantite</span>;
+            <span class="variable">$session</span>-><span class="function">set</span>(<span class="string">'panier'</span>, <span class="variable">$panier</span>);
+            <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_produit'</span>);
+        }
+    }
+
+    <span class="comment">// Nouveau produit - vérifier le stock</span>
+    <span class="keyword">if</span> (<span class="variable">$quantite</span> > <span class="variable">$produit</span>-><span class="function">getStock</span>()) {
+        <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>, <span class="string">"Stock insuffisant !"</span>);
+        <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_produit'</span>);
+    }
+
+    <span class="variable">$panier</span>[] = [<span class="string">'productId'</span> => <span class="variable">$productId</span>, <span class="string">'quantity'</span> => <span class="variable">$quantite</span>];
+    <span class="variable">$session</span>-><span class="function">set</span>(<span class="string">'panier'</span>, <span class="variable">$panier</span>);
+
+    <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'success'</span>, <span class="string">"{$produit->getNom()} ajouté au panier !"</span>);
+    <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_produit'</span>);
+}</code></pre>
+
+            <div class="warning-box">
+                <h4>Points clés</h4>
+                <ul>
+                    <li>Vérification du stock <strong>avant</strong> d'ajouter au panier</li>
+                    <li>Si le produit est déjà dans le panier, on met à jour la quantité</li>
+                    <li>Message d'erreur explicite si stock insuffisant</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 7: Validation et Décrémentation Stock -->
+        <div class="page">
+            <div class="section-header">
+                <h2>6. PanierController : Validation et Stock (suite)</h2>
+                <span class="number">06</span>
+            </div>
+
+            <h3>Méthode : Valider le Paiement et Décrémenter le Stock</h3>
+
+            <pre><code><span class="comment">/**
+ * Valide le paiement, enregistre la commande et décrémente le stock
+ */</span>
+#[<span class="class">Route</span>(<span class="string">'/panier/paiement-effectue'</span>, name: <span class="string">'app_panier_paiement_effectue'</span>, methods: [<span class="string">'POST'</span>])]
+<span class="keyword">public function</span> <span class="function">paiementEffectue</span>(
+    <span class="class">SessionInterface</span> <span class="variable">$session</span>,
+    <span class="class">EntityManagerInterface</span> <span class="variable">$em</span>,
+    <span class="class">ProduitRepository</span> <span class="variable">$produitRepo</span>
+): <span class="class">Response</span> {
+    <span class="variable">$panier</span> = <span class="variable">$session</span>-><span class="function">get</span>(<span class="string">'panier'</span>, []);
+    <span class="variable">$user</span> = <span class="variable">$session</span>-><span class="function">get</span>(<span class="string">'user'</span>);
+
+    <span class="keyword">if</span> (<span class="function">empty</span>(<span class="variable">$panier</span>)) {
+        <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>, <span class="string">'Votre panier est vide !'</span>);
+        <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_panier'</span>);
+    }
+
+    <span class="keyword">try</span> {
+        <span class="keyword">foreach</span> (<span class="variable">$panier</span> <span class="keyword">as</span> <span class="variable">$item</span>) {
+            <span class="variable">$produit</span> = <span class="variable">$produitRepo</span>-><span class="function">find</span>(<span class="variable">$item</span>[<span class="string">'productId'</span>]);
+
+            <span class="keyword">if</span> (!<span class="variable">$produit</span>) <span class="keyword">continue</span>;
+
+            <span class="comment">// === VÉRIFICATION FINALE DU STOCK ===</span>
+            <span class="keyword">if</span> (<span class="variable">$item</span>[<span class="string">'quantity'</span>] > <span class="variable">$produit</span>-><span class="function">getStock</span>()) {
+                <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>, <span class="string">"Stock insuffisant pour {$produit->getNom()}"</span>);
+                <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_panier'</span>);
+            }
+
+            <span class="comment">// Créer une nouvelle commande</span>
+            <span class="variable">$commande</span> = <span class="keyword">new</span> <span class="class">Commande</span>();
+            <span class="variable">$commande</span>-><span class="function">setNomClient</span>(<span class="variable">$user</span> ? <span class="variable">$user</span>[<span class="string">'nom'</span>] : <span class="string">'Client anonyme'</span>);
+            <span class="variable">$commande</span>-><span class="function">setProduit</span>(<span class="variable">$produit</span>-><span class="function">getNom</span>());
+            <span class="variable">$commande</span>-><span class="function">setQuantite</span>(<span class="variable">$item</span>[<span class="string">'quantity'</span>]);
+            <span class="variable">$commande</span>-><span class="function">setPrix</span>(<span class="variable">$produit</span>-><span class="function">getPrix</span>());
+            <span class="variable">$commande</span>-><span class="function">setImage</span>(<span class="variable">$produit</span>-><span class="function">getImage</span>());
+            <span class="variable">$commande</span>-><span class="function">setDateCommande</span>(<span class="keyword">new</span> \<span class="class">DateTime</span>());
+
+            <span class="comment">// === DÉCRÉMENTATION DU STOCK ===</span>
+            <span class="variable">$produit</span>-><span class="function">decrementStock</span>(<span class="variable">$item</span>[<span class="string">'quantity'</span>]);
+            <span class="variable">$produit</span>-><span class="function">setUpdatedAt</span>(<span class="keyword">new</span> \<span class="class">DateTimeImmutable</span>());
+
+            <span class="variable">$em</span>-><span class="function">persist</span>(<span class="variable">$commande</span>);
+            <span class="variable">$em</span>-><span class="function">persist</span>(<span class="variable">$produit</span>);
+        }
+
+        <span class="variable">$em</span>-><span class="function">flush</span>();
+        <span class="variable">$session</span>-><span class="function">remove</span>(<span class="string">'panier'</span>);
+
+        <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'success'</span>, <span class="string">'Paiement effectué et commande enregistrée !'</span>);
+    } <span class="keyword">catch</span> (\<span class="class">Exception</span> <span class="variable">$e</span>) {
+        <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>, <span class="string">'Erreur : '</span> . <span class="variable">$e</span>-><span class="function">getMessage</span>());
+    }
+
+    <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_panier'</span>);
+}</code></pre>
+
+            <div class="success-box">
+                <h4>Points clés</h4>
+                <ul>
+                    <li>Double vérification du stock (avant ajout panier + avant validation)</li>
+                    <li>Utilisation de <code>decrementStock()</code> pour diminuer le stock de façon sécurisée</li>
+                    <li>Transaction atomique : tout est enregistré ensemble avec <code>flush()</code></li>
+                    <li>En cas d'erreur, rien n'est modifié (rollback automatique)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Screenshots Panier et Dashboard -->
+        <div class="page">
+            <div class="section-header">
+                <h2>7. Screenshots : Panier et Dashboard Admin</h2>
+                <span class="number">07</span>
+            </div>
+
+            <h3>Gestion du Panier</h3>
+            <div class="screenshot-box">
+                <h4>Panier avec Produit et Confirmation</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_23.png" alt="Panier avec produit" class="screenshot-img">
+                        <p class="screenshot-caption">Panier avec Moss Air 3</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_24.png" alt="Confirmation commande" class="screenshot-img">
+                        <p class="screenshot-caption">Modal de confirmation</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Dashboard Administrateur</h3>
+            <div class="screenshot-box">
+                <h4>Gestion des Produits et Stocks</h4>
+                <img src="screenshots/screen_26.png" alt="Dashboard Admin" class="screenshot-img">
+                <p class="screenshot-caption">Interface d'administration avec badges de stock colorés</p>
+            </div>
+
+            <div class="screenshot-box">
+                <h4>Création de Produit</h4>
+                <img src="screenshots/screen_27.png" alt="Formulaire création produit" class="screenshot-img medium">
+                <p class="screenshot-caption">Formulaire de création avec gestion du stock</p>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Pages Authentification et Produits -->
+        <div class="page">
+            <div class="section-header">
+                <h2>8. Screenshots : Authentification et Produits</h2>
+                <span class="number">08</span>
+            </div>
+
+            <h3>Authentification Utilisateur</h3>
+            <div class="screenshot-box">
+                <h4>Connexion et Inscription</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_32.png" alt="Formulaire connexion" class="screenshot-img">
+                        <p class="screenshot-caption">Formulaire de connexion</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_33.png" alt="Formulaire inscription" class="screenshot-img">
+                        <p class="screenshot-caption">Formulaire d'inscription</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Catalogue Produits</h3>
+            <div class="screenshot-box">
+                <h4>Fiche Produit Détaillée</h4>
+                <img src="screenshots/screen_29.png" alt="Fiche produit Moss Air 3" class="screenshot-img">
+                <p class="screenshot-caption">Page produit avec caractéristiques et gestion du stock</p>
+            </div>
+
+            <div class="screenshot-box">
+                <h4>Liste des Produits - Vue Mobile/Tablet</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_30.png" alt="Produits mobile" class="screenshot-img">
+                        <p class="screenshot-caption">Vue Mobile</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_31.png" alt="Produits tablet" class="screenshot-img">
+                        <p class="screenshot-caption">Vue Tablet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 9: Base de Données -->
+        <div class="page">
+            <div class="section-header">
+                <h2>9. Base de Données : Structure et Relations</h2>
+                <span class="number">09</span>
+            </div>
+
+            <h3>Modèle Conceptuel de Données (MCD)</h3>
+
+            <div class="mcd-box">
+                <div class="entity-box">
+                    <div class="entity-header">USER</div>
+                    <div class="entity-body">
+                        <p><span class="pk">id (PK)</span></p>
+                        <p>prenom</p>
+                        <p>nom</p>
+                        <p>email</p>
+                        <p>password</p>
+                        <p>role</p>
+                        <p>created_at</p>
+                    </div>
+                </div>
+
+                <div class="entity-box">
+                    <div class="entity-header">COMMANDE</div>
+                    <div class="entity-body">
+                        <p><span class="pk">id (PK)</span></p>
+                        <p>nom_client</p>
+                        <p>produit</p>
+                        <p>quantite</p>
+                        <p>prix</p>
+                        <p>date_commande</p>
+                    </div>
+                </div>
+
+                <div class="entity-box">
+                    <div class="entity-header">PRODUIT</div>
+                    <div class="entity-body">
+                        <p><span class="pk">id (PK)</span></p>
+                        <p>nom</p>
+                        <p>description</p>
+                        <p>prix</p>
+                        <p>image</p>
+                        <p>actif</p>
+                        <p><strong>stock ⭐</strong></p>
+                        <p>created_at</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Table : produit</h3>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Type</th>
+                    <th>Null</th>
+                    <th>Défaut</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><strong>id</strong></td>
+                    <td>int</td>
+                    <td>Non</td>
+                    <td>AUTO_INCREMENT</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>nom</strong></td>
+                    <td>varchar(255)</td>
+                    <td>Non</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>description</strong></td>
+                    <td>longtext</td>
+                    <td>Oui</td>
+                    <td>NULL</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>prix</strong></td>
+                    <td>double</td>
+                    <td>Non</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>image</strong></td>
+                    <td>varchar(255)</td>
+                    <td>Oui</td>
+                    <td>NULL</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>actif</strong></td>
+                    <td>tinyint(1)</td>
+                    <td>Non</td>
+                    <td>1</td>
+                </tr>
+                <tr style="background: #d4edda;">
+                    <td>7</td>
+                    <td><strong>stock ⭐</strong></td>
+                    <td>int</td>
+                    <td>Non</td>
+                    <td><strong>0</strong></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><strong>created_at</strong></td>
+                    <td>datetime</td>
+                    <td>Non</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            <h3>Screenshots phpMyAdmin</h3>
+            <div class="screenshot-box">
+                <h4>Structure des Tables</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_06.png" alt="Structure table produit" class="screenshot-img">
+                        <p class="screenshot-caption">Table Produit</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_07.png" alt="Structure table user" class="screenshot-img">
+                        <p class="screenshot-caption">Table User</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screenshot-box">
+                <h4>Données en Base</h4>
+                <img src="screenshots/screen_13.png" alt="Données produits" class="screenshot-img">
+                <p class="screenshot-caption">Produits Moss Air 1, 2, 3 avec leurs stocks</p>
+            </div>
+        </div>
+
+        <!-- SECTION 10: Flux de Gestion du Stock -->
+        <div class="page">
+            <div class="section-header">
+                <h2>10. Flux de Gestion du Stock</h2>
+                <span class="number">10</span>
+            </div>
+
+            <h3>Diagramme du Flux</h3>
+
+            <div class="flow-diagram">┌────────────────────────────────────────────────────────────┐
+│                  AJOUT AU PANIER                          │
+└────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+        ┌──────────────────────────────────────┐
+        │  Formulaire produit (product_id)     │
+        │  Input quantité                      │
+        └──────────────────────────────────────┘
+                           │
+                           ▼ POST /panier/ajouter
+        ┌──────────────────────────────────────┐
+        │  PanierController::ajouter()         │
+        │  1. Récupérer product_id & quantite  │
+        │  2. Charger produit depuis BDD       │
+        │  3. Vérifier stock disponible        │
+        │     IF quantite > stock THEN         │
+        │        → Message erreur              │
+        │     ELSE                             │
+        │        → Ajouter au panier (session) │
+        └──────────────────────────────────────┘
+                           │
+                           ▼
+        ┌──────────────────────────────────────┐
+        │  Panier mis à jour en session        │
+        │  Stock non modifié (réservé)         │
+        └──────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────┐
+│              VALIDATION DE COMMANDE                        │
+└────────────────────────────────────────────────────────────┘
+                           │
+                           ▼ POST /panier/paiement-effectue
+        ┌──────────────────────────────────────┐
+        │  PanierController::paiementEffectue()│
+        │  POUR CHAQUE article du panier       │
+        │    1. Charger produit depuis BDD     │
+        │    2. Vérifier stock (double check)  │
+        │    3. Créer commande                 │
+        │    4. Décrémenter stock              │
+        │       produit.decrementStock(qty)    │
+        │    5. Sauvegarder en BDD             │
+        │  FIN POUR                            │
+        │  6. Vider le panier (session)        │
+        └──────────────────────────────────────┘
+                           │
+                           ▼
+        ┌──────────────────────────────────────┐
+        │  ✅ Stock mis à jour en BDD          │
+        │  ✅ Commande enregistrée             │
+        │  ✅ Panier vidé                      │
+        └──────────────────────────────────────┘</div>
+
+            <h3>Exemple Concret</h3>
+            <p><strong>Scénario</strong> : Un client commande 3 "Moss Air"</p>
+
+            <ol>
+                <li><strong>État initial</strong> : Produit "Moss Air" a 10 en stock</li>
+                <li><strong>Ajout au panier</strong> :
+                    <ul>
+                        <li>Client clique "Ajouter au panier" avec quantité = 3</li>
+                        <li>Vérification : <code>3 <= 10</code> ✅ OK</li>
+                        <li>Stock BDD reste à <strong>10</strong> (non modifié)</li>
+                    </ul>
+                </li>
+                <li><strong>Validation commande</strong> :
+                    <ul>
+                        <li>Client clique "Valider le paiement"</li>
+                        <li>Double vérification : <code>3 <= 10</code> ✅ OK</li>
+                        <li><strong>Décrémentation</strong> : <code>10 - 3 = 7</code></li>
+                        <li>Stock BDD mis à jour à <strong>7</strong></li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="danger-box">
+                <h4>Si un autre client tente de commander 8 unités</h4>
+                <ul>
+                    <li>Vérification : <code>8 > 7</code> ❌ ERREUR</li>
+                    <li>Message : "Stock insuffisant ! Seulement 7 disponible(s)."</li>
+                    <li>Commande bloquée</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 11: Sécurité -->
+        <div class="page">
+            <div class="section-header">
+                <h2>11. Sécurité : Points Clés</h2>
+                <span class="number">11</span>
+            </div>
+
+            <h3>1. Hachage des Mots de Passe</h3>
+            <pre><code><span class="comment">// Lors de l'inscription</span>
+<span class="variable">$hashedPassword</span> = <span class="function">password_hash</span>(<span class="variable">$plainPassword</span>, PASSWORD_DEFAULT);
+
+<span class="comment">// Lors de la connexion</span>
+<span class="keyword">if</span> (<span class="function">password_verify</span>(<span class="variable">$plainPassword</span>, <span class="variable">$hashedPassword</span>)) {
+    <span class="comment">// Mot de passe correct</span>
+}</code></pre>
+            <p><strong>Algorithme utilisé</strong> : bcrypt (via <code>PASSWORD_DEFAULT</code>)</p>
+
+            <h3>2. Validation des Entrées Utilisateur</h3>
+            <pre><code><span class="comment">// Conversion sécurisée en entier</span>
+<span class="variable">$productId</span> = (<span class="class">int</span>) <span class="variable">$request</span>->request-><span class="function">get</span>(<span class="string">'product_id'</span>);
+
+<span class="comment">// Vérification d'existence</span>
+<span class="keyword">if</span> (!<span class="variable">$produit</span>) {
+    <span class="keyword">throw</span> <span class="variable">$this</span>-><span class="function">createNotFoundException</span>(<span class="string">'Produit introuvable'</span>);
+}</code></pre>
+
+            <h3>3. Protection CSRF</h3>
+            <pre><code><span class="comment">{# Token CSRF dans les formulaires de suppression #}</span>
+&lt;input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}"&gt;
+
+<span class="comment">// Vérification côté serveur</span>
+<span class="keyword">if</span> (<span class="variable">$this</span>-><span class="function">isCsrfTokenValid</span>(<span class="string">'delete'</span> . <span class="variable">$produit</span>-><span class="function">getId</span>(), <span class="variable">$token</span>)) {
+    <span class="comment">// Suppression autorisée</span>
+}</code></pre>
+
+            <h3>4. Contrôle d'Accès Admin</h3>
+            <pre><code><span class="keyword">private function</span> <span class="function">checkAdmin</span>(<span class="class">SessionInterface</span> <span class="variable">$session</span>): <span class="class">bool</span>
+{
+    <span class="variable">$user</span> = <span class="variable">$session</span>-><span class="function">get</span>(<span class="string">'user'</span>);
+    <span class="keyword">return</span> <span class="variable">$user</span> && isset(<span class="variable">$user</span>[<span class="string">'role'</span>]) && <span class="variable">$user</span>[<span class="string">'role'</span>] === <span class="string">'admin'</span>;
+}
+
+<span class="comment">// Dans chaque méthode admin</span>
+<span class="keyword">if</span> (!<span class="variable">$this</span>-><span class="function">checkAdmin</span>(<span class="variable">$session</span>)) {
+    <span class="variable">$this</span>-><span class="function">addFlash</span>(<span class="string">'error'</span>, <span class="string">'Accès refusé'</span>);
+    <span class="keyword">return</span> <span class="variable">$this</span>-><span class="function">redirectToRoute</span>(<span class="string">'app_home'</span>);
+}</code></pre>
+
+            <h3>5. Prévention des Stocks Négatifs</h3>
+            <pre><code><span class="comment">// Dans Produit::decrementStock()</span>
+<span class="keyword">public function</span> <span class="function">decrementStock</span>(<span class="class">int</span> <span class="variable">$quantity</span>): <span class="class">static</span>
+{
+    <span class="comment">// max(0, ...) garantit que le stock ne peut pas être négatif</span>
+    <span class="variable">$this</span>->stock = <span class="function">max</span>(0, <span class="variable">$this</span>->stock - <span class="variable">$quantity</span>);
+    <span class="keyword">return</span> <span class="variable">$this</span>;
+}</code></pre>
+        </div>
+
+        <!-- SECTION 12 & 13: Structure Symfony -->
+        <div class="page">
+            <div class="section-header">
+                <h2>12-13. Utilisation de Symfony & Structure</h2>
+                <span class="number">12</span>
+            </div>
+
+            <h3>Pourquoi Symfony ?</h3>
+            <ol>
+                <li><strong>Doctrine ORM</strong> : Gestion simplifiée de la base de données
+                    <ul>
+                        <li>Entities = objets PHP ↔ tables SQL</li>
+                        <li>Pas besoin d'écrire du SQL brut</li>
+                        <li>Migrations automatiques</li>
+                    </ul>
+                </li>
+                <li><strong>Routing</strong> : URLs propres et sémantiques</li>
+                <li><strong>Twig</strong> : Moteur de templates sécurisé avec protection XSS automatique</li>
+                <li><strong>Sessions</strong> : Gestion simplifiée avec <code>$session->get()</code> et <code>$session->set()</code></li>
+            </ol>
+
+            <h3>Structure du Projet Symfony</h3>
+
+            <div class="architecture-box">
+<pre>src/
+├── Controller/                    # Contrôleurs (logique des routes)
+│   ├── AdminController.php        # Gestion admin (CRUD produits, stocks)
+│   ├── AuthController.php         # Authentification (login, register)
+│   ├── CommandeController.php     # Gestion des commandes
+│   ├── HistoireController.php     # Page "Histoire"
+│   ├── PageController.php         # Pages statiques
+│   ├── PanierController.php       # Gestion du panier et stock
+│   ├── ProduitController.php      # Affichage des produits
+│   ├── ProfileController.php      # Profil utilisateur
+│   └── SitemapController.php      # Sitemap XML
+│
+├── Entity/                        # Entités Doctrine (modèles de données)
+│   ├── Commande.php              # Entité Commande (historique)
+│   ├── Produit.php               # Entité Produit avec champ stock
+│   └── User.php                  # Entité User (avec rôles)
+│
+├── Repository/                    # Repositories (requêtes BDD)
+│   ├── CommandeRepository.php
+│   ├── ProduitRepository.php
+│   └── UserRepository.php
+│
+└── Service/                       # Services (logique métier)
+    ├── FirebaseAuthService.php
+    └── FirebaseStorageService.php
+
+migrations/
+├── Version20251028105658.php     # Migration initiale
+├── Version20251121000000.php     # Modifications intermédiaires
+├── Version20251128090112.php     # Ajustements structure
+└── Version20251203150000.php     # ⭐ Migration ajout colonne STOCK</pre>
+            </div>
+
+            <div class="info-box">
+                <h4>Avantages des migrations Doctrine</h4>
+                <ul>
+                    <li>✅ Historique complet des modifications de la BDD</li>
+                    <li>✅ Versioning : chaque migration a un numéro unique</li>
+                    <li>✅ Réversibilité : possibilité de revenir en arrière</li>
+                    <li>✅ Travail en équipe : les migrations se partagent via Git</li>
+                    <li>✅ Automatisation : pas besoin d'écrire le SQL manuellement</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 14: Pages Additionnelles -->
+        <div class="page">
+            <div class="section-header">
+                <h2>14. Pages Additionnelles</h2>
+                <span class="number">14</span>
+            </div>
+
+            <h3>Page À Propos et Footer</h3>
+            <div class="screenshot-box">
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_36.png" alt="Page À propos" class="screenshot-img">
+                        <p class="screenshot-caption">Page À propos</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_37.png" alt="Footer" class="screenshot-img">
+                        <p class="screenshot-caption">Footer du site</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Historique des Commandes</h3>
+            <div class="screenshot-box">
+                <img src="screenshots/screen_38.png" alt="Historique commandes" class="screenshot-img">
+                <p class="screenshot-caption">Liste des commandes passées par l'utilisateur</p>
+            </div>
+
+            <h3>Gestion des Utilisateurs (Admin)</h3>
+            <div class="screenshot-box">
+                <img src="screenshots/screen_39.png" alt="Liste utilisateurs" class="screenshot-img">
+                <p class="screenshot-caption">Interface d'administration des utilisateurs</p>
+            </div>
+
+            <h3>Alerte Stock Insuffisant</h3>
+            <div class="screenshot-box">
+                <img src="screenshots/screen_40.png" alt="Alerte stock" class="screenshot-img medium">
+                <p class="screenshot-caption">Message d'alerte lorsque le stock est insuffisant</p>
+            </div>
+        </div>
+
+        <!-- CONCLUSION -->
+        <div class="page">
+            <div class="section-header">
+                <h2>Conclusion</h2>
+                <span class="number">✅</span>
+            </div>
+
+            <p>Ce cahier des charges technique démontre la mise en place d'un <strong>système e-commerce complet</strong> avec :</p>
+
+            <div class="success-box">
+                <h4>Fonctionnalités Implémentées</h4>
+                <ul>
+                    <li>✅ <strong>Gestion dynamique du stock</strong> : Vérification avant ajout, décrémentation après commande</li>
+                    <li>✅ <strong>Interface responsive</strong> : CSS media queries pour mobile/tablette/desktop</li>
+                    <li>✅ <strong>Interactivité JavaScript</strong> : Menu hamburger, accès admin, animations</li>
+                    <li>✅ <strong>Architecture Symfony</strong> : MVC, Entities, Controllers, Templates</li>
+                    <li>✅ <strong>Sécurité renforcée</strong> : Hachage bcrypt, CSRF, validation, contrôle d'accès</li>
+                    <li>✅ <strong>Base de données relationnelle</strong> : MySQL avec Doctrine ORM</li>
+                    <li>✅ <strong>Dashboard admin</strong> : Gestion complète des produits et du stock</li>
+                </ul>
+            </div>
+
+            <h3>Technologies Utilisées</h3>
+            <table>
+                <tr>
+                    <th>Catégorie</th>
+                    <th>Technologies</th>
+                </tr>
+                <tr>
+                    <td>Frontend</td>
+                    <td>HTML5, CSS3, JavaScript, Bootstrap 5</td>
+                </tr>
+                <tr>
+                    <td>Backend</td>
+                    <td>PHP 8, Symfony 6, Doctrine ORM</td>
+                </tr>
+                <tr>
+                    <td>Base de données</td>
+                    <td>MySQL, phpMyAdmin</td>
+                </tr>
+                <tr>
+                    <td>Templating</td>
+                    <td>Twig</td>
+                </tr>
+                <tr>
+                    <td>Versionning</td>
+                    <td>Git, GitHub</td>
+                </tr>
+            </table>
+
+            <div style="text-align: center; margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #f9fdf9); border-radius: 15px;">
+                <h3 style="color: #2d4a2b;">🌿 MossAir</h3>
+                <p><em>Purifier l'air, naturellement.</em></p>
+                <p style="margin-top: 20px;">
+                    Projet réalisé dans le cadre de la formation<br>
+                    <strong>Développeur Web et Web Mobile - RNCP Niveau 5</strong>
+                </p>
+                <p style="margin-top: 20px; color: #666;">
+                    Document généré le 05/12/2025<br>
+                    Développé avec Symfony 6
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

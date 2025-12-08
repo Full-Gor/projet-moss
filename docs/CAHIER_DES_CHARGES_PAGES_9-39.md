@@ -3,7 +3,7 @@
 
 ---
 
-## 1. CSS et Media Queries : Design Responsive
+## 9. CSS et Media Queries : Design Responsive
 
 Pour garantir que le site soit **responsive** et s'adapte à tous les types d'appareils, j'ai utilisé **CSS3** et les **media queries**. Les media queries permettent d'appliquer des styles spécifiques en fonction de la taille de l'écran.
 
@@ -210,7 +210,7 @@ if (!$this->checkAdmin($session)) {
 
 ---
 
-## 2. JavaScript et Interactivité
+## 10. JavaScript et Interactivité
 
 JavaScript est utilisé pour ajouter des fonctionnalités interactives et améliorer l'expérience utilisateur.
 
@@ -787,7 +787,7 @@ public function updateProfile(
 
 ---
 
-## 3. PHP et Gestion du Site avec Symfony
+## 11. PHP et Gestion du Site avec Symfony
 
 Le projet utilise le framework **Symfony** pour gérer les interactions côté serveur, traiter les données et garantir la sécurité.
 
@@ -813,7 +813,7 @@ migrations/
 
 ---
 
-## 4. Entity Produit avec Gestion du Stock
+## 12. Entity Produit avec Gestion du Stock
 
 L'entité `Produit` représente un produit en base de données avec Doctrine ORM.
 
@@ -957,7 +957,7 @@ class Produit
 
 ---
 
-## 5. Migration : Ajout de la Colonne Stock
+## 13. Migration : Ajout de la Colonne Stock
 
 Pour ajouter la colonne `stock` à la table `produit`, j'ai créé une migration Doctrine.
 
@@ -1038,7 +1038,7 @@ CREATE TABLE produit (
 
 ---
 
-## 6. PanierController : Gestion Complète du Panier
+## 14. PanierController : Gestion Complète du Panier
 
 Le `PanierController` gère toutes les opérations liées au panier : ajout, suppression, modification de quantité et validation de commande.
 
@@ -1289,7 +1289,7 @@ public function paiementEffectue(
 
 ---
 
-## 7. AdminController : Gestion des Produits et du Stock
+## 15. AdminController : Gestion des Produits et du Stock
 
 Le dashboard admin permet de créer, modifier et supprimer des produits, ainsi que de gérer le stock.
 
@@ -1380,7 +1380,7 @@ public function new(
 
 ---
 
-## 8. Templates Twig : Affichage avec Gestion du Stock
+## 16. Templates Twig : Affichage avec Gestion du Stock
 
 ### Template : Page Panier (panier/index.html.twig)
 
@@ -2019,7 +2019,7 @@ if (window.innerWidth <= 768) {
 
 ---
 
-## 9. Base de Données : Structure et Relations
+## 17. Base de Données : Structure et Relations
 
 ### Modèle Logique de Données (MLD)
 
@@ -2298,7 +2298,7 @@ CREATE TABLE commande (
 
 ---
 
-## 10. Flux de Gestion du Stock
+## 18. Flux de Gestion du Stock
 
 ### Diagramme du Flux
 
@@ -2395,7 +2395,7 @@ CREATE TABLE commande (
 
 ---
 
-## 11. Sécurité : Points Clés
+## 19. Sécurité : Points Clés
 
 ### 1. Hachage des Mots de Passe
 
@@ -2467,7 +2467,7 @@ public function decrementStock(int $quantity): static
 
 ---
 
-## 12. Utilisation de Symfony : Avantages
+## 20. Utilisation de Symfony : Avantages
 
 ### Pourquoi Symfony ?
 
@@ -2498,7 +2498,7 @@ public function decrementStock(int $quantity): static
 
 ---
 
-## 13. Structure du Projet Symfony
+## 21. Structure du Projet Symfony
 
 ### Arborescence du Répertoire `src/`
 
