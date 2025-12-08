@@ -408,6 +408,66 @@
         .pk { color: #dc3545; font-weight: bold; }
         .fk { color: #007bff; }
 
+        /* Images - Screenshots */
+        .screenshot-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .screenshot-img.small {
+            max-width: 60%;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .screenshot-img.medium {
+            max-width: 80%;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .screenshot-grid img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .screenshot-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Code blocks - prevent overflow */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
         /* Print styles */
         @media print {
             body {
@@ -431,6 +491,16 @@
             pre {
                 white-space: pre-wrap;
                 word-wrap: break-word;
+                font-size: 0.7rem;
+            }
+
+            .screenshot-img {
+                max-width: 90%;
+                page-break-inside: avoid;
+            }
+
+            .screenshot-grid {
+                page-break-inside: avoid;
             }
         }
 
@@ -499,19 +569,20 @@
 
             <div class="toc">
                 <ul>
-                    <li><span>1. CSS et Media Queries : Design Responsive</span><span>Page 9</span></li>
-                    <li><span>2. JavaScript et Interactivité</span><span>Page 12</span></li>
-                    <li><span>3. PHP et Gestion du Site avec Symfony</span><span>Page 15</span></li>
-                    <li><span>4. Entity Produit avec Gestion du Stock</span><span>Page 17</span></li>
-                    <li><span>5. Migration : Ajout de la Colonne Stock</span><span>Page 19</span></li>
-                    <li><span>6. PanierController : Gestion Complète du Panier</span><span>Page 21</span></li>
-                    <li><span>7. AdminController : Gestion des Produits et du Stock</span><span>Page 26</span></li>
-                    <li><span>8. Templates Twig : Affichage avec Gestion du Stock</span><span>Page 28</span></li>
-                    <li><span>9. Base de Données : Structure et Relations</span><span>Page 32</span></li>
-                    <li><span>10. Flux de Gestion du Stock</span><span>Page 35</span></li>
-                    <li><span>11. Sécurité : Points Clés</span><span>Page 37</span></li>
-                    <li><span>12. Utilisation de Symfony : Avantages</span><span>Page 38</span></li>
-                    <li><span>13. Structure du Projet Symfony</span><span>Page 39</span></li>
+                    <li><span>1. CSS et Media Queries : Design Responsive</span></li>
+                    <li><span>2. JavaScript et Interactivité</span></li>
+                    <li><span>3. PHP et Gestion du Site avec Symfony</span></li>
+                    <li><span>4. Entity Produit avec Gestion du Stock</span></li>
+                    <li><span>5. Migration : Ajout de la Colonne Stock</span></li>
+                    <li><span>6. PanierController : Gestion du Panier</span></li>
+                    <li><span>7. Screenshots : Panier et Dashboard Admin</span></li>
+                    <li><span>8. Screenshots : Authentification et Produits</span></li>
+                    <li><span>9. Base de Données : Structure et Relations</span></li>
+                    <li><span>10. Flux de Gestion du Stock</span></li>
+                    <li><span>11. Sécurité : Points Clés</span></li>
+                    <li><span>12-13. Utilisation de Symfony et Structure</span></li>
+                    <li><span>14. Pages Additionnelles</span></li>
+                    <li><span>Conclusion</span></li>
                 </ul>
             </div>
         </div>
@@ -590,64 +661,23 @@
 
             <!-- Screenshots Section -->
             <div class="screenshot-box">
-                <h4>Screenshot 7 : Page d'Accueil - Version Desktop</h4>
-                <div class="screenshot-content">
-                    <p><strong>Vue Desktop</strong> - Interface complète sur grand écran :</p>
-                    <h5>Header de navigation :</h5>
-                    <ul>
-                        <li>Logo <strong>"MossAir"</strong> à gauche</li>
-                        <li>Menu horizontal : <code>Accueil | Produit | Histoire | À propos</code></li>
-                        <li>Bouton vert <strong>"Panier"</strong> (accès au panier)</li>
-                        <li>Bouton rouge <strong>"Dashboard"</strong> (visible uniquement pour les admins)</li>
-                        <li>Badge utilisateur <strong>"arnaud"</strong> avec icône (utilisateur connecté)</li>
-                        <li>Lien <strong>"Déconnexion"</strong> en rouge</li>
-                    </ul>
-                    <h5>Hero Section :</h5>
-                    <ul>
-                        <li>Grande image de fond montrant le purificateur d'air avec mousse végétale</li>
-                        <li>Titre principal : <strong>"MossAir"</strong></li>
-                        <li>Sous-titre : <em>"Purificateur d'air naturel révolutionnaire..."</em></li>
-                    </ul>
+                <h4>Design Responsive : Desktop vs Mobile</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_16.png" alt="Page d'accueil Desktop" class="screenshot-img">
+                        <p class="screenshot-caption">Version Desktop</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_17.png" alt="Page d'accueil Mobile" class="screenshot-img">
+                        <p class="screenshot-caption">Version Mobile</p>
+                    </div>
                 </div>
             </div>
 
             <div class="screenshot-box">
-                <h4>Screenshot 8 : Page d'Accueil - Version Mobile</h4>
-                <div class="screenshot-content">
-                    <p><strong>Vue Mobile</strong> - Interface responsive adaptée aux petits écrans :</p>
-                    <h5>Changements responsive :</h5>
-                    <ul>
-                        <li>Logo <strong>"MossAir"</strong> reste visible</li>
-                        <li>Menu hamburger (icône ☰) remplace la navigation horizontale</li>
-                        <li>Le hero image s'adapte à la largeur de l'écran</li>
-                        <li>Bouton call-to-action : <strong>"Découvrir MossAir"</strong> (centré)</li>
-                        <li>Texte responsive : taille et espacement adaptés</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="screenshot-box">
-                <h4>Screenshot 9 : Menu Hamburger Mobile Ouvert</h4>
-                <div class="screenshot-content">
-                    <p><strong>Menu de navigation mobile déployé</strong> :</p>
-                    <h5>Structure du menu latéral :</h5>
-                    <ul>
-                        <li>Fond vert foncé (<code>background-color: #333</code>)</li>
-                        <li>Panneau qui glisse depuis la droite</li>
-                        <li>Animation fluide (<code>transition: all 0.4s linear</code>)</li>
-                    </ul>
-                    <h5>Liens de navigation (ordre vertical) :</h5>
-                    <ol>
-                        <li>Accueil</li>
-                        <li>Produit</li>
-                        <li>Histoire</li>
-                        <li>À propos</li>
-                        <li>Panier (bouton vert)</li>
-                        <li>Dashboard (bouton rouge, visible car admin connecté)</li>
-                        <li>"bonjour arnaud" (badge utilisateur)</li>
-                        <li>Déconnexion (lien rouge)</li>
-                    </ol>
-                </div>
+                <h4>Menu Hamburger Mobile</h4>
+                <img src="screenshots/screen_18.png" alt="Menu hamburger ouvert" class="screenshot-img small">
+                <p class="screenshot-caption">Menu latéral déployé avec navigation complète</p>
             </div>
         </div>
 
@@ -1155,85 +1185,79 @@ php bin/console doctrine:schema:validate</code></pre>
         <!-- SECTION 8: Screenshots Panier et Dashboard -->
         <div class="page">
             <div class="section-header">
-                <h2>Screenshots : Panier et Dashboard Admin</h2>
-                <span class="number">📸</span>
+                <h2>7. Screenshots : Panier et Dashboard Admin</h2>
+                <span class="number">07</span>
             </div>
 
+            <h3>Gestion du Panier</h3>
             <div class="screenshot-box">
-                <h4>Screenshot 14 : Panier avec Produit - Affichage du Stock Restant</h4>
-                <div class="screenshot-content">
-                    <h5>Contenu du panier :</h5>
-                    <table>
-                        <tr>
-                            <th>Produit</th>
-                            <th>Prix unitaire</th>
-                            <th>Quantité</th>
-                            <th>Stock restant</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr>
-                            <td>Moss Air 3</td>
-                            <td>199,99€</td>
-                            <td>1</td>
-                            <td><span class="badge badge-success">4</span></td>
-                            <td>199,99€</td>
-                        </tr>
-                    </table>
-                    <h5>Actions disponibles :</h5>
-                    <ul>
-                        <li>Boutons <strong>+</strong> et <strong>-</strong> pour modifier la quantité</li>
-                        <li>Bouton rouge <strong>poubelle</strong> pour retirer du panier</li>
-                        <li>Bouton jaune <strong>"Vider le panier"</strong></li>
-                        <li>Bouton vert <strong>"Passer commande"</strong></li>
-                    </ul>
+                <h4>Panier avec Produit et Confirmation</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_23.png" alt="Panier avec produit" class="screenshot-img">
+                        <p class="screenshot-caption">Panier avec Moss Air 3</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_24.png" alt="Confirmation commande" class="screenshot-img">
+                        <p class="screenshot-caption">Modal de confirmation</p>
+                    </div>
                 </div>
             </div>
 
+            <h3>Dashboard Administrateur</h3>
             <div class="screenshot-box">
-                <h4>Screenshot 16 : Dashboard Admin - Gestion des Stocks avec Badges Colorés</h4>
-                <div class="screenshot-content">
-                    <h5>Tableau de gestion des produits :</h5>
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Prix</th>
-                            <th>Stock</th>
-                            <th>Statut</th>
-                            <th>Actions</th>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Moss Air 1</td>
-                            <td>149,99€</td>
-                            <td><span class="badge badge-warning">9 (Faible)</span></td>
-                            <td><span class="badge badge-success">Actif</span></td>
-                            <td>✏️ 🗑️</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Moss Air 2</td>
-                            <td>179,99€</td>
-                            <td><span class="badge badge-warning">4 (Faible)</span></td>
-                            <td><span class="badge badge-success">Actif</span></td>
-                            <td>✏️ 🗑️</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Moss Air 3</td>
-                            <td>199,99€</td>
-                            <td><span class="badge badge-warning">3 (Faible)</span></td>
-                            <td><span class="badge badge-success">Actif</span></td>
-                            <td>✏️ 🗑️</td>
-                        </tr>
-                    </table>
+                <h4>Gestion des Produits et Stocks</h4>
+                <img src="screenshots/screen_26.png" alt="Dashboard Admin" class="screenshot-img">
+                <p class="screenshot-caption">Interface d'administration avec badges de stock colorés</p>
+            </div>
 
-                    <h5>Système de badges colorés :</h5>
-                    <ul>
-                        <li><span class="badge badge-danger">Rupture</span> - Stock = 0 (Rouge critique)</li>
-                        <li><span class="badge badge-warning">X (Faible)</span> - Stock entre 1 et 9 (Orange)</li>
-                        <li><span class="badge badge-success">X</span> - Stock ≥ 10 (Vert OK)</li>
-                    </ul>
+            <div class="screenshot-box">
+                <h4>Création de Produit</h4>
+                <img src="screenshots/screen_27.png" alt="Formulaire création produit" class="screenshot-img medium">
+                <p class="screenshot-caption">Formulaire de création avec gestion du stock</p>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Pages Authentification et Produits -->
+        <div class="page">
+            <div class="section-header">
+                <h2>8. Screenshots : Authentification et Produits</h2>
+                <span class="number">08</span>
+            </div>
+
+            <h3>Authentification Utilisateur</h3>
+            <div class="screenshot-box">
+                <h4>Connexion et Inscription</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_32.png" alt="Formulaire connexion" class="screenshot-img">
+                        <p class="screenshot-caption">Formulaire de connexion</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_33.png" alt="Formulaire inscription" class="screenshot-img">
+                        <p class="screenshot-caption">Formulaire d'inscription</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Catalogue Produits</h3>
+            <div class="screenshot-box">
+                <h4>Fiche Produit Détaillée</h4>
+                <img src="screenshots/screen_29.png" alt="Fiche produit Moss Air 3" class="screenshot-img">
+                <p class="screenshot-caption">Page produit avec caractéristiques et gestion du stock</p>
+            </div>
+
+            <div class="screenshot-box">
+                <h4>Liste des Produits - Vue Mobile/Tablet</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_30.png" alt="Produits mobile" class="screenshot-img">
+                        <p class="screenshot-caption">Vue Mobile</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_31.png" alt="Produits tablet" class="screenshot-img">
+                        <p class="screenshot-caption">Vue Tablet</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1354,6 +1378,27 @@ php bin/console doctrine:schema:validate</code></pre>
                     <td>-</td>
                 </tr>
             </table>
+
+            <h3>Screenshots phpMyAdmin</h3>
+            <div class="screenshot-box">
+                <h4>Structure des Tables</h4>
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_06.png" alt="Structure table produit" class="screenshot-img">
+                        <p class="screenshot-caption">Table Produit</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_07.png" alt="Structure table user" class="screenshot-img">
+                        <p class="screenshot-caption">Table User</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screenshot-box">
+                <h4>Données en Base</h4>
+                <img src="screenshots/screen_13.png" alt="Données produits" class="screenshot-img">
+                <p class="screenshot-caption">Produits Moss Air 1, 2, 3 avec leurs stocks</p>
+            </div>
         </div>
 
         <!-- SECTION 10: Flux de Gestion du Stock -->
@@ -1574,6 +1619,46 @@ migrations/
                     <li>✅ Travail en équipe : les migrations se partagent via Git</li>
                     <li>✅ Automatisation : pas besoin d'écrire le SQL manuellement</li>
                 </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 14: Pages Additionnelles -->
+        <div class="page">
+            <div class="section-header">
+                <h2>14. Pages Additionnelles</h2>
+                <span class="number">14</span>
+            </div>
+
+            <h3>Page À Propos et Footer</h3>
+            <div class="screenshot-box">
+                <div class="screenshot-grid">
+                    <div>
+                        <img src="screenshots/screen_36.png" alt="Page À propos" class="screenshot-img">
+                        <p class="screenshot-caption">Page À propos</p>
+                    </div>
+                    <div>
+                        <img src="screenshots/screen_37.png" alt="Footer" class="screenshot-img">
+                        <p class="screenshot-caption">Footer du site</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Historique des Commandes</h3>
+            <div class="screenshot-box">
+                <img src="screenshots/screen_38.png" alt="Historique commandes" class="screenshot-img">
+                <p class="screenshot-caption">Liste des commandes passées par l'utilisateur</p>
+            </div>
+
+            <h3>Gestion des Utilisateurs (Admin)</h3>
+            <div class="screenshot-box">
+                <img src="screenshots/screen_39.png" alt="Liste utilisateurs" class="screenshot-img">
+                <p class="screenshot-caption">Interface d'administration des utilisateurs</p>
+            </div>
+
+            <h3>Alerte Stock Insuffisant</h3>
+            <div class="screenshot-box">
+                <img src="screenshots/screen_40.png" alt="Alerte stock" class="screenshot-img medium">
+                <p class="screenshot-caption">Message d'alerte lorsque le stock est insuffisant</p>
             </div>
         </div>
 
