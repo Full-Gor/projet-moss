@@ -1,0 +1,232 @@
+<svg viewBox="0 0 2400 2000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Titre principal -->
+  <text x="1200" y="60" text-anchor="middle" font-size="48" font-weight="bold" fill="#2d4a2b">Architecture et Flux de Navigation - MossAir.life</text>
+  
+  <!-- SECTION 1: FLUX PRINCIPAL -->
+  <g transform="translate(100, 150)">
+    <text x="1100" y="0" text-anchor="middle" font-size="32" font-weight="bold" fill="#333">Flux Utilisateur Principal</text>
+    
+    <!-- Accueil -->
+    <rect x="0" y="50" width="200" height="100" fill="#e8f5e9" stroke="#4a7c59" stroke-width="3" rx="10"/>
+    <text x="100" y="90" text-anchor="middle" font-size="18" font-weight="bold">Accueil</text>
+    <text x="100" y="110" text-anchor="middle" font-size="14">Point d'entrée</text>
+    
+    <!-- Flèches depuis Accueil -->
+    <path d="M 200 100 L 300 100" stroke="#4a7c59" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <path d="M 200 100 L 300 250" stroke="#4a7c59" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <path d="M 200 100 L 300 400" stroke="#4a7c59" stroke-width="3" marker-end="url(#arrowhead)"/>
+    
+    <!-- Boutique -->
+    <rect x="300" y="50" width="200" height="100" fill="#e3f2fd" stroke="#2196F3" stroke-width="3" rx="10"/>
+    <text x="400" y="90" text-anchor="middle" font-size="18" font-weight="bold">Boutique</text>
+    <text x="400" y="110" text-anchor="middle" font-size="14">6 produits</text>
+    
+    <!-- Histoire -->
+    <rect x="300" y="200" width="200" height="100" fill="#fff3cd" stroke="#ffc107" stroke-width="3" rx="10"/>
+    <text x="400" y="240" text-anchor="middle" font-size="18" font-weight="bold">Histoire</text>
+    <text x="400" y="260" text-anchor="middle" font-size="14">Notre mission</text>
+    
+    <!-- À propos -->
+    <rect x="300" y="350" width="200" height="100" fill="#ffebee" stroke="#f44336" stroke-width="3" rx="10"/>
+    <text x="400" y="390" text-anchor="middle" font-size="18" font-weight="bold">À propos</text>
+    <text x="400" y="410" text-anchor="middle" font-size="14">Dario Esteban</text>
+    
+    <!-- Produit -->
+    <path d="M 500 100 L 600 100" stroke="#2196F3" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <rect x="600" y="50" width="200" height="100" fill="#e8f5e9" stroke="#4a7c59" stroke-width="3" rx="10"/>
+    <text x="700" y="90" text-anchor="middle" font-size="18" font-weight="bold">Page Produit</text>
+    <text x="700" y="110" text-anchor="middle" font-size="14">Détails + prix</text>
+    
+    <!-- Panier -->
+    <path d="M 800 100 L 900 100" stroke="#4a7c59" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <rect x="900" y="50" width="200" height="100" fill="#ffebee" stroke="#f44336" stroke-width="3" rx="10"/>
+    <text x="1000" y="90" text-anchor="middle" font-size="18" font-weight="bold">Panier</text>
+    <text x="1000" y="110" text-anchor="middle" font-size="14">Récapitulatif</text>
+    
+    <!-- Connexion (optionnel) -->
+    <path d="M 1100 100 L 1200 100" stroke="#f44336" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+    <rect x="1200" y="50" width="200" height="100" fill="#f0f0f0" stroke="#666" stroke-width="3" rx="10"/>
+    <text x="1300" y="90" text-anchor="middle" font-size="18" font-weight="bold">Connexion</text>
+    <text x="1300" y="110" text-anchor="middle" font-size="14">(si non connecté)</text>
+    
+    <!-- Stripe -->
+    <path d="M 1100 100 L 1200 250" stroke="#f44336" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <path d="M 1300 150 L 1300 200" stroke="#666" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <rect x="1200" y="200" width="200" height="100" fill="#e1bee7" stroke="#9c27b0" stroke-width="3" rx="10"/>
+    <text x="1300" y="240" text-anchor="middle" font-size="18" font-weight="bold">Paiement Stripe</text>
+    <text x="1300" y="260" text-anchor="middle" font-size="14">Sécurisé</text>
+    
+    <!-- Confirmation -->
+    <path d="M 1400 250 L 1500 250" stroke="#9c27b0" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <rect x="1500" y="200" width="200" height="100" fill="#c8e6c9" stroke="#4caf50" stroke-width="3" rx="10"/>
+    <text x="1600" y="240" text-anchor="middle" font-size="18" font-weight="bold">Confirmation</text>
+    <text x="1600" y="260" text-anchor="middle" font-size="14">Commande OK</text>
+    
+    <!-- Dashboard -->
+    <path d="M 1600 300 L 1600 350" stroke="#4caf50" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <rect x="1500" y="350" width="200" height="100" fill="#e8f5e9" stroke="#4a7c59" stroke-width="3" rx="10"/>
+    <text x="1600" y="390" text-anchor="middle" font-size="18" font-weight="bold">Dashboard</text>
+    <text x="1600" y="410" text-anchor="middle" font-size="14">Mes commandes</text>
+  </g>
+  
+  <!-- SECTION 2: NAVIGATION GLOBALE -->
+  <g transform="translate(100, 650)">
+    <text x="1100" y="0" text-anchor="middle" font-size="32" font-weight="bold" fill="#333">Navigation Globale (toutes pages)</text>
+    
+    <!-- Navbar -->
+    <rect x="0" y="50" width="2200" height="80" fill="#2d4a2b" rx="10"/>
+    <text x="50" y="95" font-size="24" fill="white">🌿 MossAir</text>
+    
+    <!-- Liens navbar -->
+    <rect x="300" y="70" width="120" height="40" fill="rgba(255,255,255,0.2)" rx="5"/>
+    <text x="360" y="95" text-anchor="middle" font-size="16" fill="white">Accueil</text>
+    
+    <rect x="450" y="70" width="120" height="40" fill="rgba(255,255,255,0.2)" rx="5"/>
+    <text x="510" y="95" text-anchor="middle" font-size="16" fill="white">Boutique</text>
+    
+    <rect x="600" y="70" width="120" height="40" fill="rgba(255,255,255,0.2)" rx="5"/>
+    <text x="660" y="95" text-anchor="middle" font-size="16" fill="white">Histoire</text>
+    
+    <rect x="750" y="70" width="120" height="40" fill="rgba(255,255,255,0.2)" rx="5"/>
+    <text x="810" y="95" text-anchor="middle" font-size="16" fill="white">À propos</text>
+    
+    <!-- Icône panier -->
+    <g transform="translate(2000, 70)">
+      <rect x="0" y="0" width="40" height="30" fill="none" stroke="white" stroke-width="3" rx="5"/>
+      <line x1="10" y1="10" x2="30" y2="10" stroke="white" stroke-width="3"/>
+      <line x1="10" y1="20" x2="30" y2="20" stroke="white" stroke-width="3"/>
+    </g>
+    
+    <!-- User menu -->
+    <circle cx="2100" cy="90" r="20" fill="white"/>
+    <text x="2100" y="95" text-anchor="middle" font-size="14">JD</text>
+    
+    <!-- Footer -->
+    <rect x="0" y="180" width="2200" height="60" fill="#333" rx="10"/>
+    <text x="50" y="215" font-size="16" fill="white">Environ</text>
+    <text x="150" y="215" font-size="16" fill="white">Boutique</text>
+    <text x="250" y="215" font-size="16" fill="white">Ressources</text>
+    <text x="370" y="215" font-size="16" fill="white">Support</text>
+    <text x="1950" y="215" font-size="16" fill="white">CGV</text>
+    <text x="2050" y="215" font-size="16" fill="white">Contact</text>
+  </g>
+  
+  <!-- SECTION 3: ZONES D'ACCÈS -->
+  <g transform="translate(100, 1000)">
+    <text x="1100" y="0" text-anchor="middle" font-size="32" font-weight="bold" fill="#333">Zones d'Accès</text>
+    
+    <!-- Zone publique -->
+    <rect x="0" y="50" width="700" height="400" fill="rgba(76,175,80,0.1)" stroke="#4caf50" stroke-width="3" rx="10"/>
+    <text x="350" y="90" text-anchor="middle" font-size="24" font-weight="bold" fill="#4caf50">Zone Publique</text>
+    
+    <g transform="translate(50, 120)">
+      <rect x="0" y="0" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="90" y="35" text-anchor="middle" font-size="16">Accueil</text>
+      
+      <rect x="200" y="0" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="290" y="35" text-anchor="middle" font-size="16">Boutique</text>
+      
+      <rect x="400" y="0" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="490" y="35" text-anchor="middle" font-size="16">Produit</text>
+      
+      <rect x="0" y="80" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="90" y="115" text-anchor="middle" font-size="16">Histoire</text>
+      
+      <rect x="200" y="80" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="290" y="115" text-anchor="middle" font-size="16">À propos</text>
+      
+      <rect x="400" y="80" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="490" y="115" text-anchor="middle" font-size="16">CGV</text>
+      
+      <rect x="0" y="160" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="90" y="195" text-anchor="middle" font-size="16">Panier</text>
+      
+      <rect x="200" y="160" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="290" y="195" text-anchor="middle" font-size="16">Connexion</text>
+      
+      <rect x="400" y="160" width="180" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="490" y="195" text-anchor="middle" font-size="16">Inscription</text>
+    </g>
+    
+    <!-- Zone membre -->
+    <rect x="750" y="50" width="700" height="400" fill="rgba(33,150,243,0.1)" stroke="#2196F3" stroke-width="3" rx="10"/>
+    <text x="1100" y="90" text-anchor="middle" font-size="24" font-weight="bold" fill="#2196F3">Zone Membre (Connecté)</text>
+    
+    <g transform="translate(800, 120)">
+      <rect x="0" y="0" width="180" height="60" fill="#e3f2fd" stroke="#2196F3" stroke-width="2" rx="5"/>
+      <text x="90" y="35" text-anchor="middle" font-size="16">Dashboard</text>
+      
+      <rect x="200" y="0" width="180" height="60" fill="#e3f2fd" stroke="#2196F3" stroke-width="2" rx="5"/>
+      <text x="290" y="35" text-anchor="middle" font-size="16">Mes commandes</text>
+      
+      <rect x="400" y="0" width="180" height="60" fill="#e3f2fd" stroke="#2196F3" stroke-width="2" rx="5"/>
+      <text x="490" y="35" text-anchor="middle" font-size="16">Mon profil</text>
+      
+      <rect x="0" y="80" width="180" height="60" fill="#e3f2fd" stroke="#2196F3" stroke-width="2" rx="5"/>
+      <text x="90" y="115" text-anchor="middle" font-size="16">Mes adresses</text>
+      
+      <rect x="200" y="80" width="380" height="60" fill="#e3f2fd" stroke="#2196F3" stroke-width="2" rx="5"/>
+      <text x="390" y="115" text-anchor="middle" font-size="16">Paiement Stripe (après panier)</text>
+    </g>
+    
+    <!-- Zone admin -->
+    <rect x="1500" y="50" width="700" height="400" fill="rgba(244,67,54,0.1)" stroke="#f44336" stroke-width="3" rx="10"/>
+    <text x="1850" y="90" text-anchor="middle" font-size="24" font-weight="bold" fill="#f44336">Zone Admin</text>
+    
+    <g transform="translate(1550, 120)">
+      <rect x="0" y="0" width="280" height="60" fill="#ffebee" stroke="#f44336" stroke-width="2" rx="5"/>
+      <text x="140" y="35" text-anchor="middle" font-size="16">Dashboard Admin</text>
+      
+      <rect x="300" y="0" width="280" height="60" fill="#ffebee" stroke="#f44336" stroke-width="2" rx="5"/>
+      <text x="440" y="35" text-anchor="middle" font-size="16">Gestion Produits (CRUD)</text>
+      
+      <rect x="0" y="80" width="280" height="60" fill="#ffebee" stroke="#f44336" stroke-width="2" rx="5"/>
+      <text x="140" y="115" text-anchor="middle" font-size="16">Gestion Commandes</text>
+      
+      <rect x="300" y="80" width="280" height="60" fill="#ffebee" stroke="#f44336" stroke-width="2" rx="5"/>
+      <text x="440" y="115" text-anchor="middle" font-size="16">Gestion Utilisateurs</text>
+      
+      <rect x="150" y="160" width="280" height="60" fill="#ffebee" stroke="#f44336" stroke-width="2" rx="5"/>
+      <text x="290" y="195" text-anchor="middle" font-size="16">Statistiques</text>
+    </g>
+  </g>
+  
+  <!-- SECTION 4: RESPONSIVE -->
+  <g transform="translate(100, 1550)">
+    <text x="1100" y="0" text-anchor="middle" font-size="32" font-weight="bold" fill="#333">Stratégie Responsive</text>
+    
+    <!-- Desktop -->
+    <rect x="0" y="50" width="600" height="300" fill="#e8f5e9" stroke="#4a7c59" stroke-width="3" rx="10"/>
+    <text x="300" y="90" text-anchor="middle" font-size="24" font-weight="bold">Desktop (≥1200px)</text>
+    <text x="300" y="130" text-anchor="middle" font-size="18">• Navigation complète</text>
+    <text x="300" y="160" text-anchor="middle" font-size="18">• Grilles 3 colonnes</text>
+    <text x="300" y="190" text-anchor="middle" font-size="18">• Sidebar pour dashboard</text>
+    <text x="300" y="220" text-anchor="middle" font-size="18">• Images pleine largeur</text>
+    <text x="300" y="250" text-anchor="middle" font-size="18">• Formulaires larges</text>
+    
+    <!-- Tablette -->
+    <rect x="750" y="50" width="600" height="300" fill="#fff3cd" stroke="#ffc107" stroke-width="3" rx="10"/>
+    <text x="1050" y="90" text-anchor="middle" font-size="24" font-weight="bold">Tablette (768-1199px)</text>
+    <text x="1050" y="130" text-anchor="middle" font-size="18">• Navigation horizontale</text>
+    <text x="1050" y="160" text-anchor="middle" font-size="18">• Grilles 2-3 colonnes</text>
+    <text x="1050" y="190" text-anchor="middle" font-size="18">• Sidebar optionnelle</text>
+    <text x="1050" y="220" text-anchor="middle" font-size="18">• Images adaptatives</text>
+    <text x="1050" y="250" text-anchor="middle" font-size="18">• Touch optimisé</text>
+    
+    <!-- Mobile -->
+    <rect x="1500" y="50" width="600" height="300" fill="#e3f2fd" stroke="#2196F3" stroke-width="3" rx="10"/>
+    <text x="1800" y="90" text-anchor="middle" font-size="24" font-weight="bold">Mobile (≤767px)</text>
+    <text x="1800" y="130" text-anchor="middle" font-size="18">• Menu burger</text>
+    <text x="1800" y="160" text-anchor="middle" font-size="18">• Grilles 1-2 colonnes</text>
+    <text x="1800" y="190" text-anchor="middle" font-size="18">• Navigation bottom tabs</text>
+    <text x="1800" y="220" text-anchor="middle" font-size="18">• Touch targets 44px+</text>
+    <text x="1800" y="250" text-anchor="middle" font-size="18">• Scroll vertical</text>
+  </g>
+  
+  <!-- Définition des marqueurs de flèche -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+</svg>
