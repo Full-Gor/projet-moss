@@ -10,7 +10,10 @@
       "Bash(php bin/console doctrine:query:sql:*)",
       "Bash(php -r:*)",
       "Bash(php:*)",
-      "Bash(del temp_hash.php update_admin_password.php)"
+      "Bash(del temp_hash.php update_admin_password.php)",
+      "Bash(git fetch:*)",
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
