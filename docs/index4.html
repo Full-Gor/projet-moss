@@ -1,436 +1,356 @@
 <svg viewBox="0 0 2400 3600" xmlns="http://www.w3.org/2000/svg">
   <!-- Titre principal -->
-  <text x="1200" y="60" text-anchor="middle" font-size="48" font-weight="bold" fill="#2d4a2b">✨ Guide des Animations MossAir.life</text>
-  
+  <text x="1200" y="60" text-anchor="middle" font-size="48" font-weight="bold" fill="#2d4a2b">Guide des Animations MossAir.life</text>
+  <text x="1200" y="100" text-anchor="middle" font-size="24" fill="#666">CSS3 + JavaScript Vanilla (Symfony/Twig)</text>
+
   <!-- SECTION 1: PRINCIPES D'ANIMATION -->
   <g transform="translate(100, 150)">
     <rect x="0" y="0" width="2200" height="300" fill="#e8f5e9" stroke="#4a7c59" stroke-width="4" rx="10"/>
     <text x="1100" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#2d4a2b">Principes d'Animation</text>
-    
+
     <g transform="translate(100, 80)">
       <!-- Principe 1 -->
       <rect x="0" y="0" width="480" height="150" fill="white" stroke="#4a7c59" stroke-width="2" rx="5"/>
-      <text x="240" y="30" text-anchor="middle" font-size="20" font-weight="bold">🎯 Purposeful</text>
-      <text x="20" y="60" font-size="16">• Guider l'attention de l'utilisateur</text>
-      <text x="20" y="85" font-size="16">• Indiquer les changements d'état</text>
-      <text x="20" y="110" font-size="16">• Améliorer la compréhension</text>
-      <text x="20" y="135" font-size="16">• Feedback instantané</text>
-      
+      <text x="240" y="30" text-anchor="middle" font-size="20" font-weight="bold">Purposeful</text>
+      <text x="20" y="60" font-size="16">* Guider l'attention utilisateur</text>
+      <text x="20" y="85" font-size="16">* Indiquer les changements d'etat</text>
+      <text x="20" y="110" font-size="16">* Ameliorer la comprehension</text>
+      <text x="20" y="135" font-size="16">* Feedback instantane</text>
+
       <!-- Principe 2 -->
       <rect x="520" y="0" width="480" height="150" fill="white" stroke="#4a7c59" stroke-width="2" rx="5"/>
-      <text x="760" y="30" text-anchor="middle" font-size="20" font-weight="bold">⚡ Fast</text>
-      <text x="540" y="60" font-size="16">• Durées courtes (200-400ms)</text>
-      <text x="540" y="85" font-size="16">• Pas de délai inutile</text>
-      <text x="540" y="110" font-size="16">• Performance optimisée</text>
-      <text x="540" y="135" font-size="16">• 60 FPS minimum</text>
-      
+      <text x="760" y="30" text-anchor="middle" font-size="20" font-weight="bold">Fast</text>
+      <text x="540" y="60" font-size="16">* Durees courtes (200-400ms)</text>
+      <text x="540" y="85" font-size="16">* Pas de delai inutile</text>
+      <text x="540" y="110" font-size="16">* Performance optimisee</text>
+      <text x="540" y="135" font-size="16">* 60 FPS minimum</text>
+
       <!-- Principe 3 -->
       <rect x="1040" y="0" width="480" height="150" fill="white" stroke="#4a7c59" stroke-width="2" rx="5"/>
-      <text x="1280" y="30" text-anchor="middle" font-size="20" font-weight="bold">🌊 Natural</text>
-      <text x="1060" y="60" font-size="16">• Easing functions organiques</text>
-      <text x="1060" y="85" font-size="16">• Mouvements fluides</text>
-      <text x="1060" y="110" font-size="16">• Physique réaliste</text>
-      <text x="1060" y="135" font-size="16">• Cohérence visuelle</text>
-      
+      <text x="1280" y="30" text-anchor="middle" font-size="20" font-weight="bold">Natural</text>
+      <text x="1060" y="60" font-size="16">* Easing functions organiques</text>
+      <text x="1060" y="85" font-size="16">* Mouvements fluides</text>
+      <text x="1060" y="110" font-size="16">* Physique realiste</text>
+      <text x="1060" y="135" font-size="16">* Coherence visuelle</text>
+
       <!-- Principe 4 -->
       <rect x="1560" y="0" width="480" height="150" fill="white" stroke="#4a7c59" stroke-width="2" rx="5"/>
-      <text x="1800" y="30" text-anchor="middle" font-size="20" font-weight="bold">♿ Accessible</text>
-      <text x="1580" y="60" font-size="16">• Respect prefers-reduced-motion</text>
-      <text x="1580" y="85" font-size="16">• Alternatives sans animation</text>
-      <text x="1580" y="110" font-size="16">• Pas d'animation critique</text>
-      <text x="1580" y="135" font-size="16">• Focus visible</text>
+      <text x="1800" y="30" text-anchor="middle" font-size="20" font-weight="bold">Accessible</text>
+      <text x="1580" y="60" font-size="16">* Respect prefers-reduced-motion</text>
+      <text x="1580" y="85" font-size="16">* Alternatives sans animation</text>
+      <text x="1580" y="110" font-size="16">* Pas d'animation critique</text>
+      <text x="1580" y="135" font-size="16">* Focus visible</text>
     </g>
   </g>
-  
-  <!-- SECTION 2: HOVER STATES -->
+
+  <!-- SECTION 2: HOVER STATES CSS -->
   <g transform="translate(100, 500)">
     <rect x="0" y="0" width="1050" height="500" fill="#e3f2fd" stroke="#2196F3" stroke-width="4" rx="10"/>
-    <text x="525" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#1976D2">Hover States</text>
-    
+    <text x="525" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#1976D2">Hover States (CSS)</text>
+
     <g transform="translate(50, 80)">
       <!-- Boutons -->
       <text x="0" y="30" font-size="24" font-weight="bold">Boutons</text>
       <rect x="0" y="50" width="200" height="60" fill="#4a7c59" rx="5"/>
       <text x="100" y="85" text-anchor="middle" font-size="18" fill="white">Normal</text>
-      
-      <text x="250" y="85" font-size="20">→</text>
-      
+
+      <text x="250" y="85" font-size="20">-&gt;</text>
+
       <rect x="300" y="50" width="200" height="60" fill="#4a7c59" rx="5" opacity="0.85"/>
       <text x="400" y="85" text-anchor="middle" font-size="18" fill="white">Hover</text>
-      
-      <rect x="0" y="130" width="950" height="50" fill="#f5f5f5" rx="5"/>
-      <text x="20" y="160" font-family="monospace" font-size="14">transition: all 0.3s ease; opacity: 0.85; transform: translateY(-2px);</text>
-      
+
+      <rect x="0" y="130" width="950" height="80" fill="#f5f5f5" rx="5"/>
+      <text x="20" y="155" font-family="monospace" font-size="14">.btn-primary {</text>
+      <text x="40" y="175" font-family="monospace" font-size="14">transition: all 0.3s ease;</text>
+      <text x="20" y="195" font-family="monospace" font-size="14">}</text>
+      <text x="520" y="155" font-family="monospace" font-size="14">.btn-primary:hover {</text>
+      <text x="540" y="175" font-family="monospace" font-size="14">opacity: 0.85; transform: translateY(-2px);</text>
+      <text x="520" y="195" font-family="monospace" font-size="14">}</text>
+
       <!-- Cards -->
-      <text x="0" y="220" font-size="24" font-weight="bold">Cards Produits</text>
-      <rect x="0" y="240" width="200" height="120" fill="white" stroke="#ddd" stroke-width="2" rx="5"/>
-      <text x="100" y="300" text-anchor="middle" font-size="16">Normal</text>
-      
-      <text x="250" y="300" font-size="20">→</text>
-      
-      <g transform="translate(300, 235)">
+      <text x="0" y="250" font-size="24" font-weight="bold">Cards Produits (Moss Air)</text>
+      <rect x="0" y="270" width="200" height="120" fill="white" stroke="#ddd" stroke-width="2" rx="5"/>
+      <text x="100" y="330" text-anchor="middle" font-size="16">Normal</text>
+
+      <text x="250" y="330" font-size="20">-&gt;</text>
+
+      <g transform="translate(300, 265)">
         <rect x="0" y="0" width="200" height="120" fill="white" stroke="#ddd" stroke-width="2" rx="5"
               filter="url(#shadow)"/>
         <text x="100" y="65" text-anchor="middle" font-size="16">Hover</text>
       </g>
-      
-      <rect x="0" y="380" width="950" height="50" fill="#f5f5f5" rx="5"/>
-      <text x="20" y="410" font-family="monospace" font-size="14">box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: translateY(-5px);</text>
+
+      <rect x="0" y="410" width="950" height="60" fill="#f5f5f5" rx="5"/>
+      <text x="20" y="445" font-family="monospace" font-size="14">.product-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: translateY(-5px); }</text>
     </g>
   </g>
-  
-  <!-- SECTION 3: CLICK/TAP FEEDBACK -->
+
+  <!-- SECTION 3: PAGE TRANSITIONS -->
   <g transform="translate(1200, 500)">
     <rect x="0" y="0" width="1050" height="500" fill="#fff3cd" stroke="#ffc107" stroke-width="4" rx="10"/>
-    <text x="525" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#856404">Click/Tap Feedback</text>
-    
+    <text x="525" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#856404">Transitions de Page (Twig/JS)</text>
+
     <g transform="translate(50, 80)">
-      <!-- Boutons click -->
-      <text x="0" y="30" font-size="24" font-weight="bold">Boutons (Active)</text>
-      <rect x="0" y="50" width="200" height="60" fill="#4a7c59" rx="5"/>
-      <text x="100" y="85" text-anchor="middle" font-size="18" fill="white">Normal</text>
-      
-      <text x="250" y="85" font-size="20">→</text>
-      
-      <g transform="translate(300, 52.5)">
-        <rect x="0" y="0" width="196" height="58" fill="#4a7c59" rx="5"/>
-        <text x="98" y="32" text-anchor="middle" font-size="18" fill="white">Active</text>
-      </g>
-      
-      <rect x="0" y="130" width="950" height="50" fill="#f5f5f5" rx="5"/>
-      <text x="20" y="160" font-family="monospace" font-size="14">transform: scale(0.98); transition: transform 0.1s ease;</text>
-      
-      <!-- Ripple effect -->
-      <text x="0" y="220" font-size="24" font-weight="bold">Ripple Effect (Mobile)</text>
-      <g transform="translate(0, 240)">
-        <rect x="0" y="0" width="200" height="120" fill="#4a7c59" rx="5"/>
-        <circle cx="100" cy="60" r="20" fill="rgba(255,255,255,0.3)"/>
-        <text x="100" y="65" text-anchor="middle" font-size="16" fill="white">Tap point</text>
-      </g>
-      
-      <rect x="0" y="380" width="950" height="50" fill="#f5f5f5" rx="5"/>
-      <text x="20" y="410" font-family="monospace" font-size="14">@keyframes ripple { to { transform: scale(4); opacity: 0; } }</text>
-    </g>
-  </g>
-  
-  <!-- SECTION 4: PAGE TRANSITIONS -->
-  <g transform="translate(100, 1050)">
-    <rect x="0" y="0" width="2200" height="400" fill="#ffebee" stroke="#f44336" stroke-width="4" rx="10"/>
-    <text x="1100" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#d32f2f">Page Transitions</text>
-    
-    <g transform="translate(100, 80)">
       <!-- Fade -->
-      <rect x="0" y="0" width="480" height="250" fill="white" stroke="#f44336" stroke-width="2" rx="5"/>
-      <text x="240" y="30" text-anchor="middle" font-size="20" font-weight="bold">Fade In/Out</text>
-      
-      <rect x="20" y="50" width="180" height="100" fill="#f5f5f5" opacity="0.3"/>
-      <text x="110" y="100" text-anchor="middle" font-size="14">Page A</text>
-      
-      <text x="220" y="100" font-size="20">→</text>
-      
-      <rect x="260" y="50" width="180" height="100" fill="#e8f5e9"/>
-      <text x="350" y="100" text-anchor="middle" font-size="14">Page B</text>
-      
-      <text x="20" y="180" font-family="monospace" font-size="12">opacity: 0 → 1</text>
-      <text x="20" y="200" font-family="monospace" font-size="12">duration: 300ms</text>
-      <text x="20" y="220" font-family="monospace" font-size="12">ease-in-out</text>
-      
-      <!-- Slide -->
-      <rect x="520" y="0" width="480" height="250" fill="white" stroke="#f44336" stroke-width="2" rx="5"/>
-      <text x="760" y="30" text-anchor="middle" font-size="20" font-weight="bold">Slide Navigation</text>
-      
-      <g transform="translate(540, 50)">
-        <rect x="0" y="0" width="180" height="100" fill="#f5f5f5"/>
-        <text x="90" y="50" text-anchor="middle" font-size="14">Current</text>
-        
-        <rect x="200" y="0" width="180" height="100" fill="#e8f5e9"/>
-        <text x="290" y="50" text-anchor="middle" font-size="14">Next</text>
-      </g>
-      
-      <text x="540" y="180" font-family="monospace" font-size="12">transform: translateX(100%)</text>
-      <text x="540" y="200" font-family="monospace" font-size="12">→ translateX(0)</text>
-      <text x="540" y="220" font-family="monospace" font-size="12">duration: 400ms</text>
-      
+      <text x="0" y="30" font-size="24" font-weight="bold">Fade In/Out</text>
+
+      <rect x="0" y="50" width="180" height="100" fill="#f5f5f5" opacity="0.3"/>
+      <text x="90" y="100" text-anchor="middle" font-size="14">Page A</text>
+
+      <text x="200" y="100" font-size="20">-&gt;</text>
+
+      <rect x="240" y="50" width="180" height="100" fill="#e8f5e9"/>
+      <text x="330" y="100" text-anchor="middle" font-size="14">Page B</text>
+
+      <rect x="0" y="170" width="950" height="100" fill="#f5f5f5" rx="5"/>
+      <text x="20" y="195" font-family="monospace" font-size="12">/* Twig base.html.twig */</text>
+      <text x="20" y="215" font-family="monospace" font-size="12">&lt;main class="page-content fade-in"&gt;{% block body %}{% endblock %}&lt;/main&gt;</text>
+      <text x="20" y="240" font-family="monospace" font-size="12">/* CSS */ .fade-in { animation: fadeIn 0.3s ease-in-out; }</text>
+      <text x="20" y="260" font-family="monospace" font-size="12">@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }</text>
+
       <!-- Mobile drawer -->
-      <rect x="1040" y="0" width="480" height="250" fill="white" stroke="#f44336" stroke-width="2" rx="5"/>
-      <text x="1280" y="30" text-anchor="middle" font-size="20" font-weight="bold">Mobile Menu Drawer</text>
-      
-      <g transform="translate(1060, 50)">
-        <rect x="0" y="0" width="120" height="150" fill="#f5f5f5" stroke="#333"/>
-        <rect x="0" y="0" width="120" height="30" fill="#2d4a2b"/>
-        
-        <rect x="140" y="0" width="120" height="150" fill="#f5f5f5" stroke="#333"/>
-        <rect x="140" y="0" width="120" height="30" fill="#2d4a2b"/>
-        <rect x="-80" y="0" width="80" height="150" fill="#333" opacity="0.8"/>
-        <rect x="-80" y="40" width="80" height="20" fill="white" opacity="0.8"/>
-        <rect x="-80" y="70" width="80" height="20" fill="white" opacity="0.8"/>
-      </g>
-      
-      <text x="1060" y="220" font-family="monospace" font-size="12">transform: translateX(-100%) → translateX(0)</text>
-      
-      <!-- Modal -->
-      <rect x="1560" y="0" width="480" height="250" fill="white" stroke="#f44336" stroke-width="2" rx="5"/>
-      <text x="1800" y="30" text-anchor="middle" font-size="20" font-weight="bold">Modal/Overlay</text>
-      
-      <g transform="translate(1580, 50)">
-        <rect x="0" y="0" width="440" height="150" fill="#000" opacity="0.5"/>
-        <rect x="70" y="25" width="300" height="100" fill="white" rx="5"/>
-        <text x="220" y="75" text-anchor="middle" font-size="16">Modal Content</text>
-      </g>
-      
-      <text x="1580" y="220" font-family="monospace" font-size="12">backdrop: fade 0 → 0.5; modal: scale(0.9) → scale(1)</text>
+      <text x="0" y="310" font-size="24" font-weight="bold">Menu Mobile Drawer</text>
+
+      <rect x="0" y="340" width="400" height="120" fill="#f5f5f5" rx="5"/>
+      <text x="20" y="370" font-family="monospace" font-size="12">.mobile-menu { transform: translateX(-100%); transition: 0.3s ease; }</text>
+      <text x="20" y="395" font-family="monospace" font-size="12">.mobile-menu.active { transform: translateX(0); }</text>
+      <text x="20" y="420" font-family="monospace" font-size="12">// JS: menu.classList.toggle('active');</text>
     </g>
   </g>
-  
-  <!-- SECTION 5: LOADING STATES -->
-  <g transform="translate(100, 1500)">
+
+  <!-- SECTION 4: LOADING STATES -->
+  <g transform="translate(100, 1050)">
     <rect x="0" y="0" width="1050" height="400" fill="#e1bee7" stroke="#9c27b0" stroke-width="4" rx="10"/>
     <text x="525" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#7b1fa2">Loading States</text>
-    
+
     <g transform="translate(50, 80)">
       <!-- Spinner -->
-      <text x="0" y="30" font-size="24" font-weight="bold">Spinner</text>
+      <text x="0" y="30" font-size="24" font-weight="bold">Spinner CSS</text>
       <g transform="translate(0, 50)">
         <circle cx="50" cy="50" r="40" fill="none" stroke="#e0e0e0" stroke-width="8"/>
         <circle cx="50" cy="50" r="40" fill="none" stroke="#4a7c59" stroke-width="8"
                 stroke-dasharray="100 160" transform="rotate(-90 50 50)"/>
       </g>
-      
-      <text x="0" y="180" font-family="monospace" font-size="12">@keyframes spin {</text>
-      <text x="20" y="200" font-family="monospace" font-size="12">to { transform: rotate(360deg); }</text>
-      <text x="0" y="220" font-family="monospace" font-size="12">}</text>
-      
+
+      <rect x="0" y="160" width="400" height="80" fill="#f5f5f5" rx="5"/>
+      <text x="20" y="185" font-family="monospace" font-size="12">.spinner { animation: spin 1s linear infinite; }</text>
+      <text x="20" y="210" font-family="monospace" font-size="12">@keyframes spin { to { transform: rotate(360deg); } }</text>
+
       <!-- Skeleton -->
-      <text x="300" y="30" font-size="24" font-weight="bold">Skeleton Screen</text>
-      <g transform="translate(300, 50)">
+      <text x="450" y="30" font-size="24" font-weight="bold">Skeleton Screen</text>
+      <g transform="translate(450, 50)">
         <rect x="0" y="0" width="300" height="150" fill="#f5f5f5" stroke="#ddd" rx="5"/>
         <rect x="10" y="10" width="100" height="80" fill="#e0e0e0" rx="5"/>
         <rect x="120" y="10" width="170" height="20" fill="#e0e0e0" rx="3"/>
         <rect x="120" y="40" width="120" height="20" fill="#e0e0e0" rx="3"/>
         <rect x="120" y="70" width="80" height="20" fill="#e0e0e0" rx="3"/>
-        <rect x="10" y="100" width="280" height="40" fill="#e0e0e0" rx="5"/>
       </g>
-      
-      <!-- Progress -->
-      <text x="0" y="270" font-size="24" font-weight="bold">Progress Bar</text>
-      <rect x="0" y="290" width="400" height="20" fill="#e0e0e0" rx="10"/>
-      <rect x="0" y="290" width="240" height="20" fill="#4a7c59" rx="10"/>
-      <text x="420" y="305" font-size="16">60%</text>
+
+      <rect x="450" y="210" width="500" height="60" fill="#f5f5f5" rx="5"/>
+      <text x="470" y="235" font-family="monospace" font-size="12">.skeleton { animation: pulse 1.5s ease-in-out infinite; }</text>
+      <text x="470" y="255" font-family="monospace" font-size="12">@keyframes pulse { 50% { opacity: 0.5; } }</text>
     </g>
   </g>
-  
-  <!-- SECTION 6: MICRO-INTERACTIONS -->
-  <g transform="translate(1200, 1500)">
+
+  <!-- SECTION 5: MICRO-INTERACTIONS -->
+  <g transform="translate(1200, 1050)">
     <rect x="0" y="0" width="1050" height="400" fill="#c8e6c9" stroke="#4caf50" stroke-width="4" rx="10"/>
     <text x="525" y="40" text-anchor="middle" font-size="32" font-weight="bold" fill="#2e7d32">Micro-interactions</text>
-    
+
     <g transform="translate(50, 80)">
       <!-- Add to cart -->
-      <text x="0" y="30" font-size="24" font-weight="bold">Add to Cart</text>
+      <text x="0" y="30" font-size="24" font-weight="bold">Ajouter au Panier</text>
       <rect x="0" y="50" width="180" height="50" fill="#4a7c59" rx="5"/>
       <text x="90" y="80" text-anchor="middle" font-size="16" fill="white">Ajouter</text>
-      
-      <text x="200" y="75" font-size="20">→</text>
-      
+
+      <text x="200" y="75" font-size="20">-&gt;</text>
+
       <rect x="240" y="50" width="180" height="50" fill="#4caf50" rx="5"/>
-      <text x="330" y="80" text-anchor="middle" font-size="16" fill="white">✓ Ajouté!</text>
-      
-      <text x="440" y="75" font-size="20">→</text>
-      
+      <text x="330" y="80" text-anchor="middle" font-size="16" fill="white">Ajoute!</text>
+
+      <text x="440" y="75" font-size="20">-&gt;</text>
+
       <rect x="480" y="50" width="180" height="50" fill="#4a7c59" rx="5"/>
       <text x="570" y="80" text-anchor="middle" font-size="16" fill="white">Ajouter</text>
-      
-      <!-- Like/Favorite -->
-      <text x="0" y="150" font-size="24" font-weight="bold">Favorite</text>
-      <text x="0" y="200" font-size="48" fill="#ddd">♡</text>
-      <text x="80" y="195" font-size="20">→</text>
-      <text x="120" y="200" font-size="48" fill="#f44336">♥</text>
-      
-      <text x="200" y="195" font-family="monospace" font-size="12">scale: 1 → 1.2 → 1</text>
-      
+
+      <rect x="0" y="120" width="950" height="80" fill="#f5f5f5" rx="5"/>
+      <text x="20" y="145" font-family="monospace" font-size="12">// JavaScript</text>
+      <text x="20" y="165" font-family="monospace" font-size="12">btn.classList.add('success'); setTimeout(() =&gt; btn.classList.remove('success'), 2000);</text>
+      <text x="20" y="185" font-family="monospace" font-size="12">.btn.success { background: #4caf50; }</text>
+
       <!-- Form validation -->
-      <text x="0" y="270" font-size="24" font-weight="bold">Form Validation</text>
-      <rect x="0" y="290" width="300" height="40" fill="white" stroke="#4caf50" stroke-width="2"/>
-      <text x="10" y="315" font-size="14">email@example.com</text>
-      <text x="270" y="315" font-size="20" fill="#4caf50">✓</text>
-      
-      <rect x="350" y="290" width="300" height="40" fill="white" stroke="#f44336" stroke-width="2"/>
-      <text x="360" y="315" font-size="14" fill="#f44336">Email invalide</text>
-      <text x="620" y="315" font-size="20" fill="#f44336">✗</text>
+      <text x="0" y="240" font-size="24" font-weight="bold">Validation Formulaire</text>
+      <rect x="0" y="260" width="300" height="40" fill="white" stroke="#4caf50" stroke-width="2"/>
+      <text x="10" y="285" font-size="14">email@example.com</text>
+      <text x="270" y="285" font-size="20" fill="#4caf50">OK</text>
+
+      <rect x="350" y="260" width="300" height="40" fill="white" stroke="#f44336" stroke-width="2"/>
+      <text x="360" y="285" font-size="14" fill="#f44336">Email invalide</text>
+      <text x="620" y="285" font-size="20" fill="#f44336">X</text>
     </g>
   </g>
-  
-  <!-- SECTION 7: SCROLL ANIMATIONS -->
-  <g transform="translate(100, 1950)">
+
+  <!-- SECTION 6: SCROLL ANIMATIONS -->
+  <g transform="translate(100, 1500)">
     <rect x="0" y="0" width="2200" height="400" fill="#f5f5f5" stroke="#333" stroke-width="4" rx="10"/>
-    <text x="1100" y="40" text-anchor="middle" font-size="32" font-weight="bold">Scroll Animations</text>
-    
+    <text x="1100" y="40" text-anchor="middle" font-size="32" font-weight="bold">Scroll Animations (Intersection Observer)</text>
+
     <g transform="translate(100, 80)">
       <!-- Fade in on scroll -->
-      <rect x="0" y="0" width="480" height="250" fill="white" stroke="#333" stroke-width="2" rx="5"/>
-      <text x="240" y="30" text-anchor="middle" font-size="20" font-weight="bold">Fade In on Scroll</text>
-      
-      <rect x="20" y="50" width="440" height="60" fill="#f5f5f5" opacity="0.3"/>
-      <text x="240" y="85" text-anchor="middle" font-size="14">Hidden (below viewport)</text>
-      
-      <text x="240" y="135" font-size="20">↓</text>
-      
-      <rect x="20" y="160" width="440" height="60" fill="#e8f5e9"/>
-      <text x="240" y="195" text-anchor="middle" font-size="14">Visible (in viewport)</text>
-      
-      <!-- Parallax -->
-      <rect x="520" y="0" width="480" height="250" fill="white" stroke="#333" stroke-width="2" rx="5"/>
-      <text x="760" y="30" text-anchor="middle" font-size="20" font-weight="bold">Parallax (Hero Images)</text>
-      
-      <g transform="translate(540, 50)">
-        <rect x="0" y="0" width="440" height="150" fill="#e8f5e9" stroke="#333"/>
-        <rect x="0" y="20" width="440" height="110" fill="#4a7c59" opacity="0.8"/>
-        <text x="220" y="75" text-anchor="middle" font-size="16" fill="white">Background: speed 0.5</text>
-        <rect x="100" y="60" width="240" height="40" fill="white"/>
-        <text x="220" y="85" text-anchor="middle" font-size="14">Content: speed 1</text>
-      </g>
-      
+      <rect x="0" y="0" width="600" height="280" fill="white" stroke="#333" stroke-width="2" rx="5"/>
+      <text x="300" y="30" text-anchor="middle" font-size="20" font-weight="bold">Fade In on Scroll</text>
+
+      <rect x="20" y="50" width="560" height="60" fill="#f5f5f5" opacity="0.3"/>
+      <text x="300" y="85" text-anchor="middle" font-size="14">Element masque (hors viewport)</text>
+
+      <text x="300" y="135" font-size="20">Scroll...</text>
+
+      <rect x="20" y="160" width="560" height="60" fill="#e8f5e9"/>
+      <text x="300" y="195" text-anchor="middle" font-size="14">Element visible (dans viewport)</text>
+
+      <text x="20" y="250" font-family="monospace" font-size="11">.reveal { opacity: 0; transition: 0.6s; } .reveal.visible { opacity: 1; }</text>
+
+      <!-- JS Code -->
+      <rect x="650" y="0" width="600" height="280" fill="white" stroke="#333" stroke-width="2" rx="5"/>
+      <text x="950" y="30" text-anchor="middle" font-size="20" font-weight="bold">JavaScript (vanilla)</text>
+
+      <rect x="670" y="50" width="560" height="200" fill="#2d2d2d" rx="5"/>
+      <text x="690" y="75" font-family="monospace" font-size="11" fill="#66d9ef">const observer = new IntersectionObserver(</text>
+      <text x="710" y="95" font-family="monospace" font-size="11" fill="white">(entries) =&gt; {</text>
+      <text x="730" y="115" font-family="monospace" font-size="11" fill="white">entries.forEach(entry =&gt; {</text>
+      <text x="750" y="135" font-family="monospace" font-size="11" fill="#a6e22e">if (entry.isIntersecting) {</text>
+      <text x="770" y="155" font-family="monospace" font-size="11" fill="white">entry.target.classList.add('visible');</text>
+      <text x="750" y="175" font-family="monospace" font-size="11" fill="white">}</text>
+      <text x="730" y="195" font-family="monospace" font-size="11" fill="white">});</text>
+      <text x="710" y="215" font-family="monospace" font-size="11" fill="white">}</text>
+      <text x="690" y="235" font-family="monospace" font-size="11" fill="#66d9ef">);</text>
+
       <!-- Sticky header -->
-      <rect x="1040" y="0" width="480" height="250" fill="white" stroke="#333" stroke-width="2" rx="5"/>
-      <text x="1280" y="30" text-anchor="middle" font-size="20" font-weight="bold">Sticky Header</text>
-      
-      <rect x="1060" y="50" width="440" height="40" fill="#2d4a2b"/>
-      <text x="1280" y="75" text-anchor="middle" font-size="14" fill="white">Normal Header (100px)</text>
-      
-      <text x="1280" y="115" font-size="20">↓</text>
-      
-      <rect x="1060" y="140" width="440" height="25" fill="#2d4a2b"/>
-      <text x="1280" y="157" text-anchor="middle" font-size="12" fill="white">Sticky Header (60px)</text>
-      
-      <text x="1060" y="200" font-size="12">• Shadow appears on scroll</text>
-      <text x="1060" y="220" font-size="12">• Height transition: 100px → 60px</text>
-      
-      <!-- Progress indicator -->
-      <rect x="1560" y="0" width="480" height="250" fill="white" stroke="#333" stroke-width="2" rx="5"/>
-      <text x="1800" y="30" text-anchor="middle" font-size="20" font-weight="bold">Reading Progress</text>
-      
-      <rect x="1580" y="50" width="440" height="5" fill="#e0e0e0"/>
-      <rect x="1580" y="50" width="264" height="5" fill="#4a7c59"/>
-      
-      <text x="1580" y="80" font-size="14">Article: 60% read</text>
-      
-      <text x="1580" y="120" font-family="monospace" font-size="12">width: (scrollY / docHeight) * 100%</text>
+      <rect x="1300" y="0" width="600" height="280" fill="white" stroke="#333" stroke-width="2" rx="5"/>
+      <text x="1600" y="30" text-anchor="middle" font-size="20" font-weight="bold">Sticky Header</text>
+
+      <rect x="1320" y="50" width="560" height="40" fill="#2d4a2b"/>
+      <text x="1600" y="75" text-anchor="middle" font-size="14" fill="white">Header Normal (100px)</text>
+
+      <text x="1600" y="115" font-size="20">Scroll...</text>
+
+      <rect x="1320" y="140" width="560" height="25" fill="#2d4a2b"/>
+      <text x="1600" y="157" text-anchor="middle" font-size="12" fill="white">Header Compact (60px)</text>
+
+      <rect x="1320" y="180" width="560" height="90" fill="#f5f5f5" rx="5"/>
+      <text x="1340" y="200" font-family="monospace" font-size="11">window.addEventListener('scroll', () =&gt; {</text>
+      <text x="1360" y="220" font-family="monospace" font-size="11">header.classList.toggle('sticky', scrollY &gt; 100);</text>
+      <text x="1340" y="240" font-family="monospace" font-size="11">});</text>
+      <text x="1340" y="260" font-family="monospace" font-size="11">.sticky { height: 60px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }</text>
     </g>
   </g>
-  
-  <!-- SECTION 8: IMPLEMENTATION -->
-  <g transform="translate(100, 2400)">
+
+  <!-- SECTION 7: IMPLEMENTATION SYMFONY -->
+  <g transform="translate(100, 1950)">
     <rect x="0" y="0" width="2200" height="500" fill="#2d4a2b" rx="10"/>
-    <text x="1100" y="50" text-anchor="middle" font-size="36" fill="white" font-weight="bold">💻 Implementation avec Framer Motion</text>
-    
+    <text x="1100" y="50" text-anchor="middle" font-size="36" fill="white" font-weight="bold">Implementation Symfony/Twig</text>
+
     <g transform="translate(100, 100)" fill="white">
-      <!-- Example 1 -->
-      <rect x="0" y="0" width="480" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
-      <text x="240" y="30" text-anchor="middle" font-size="20" font-weight="bold">Button Hover</text>
-      
-      <text x="20" y="60" font-family="monospace" font-size="12">const Button = () => (</text>
-      <text x="20" y="80" font-family="monospace" font-size="12">  &lt;motion.button</text>
-      <text x="20" y="100" font-family="monospace" font-size="12">    whileHover={{ scale: 1.05 }}</text>
-      <text x="20" y="120" font-family="monospace" font-size="12">    whileTap={{ scale: 0.95 }}</text>
-      <text x="20" y="140" font-family="monospace" font-size="12">    transition={{ duration: 0.2 }}</text>
-      <text x="20" y="160" font-family="monospace" font-size="12">  &gt;</text>
-      <text x="20" y="180" font-family="monospace" font-size="12">    Click me</text>
-      <text x="20" y="200" font-family="monospace" font-size="12">  &lt;/motion.button&gt;</text>
-      <text x="20" y="220" font-family="monospace" font-size="12">)</text>
-      
-      <!-- Example 2 -->
-      <rect x="520" y="0" width="480" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
-      <text x="760" y="30" text-anchor="middle" font-size="20" font-weight="bold">Page Transition</text>
-      
-      <text x="540" y="60" font-family="monospace" font-size="12">const pageVariants = {</text>
-      <text x="540" y="80" font-family="monospace" font-size="12">  initial: { opacity: 0, x: -20 },</text>
-      <text x="540" y="100" font-family="monospace" font-size="12">  animate: { opacity: 1, x: 0 },</text>
-      <text x="540" y="120" font-family="monospace" font-size="12">  exit: { opacity: 0, x: 20 }</text>
-      <text x="540" y="140" font-family="monospace" font-size="12">}</text>
-      <text x="540" y="180" font-family="monospace" font-size="12">&lt;AnimatePresence mode="wait"&gt;</text>
-      <text x="540" y="200" font-family="monospace" font-size="12">  &lt;motion.div variants={pageVariants} /&gt;</text>
-      <text x="540" y="220" font-family="monospace" font-size="12">&lt;/AnimatePresence&gt;</text>
-      
-      <!-- Example 3 -->
-      <rect x="1040" y="0" width="480" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
-      <text x="1280" y="30" text-anchor="middle" font-size="20" font-weight="bold">Scroll Animation</text>
-      
-      <text x="1060" y="60" font-family="monospace" font-size="12">const { scrollYProgress } = useScroll()</text>
-      <text x="1060" y="100" font-family="monospace" font-size="12">&lt;motion.div</text>
-      <text x="1060" y="120" font-family="monospace" font-size="12">  initial={{ opacity: 0, y: 50 }}</text>
-      <text x="1060" y="140" font-family="monospace" font-size="12">  whileInView={{ opacity: 1, y: 0 }}</text>
-      <text x="1060" y="160" font-family="monospace" font-size="12">  viewport={{ once: true }}</text>
-      <text x="1060" y="180" font-family="monospace" font-size="12">  transition={{ duration: 0.6 }}</text>
-      <text x="1060" y="200" font-family="monospace" font-size="12">/&gt;</text>
-      
-      <!-- Performance tips -->
-      <rect x="1560" y="0" width="480" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
-      <text x="1800" y="30" text-anchor="middle" font-size="20" font-weight="bold">Performance Tips</text>
-      
-      <text x="1580" y="70" font-size="16">✓ Use transform over position</text>
-      <text x="1580" y="100" font-size="16">✓ will-change: transform</text>
-      <text x="1580" y="130" font-size="16">✓ GPU acceleration</text>
-      <text x="1580" y="160" font-size="16">✓ Debounce scroll events</text>
-      <text x="1580" y="190" font-size="16">✓ Lazy load animations</text>
-      <text x="1580" y="220" font-size="16">✓ Respect reduced motion</text>
-      <text x="1580" y="250" font-size="16">✓ Test on low-end devices</text>
+      <!-- Example 1: Twig -->
+      <rect x="0" y="0" width="640" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
+      <text x="320" y="30" text-anchor="middle" font-size="20" font-weight="bold">Template Twig (base.html.twig)</text>
+
+      <text x="20" y="60" font-family="monospace" font-size="12">{# templates/base.html.twig #}</text>
+      <text x="20" y="85" font-family="monospace" font-size="12">&lt;!DOCTYPE html&gt;</text>
+      <text x="20" y="105" font-family="monospace" font-size="12">&lt;html&gt;</text>
+      <text x="20" y="125" font-family="monospace" font-size="12">&lt;head&gt;</text>
+      <text x="40" y="145" font-family="monospace" font-size="12">&lt;link href="{{ asset('css/animations.css') }}"&gt;</text>
+      <text x="20" y="165" font-family="monospace" font-size="12">&lt;/head&gt;</text>
+      <text x="20" y="185" font-family="monospace" font-size="12">&lt;body&gt;</text>
+      <text x="40" y="205" font-family="monospace" font-size="12">&lt;main class="page-content fade-in"&gt;</text>
+      <text x="60" y="225" font-family="monospace" font-size="12">{% block body %}{% endblock %}</text>
+      <text x="40" y="245" font-family="monospace" font-size="12">&lt;/main&gt;</text>
+      <text x="40" y="265" font-family="monospace" font-size="12">&lt;script src="{{ asset('js/app.js') }}"&gt;&lt;/script&gt;</text>
+      <text x="20" y="285" font-family="monospace" font-size="12">&lt;/body&gt;&lt;/html&gt;</text>
+
+      <!-- Example 2: CSS -->
+      <rect x="680" y="0" width="640" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
+      <text x="1000" y="30" text-anchor="middle" font-size="20" font-weight="bold">CSS (public/css/animations.css)</text>
+
+      <text x="700" y="60" font-family="monospace" font-size="12">/* Transitions globales */</text>
+      <text x="700" y="85" font-family="monospace" font-size="12">.fade-in { animation: fadeIn 0.3s ease; }</text>
+      <text x="700" y="110" font-family="monospace" font-size="12">@keyframes fadeIn { from { opacity: 0; } }</text>
+      <text x="700" y="145" font-family="monospace" font-size="12">/* Boutons */</text>
+      <text x="700" y="170" font-family="monospace" font-size="12">.btn { transition: all 0.3s ease; }</text>
+      <text x="700" y="195" font-family="monospace" font-size="12">.btn:hover { transform: translateY(-2px); opacity: 0.9; }</text>
+      <text x="700" y="230" font-family="monospace" font-size="12">/* Accessibilite */</text>
+      <text x="700" y="255" font-family="monospace" font-size="12">@media (prefers-reduced-motion: reduce) {</text>
+      <text x="720" y="280" font-family="monospace" font-size="12">*, *::before, *::after { animation: none !important; }</text>
+      <text x="700" y="300" font-family="monospace" font-size="12">}</text>
+
+      <!-- Example 3: JS -->
+      <rect x="1360" y="0" width="640" height="300" fill="rgba(255,255,255,0.1)" rx="5"/>
+      <text x="1680" y="30" text-anchor="middle" font-size="20" font-weight="bold">JavaScript (public/js/app.js)</text>
+
+      <text x="1380" y="60" font-family="monospace" font-size="12">// Scroll animations</text>
+      <text x="1380" y="85" font-family="monospace" font-size="12">document.addEventListener('DOMContentLoaded', () =&gt; {</text>
+      <text x="1400" y="105" font-family="monospace" font-size="12">const reveals = document.querySelectorAll('.reveal');</text>
+      <text x="1400" y="130" font-family="monospace" font-size="12">const observer = new IntersectionObserver(entries =&gt; {</text>
+      <text x="1420" y="150" font-family="monospace" font-size="12">entries.forEach(e =&gt; {</text>
+      <text x="1440" y="170" font-family="monospace" font-size="12">if (e.isIntersecting) e.target.classList.add('visible');</text>
+      <text x="1420" y="190" font-family="monospace" font-size="12">});</text>
+      <text x="1400" y="210" font-family="monospace" font-size="12">});</text>
+      <text x="1400" y="235" font-family="monospace" font-size="12">reveals.forEach(el =&gt; observer.observe(el));</text>
+      <text x="1380" y="260" font-family="monospace" font-size="12">});</text>
     </g>
   </g>
-  
-  <!-- SECTION 9: CHECKLIST -->
-  <g transform="translate(100, 2950)">
+
+  <!-- SECTION 8: CHECKLIST -->
+  <g transform="translate(100, 2500)">
     <rect x="0" y="0" width="2200" height="500" fill="#4a7c59" rx="10"/>
-    <text x="1100" y="50" text-anchor="middle" font-size="36" fill="white" font-weight="bold">✅ Animation Checklist</text>
-    
+    <text x="1100" y="50" text-anchor="middle" font-size="36" fill="white" font-weight="bold">Checklist Animations MossAir</text>
+
     <g transform="translate(150, 100)" fill="white">
       <!-- Col 1 -->
-      <text x="0" y="30" font-size="24" font-weight="bold">Essential Animations:</text>
-      <text x="20" y="70" font-size="20">☐ Button hover/active states</text>
-      <text x="20" y="100" font-size="20">☐ Form field focus</text>
-      <text x="20" y="130" font-size="20">☐ Loading spinners</text>
-      <text x="20" y="160" font-size="20">☐ Page transitions</text>
-      <text x="20" y="190" font-size="20">☐ Mobile menu slide</text>
-      <text x="20" y="220" font-size="20">☐ Cart drawer</text>
-      <text x="20" y="250" font-size="20">☐ Modal open/close</text>
-      
+      <text x="0" y="30" font-size="24" font-weight="bold">Animations Essentielles:</text>
+      <text x="20" y="70" font-size="18">[ ] Button hover/active states</text>
+      <text x="20" y="100" font-size="18">[ ] Form field focus</text>
+      <text x="20" y="130" font-size="18">[ ] Loading spinner</text>
+      <text x="20" y="160" font-size="18">[ ] Page fade in</text>
+      <text x="20" y="190" font-size="18">[ ] Menu mobile slide</text>
+      <text x="20" y="220" font-size="18">[ ] Panier drawer</text>
+      <text x="20" y="250" font-size="18">[ ] Modal open/close</text>
+
       <!-- Col 2 -->
       <text x="500" y="30" font-size="24" font-weight="bold">Nice to Have:</text>
-      <text x="520" y="70" font-size="20">☐ Parallax hero images</text>
-      <text x="520" y="100" font-size="20">☐ Scroll reveal content</text>
-      <text x="520" y="130" font-size="20">☐ Hover card lift</text>
-      <text x="520" y="160" font-size="20">☐ Progress indicators</text>
-      <text x="520" y="190" font-size="20">☐ Success animations</text>
-      <text x="520" y="220" font-size="20">☐ Skeleton screens</text>
-      <text x="520" y="250" font-size="20">☐ Number counters</text>
-      
+      <text x="520" y="70" font-size="18">[ ] Parallax hero images</text>
+      <text x="520" y="100" font-size="18">[ ] Scroll reveal content</text>
+      <text x="520" y="130" font-size="18">[ ] Hover card lift</text>
+      <text x="520" y="160" font-size="18">[ ] Progress indicators</text>
+      <text x="520" y="190" font-size="18">[ ] Success animations</text>
+      <text x="520" y="220" font-size="18">[ ] Skeleton screens</text>
+
       <!-- Col 3 -->
-      <text x="1000" y="30" font-size="24" font-weight="bold">Testing:</text>
-      <text x="1020" y="70" font-size="20">☐ 60 FPS on all devices</text>
-      <text x="1020" y="100" font-size="20">☐ No layout shifts</text>
-      <text x="1020" y="130" font-size="20">☐ Reduced motion works</text>
-      <text x="1020" y="160" font-size="20">☐ Touch gestures smooth</text>
-      <text x="1020" y="190" font-size="20">☐ No janky animations</text>
-      <text x="1020" y="220" font-size="20">☐ Cross-browser tested</text>
-      <text x="1020" y="250" font-size="20">☐ Accessibility verified</text>
-      
+      <text x="1000" y="30" font-size="24" font-weight="bold">Technologies:</text>
+      <text x="1020" y="70" font-size="18">[X] CSS3 Transitions</text>
+      <text x="1020" y="100" font-size="18">[X] CSS3 Animations</text>
+      <text x="1020" y="130" font-size="18">[X] JavaScript vanilla</text>
+      <text x="1020" y="160" font-size="18">[X] Intersection Observer</text>
+      <text x="1020" y="190" font-size="18">[X] Twig templates</text>
+      <text x="1020" y="220" font-size="18">[ ] Bootstrap 5 utilities</text>
+
       <!-- Col 4 -->
-      <text x="1500" y="30" font-size="24" font-weight="bold">Avoid:</text>
-      <text x="1520" y="70" font-size="20">✗ Excessive animations</text>
-      <text x="1520" y="100" font-size="20">✗ Long durations (&gt;600ms)</text>
-      <text x="1520" y="130" font-size="20">✗ Distracting loops</text>
-      <text x="1520" y="160" font-size="20">✗ Animation on scroll</text>
-      <text x="1520" y="190" font-size="20">✗ Auto-playing videos</text>
-      <text x="1520" y="220" font-size="20">✗ Blocking animations</text>
-      <text x="1520" y="250" font-size="20">✗ Heavy libraries</text>
-      
+      <text x="1500" y="30" font-size="24" font-weight="bold">A eviter:</text>
+      <text x="1520" y="70" font-size="18">[X] Framer Motion (React)</text>
+      <text x="1520" y="100" font-size="18">[X] GSAP (trop lourd)</text>
+      <text x="1520" y="130" font-size="18">[X] jQuery animate</text>
+      <text x="1520" y="160" font-size="18">[X] Animations bloquantes</text>
+      <text x="1520" y="190" font-size="18">[X] Durees &gt; 600ms</text>
+      <text x="1520" y="220" font-size="18">[X] Auto-play videos</text>
+
       <!-- Note -->
-      <rect x="-50" y="320" width="2000" height="80" fill="rgba(255,255,255,0.2)" rx="10"/>
-      <text x="950" y="355" text-anchor="middle" font-size="24" font-weight="bold">🌿 Les animations doivent être subtiles comme la mousse qui pousse</text>
-      <text x="950" y="385" text-anchor="middle" font-size="20">Naturelles, douces, et toujours au service de l'expérience utilisateur</text>
+      <rect x="-50" y="280" width="2000" height="80" fill="rgba(255,255,255,0.2)" rx="10"/>
+      <text x="950" y="310" text-anchor="middle" font-size="24" font-weight="bold">MossAir - Stack: Symfony 6 + Twig + Bootstrap 5 + CSS3</text>
+      <text x="950" y="340" text-anchor="middle" font-size="20">Animations subtiles et performantes pour une experience naturelle</text>
     </g>
   </g>
-  
-  <!-- Définition des filtres -->
+
+  <!-- Definition des filtres -->
   <defs>
     <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feDropShadow dx="0" dy="5" stdDeviation="10" flood-opacity="0.1"/>
