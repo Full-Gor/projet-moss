@@ -22,32 +22,49 @@
 							<div class="alert alert-danger mt-3">{{ error }}</div>
 						{% endif %}
 
-						{# ===== FORMULAIRE CONNEXION (Symfony FormType) ===== #}
+						{# ===== FORMULAIRE CONNEXION ===== #}
 						<div id="form-login" class="auth-form">
 							{{ form_start(loginForm, {'attr': {'class': 'mt-3'}}) }}
-								{{ form_row(loginForm.prenom) }}
-								{{ form_row(loginForm.password) }}
-								<div class="mt-3">
+								<div class="mb-3">
+									<label class="form-label"><i class="fas fa-user"></i> Prénom</label>
+									{{ form_widget(loginForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom'}}) }}
+								</div>
+								<div class="mb-3">
+									<label class="form-label"><i class="fas fa-lock"></i> Mot de passe</label>
+									{{ form_widget(loginForm.password, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
+								</div>
+								<div class="mt-4">
 									{{ form_widget(loginForm.submit, {'attr': {'class': 'btn btn-primary w-100'}}) }}
 								</div>
 							{{ form_end(loginForm) }}
 						</div>
 
-						{# ===== FORMULAIRE INSCRIPTION (Symfony FormType) ===== #}
+						{# ===== FORMULAIRE INSCRIPTION ===== #}
 						<div id="form-register" class="auth-form" style="display:none;">
 							{{ form_start(registerForm, {'attr': {'class': 'mt-3'}}) }}
-								<div class="row">
+								<div class="row g-3 mb-3">
 									<div class="col-6">
-										{{ form_row(registerForm.prenom) }}
+										<label class="form-label"><i class="fas fa-user"></i> Prénom</label>
+										{{ form_widget(registerForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
 									</div>
 									<div class="col-6">
-										{{ form_row(registerForm.nom) }}
+										<label class="form-label"><i class="fas fa-user"></i> Nom</label>
+										{{ form_widget(registerForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
 									</div>
 								</div>
-								{{ form_row(registerForm.email) }}
-								{{ form_row(registerForm.password.first) }}
-								{{ form_row(registerForm.password.second) }}
-								<div class="mt-3">
+								<div class="mb-3">
+									<label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+									{{ form_widget(registerForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
+								</div>
+								<div class="mb-3">
+									<label class="form-label"><i class="fas fa-lock"></i> Mot de passe</label>
+									{{ form_widget(registerForm.password.first, {'attr': {'class': 'form-control', 'placeholder': 'Minimum 6 caractères'}}) }}
+								</div>
+								<div class="mb-3">
+									<label class="form-label"><i class="fas fa-lock"></i> Confirmer</label>
+									{{ form_widget(registerForm.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Répétez le mot de passe'}}) }}
+								</div>
+								<div class="mt-4">
 									{{ form_widget(registerForm.submit, {'attr': {'class': 'btn btn-success w-100'}}) }}
 								</div>
 							{{ form_end(registerForm) }}
@@ -62,8 +79,8 @@
 	<style>
 		.auth-card {
 			border: none;
-			box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-			border-radius: 12px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			border-radius: 15px;
 		}
 		.auth-card .card-body {
 			padding: 2rem;
@@ -77,35 +94,64 @@
 			flex: 1;
 			background: none;
 			border: none;
-			padding: 0.8rem;
+			padding: 1rem;
 			font-size: 1rem;
 			font-weight: 600;
-			color: #999;
+			color: #6c757d;
 			cursor: pointer;
 			border-bottom: 3px solid transparent;
-			transition: all 0.3s;
+			transition: all 0.3s ease;
 		}
 		.auth-tab:hover { color: #4a7c59; }
 		.auth-tab.active {
 			color: #4a7c59;
 			border-bottom-color: #4a7c59;
 		}
+		.form-control {
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			padding: 0.75rem 1rem;
+			transition: all 0.3s ease;
+		}
+		.form-control:focus {
+			border-color: #4a7c59;
+			box-shadow: 0 0 0 0.2rem rgba(74, 124, 89, 0.25);
+		}
+		.form-label {
+			font-weight: 600;
+			color: #333;
+			margin-bottom: 0.5rem;
+		}
 		.btn-primary {
-			background: #4a7c59;
+			background: linear-gradient(135deg, #4a7c59, #6b8e7a);
 			border: none;
-			padding: 0.7rem;
+			padding: 0.75rem;
 			border-radius: 8px;
 			font-weight: 600;
+			transition: all 0.3s ease;
 		}
-		.btn-primary:hover { background: #3d6b4a; }
+		.btn-primary:hover {
+			background: linear-gradient(135deg, #3d6b4a, #5a7a66);
+			transform: translateY(-2px);
+		}
 		.btn-success {
-			background: #28a745;
+			background: linear-gradient(135deg, #28a745, #20c997);
 			border: none;
-			padding: 0.7rem;
+			padding: 0.75rem;
 			border-radius: 8px;
 			font-weight: 600;
+			transition: all 0.3s ease;
 		}
-		.btn-success:hover { background: #218838; }
+		.btn-success:hover {
+			background: linear-gradient(135deg, #218838, #1ea085);
+			transform: translateY(-2px);
+		}
+		.alert-danger {
+			border: none;
+			border-radius: 8px;
+			background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+			color: #721c24;
+		}
 	</style>
 
 	<script>

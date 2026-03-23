@@ -21,75 +21,78 @@ class AuthController extends AbstractController
         $loginForm = $this->createForm(LoginType::class);
         $registerForm = $this->createForm(RegistrationType::class);
 
-        // Gérer la soumission
-        $loginForm->handleRequest($request);
-        $registerForm->handleRequest($request);
+        // On détermine quel formulaire a été soumis grâce au bouton submit
+        $action = $request->request->all();
 
         // --- CONNEXION ---
-        if ($loginForm->isSubmitted() && $loginForm->isValid()) {
-            $data = $loginForm->getData();
-            $identifier = $data['prenom'];
-            $password = $data['password'];
+        if (isset($action['login'])) {
+            $loginForm->handleRequest($request);
 
-            // Chercher par prénom OU email
-            $result = $connection->executeQuery(
-                'SELECT * FROM user WHERE prenom = ? OR email = ?',
-                [$identifier, $identifier]
-            );
-            $user = $result->fetchAssociative();
+            if ($loginForm->isSubmitted() && $loginForm->isValid()) {
+                $data = $loginForm->getData();
+                $identifier = $data['prenom'];
+                $password = $data['password'];
 
-            if ($user && password_verify($password, $user['password'])) {
-                // Stocker en session
-                $request->getSession()->set('user', [
-                    'id' => $user['id'],
-                    'prenom' => $user['prenom'],
-                    'nom' => $user['nom'],
-                    'email' => $user['email'],
-                    'role' => $user['role'] ?? 'user',
-                    'connecte' => true
-                ]);
+                // Chercher par prénom OU email
+                $result = $connection->executeQuery(
+                    'SELECT * FROM user WHERE prenom = ? OR email = ?',
+                    [$identifier, $identifier]
+                );
+                $user = $result->fetchAssociative();
 
-                // Redirection selon le rôle
-                if (($user['role'] ?? 'user') === 'admin') {
-                    return $this->redirectToRoute('app_admin_dashboard');
+                if ($user && password_verify($password, $user['password'])) {
+                    $request->getSession()->set('user', [
+                        'id' => $user['id'],
+                        'prenom' => $user['prenom'],
+                        'nom' => $user['nom'],
+                        'email' => $user['email'],
+                        'role' => $user['role'] ?? 'user',
+                        'connecte' => true
+                    ]);
+
+                    if (($user['role'] ?? 'user') === 'admin') {
+                        return $this->redirectToRoute('app_admin_dashboard');
+                    }
+                    return $this->redirectToRoute('app_home');
                 }
-                return $this->redirectToRoute('app_home');
-            }
 
-            $error = 'Identifiant ou mot de passe incorrect';
+                $error = 'Identifiant ou mot de passe incorrect';
+            }
         }
 
         // --- INSCRIPTION ---
-        if ($registerForm->isSubmitted() && $registerForm->isValid()) {
-            $data = $registerForm->getData();
+        if (isset($action['registration'])) {
+            $registerForm->handleRequest($request);
 
-            // Vérifier si l'email existe déjà
-            $result = $connection->executeQuery(
-                'SELECT id FROM user WHERE email = ?',
-                [$data['email']]
-            );
+            if ($registerForm->isSubmitted() && $registerForm->isValid()) {
+                $data = $registerForm->getData();
 
-            if ($result->fetchAssociative()) {
-                $error = 'Cet email est déjà utilisé';
-            } else {
-                // Hasher et insérer
-                $hash = password_hash($data['password'], PASSWORD_DEFAULT);
-                $connection->executeStatement(
-                    'INSERT INTO user (prenom, nom, email, password, role, actif, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 1, datetime("now"), datetime("now"))',
-                    [$data['prenom'], $data['nom'], $data['email'], $hash, 'user']
+                // Vérifier si l'email existe déjà
+                $result = $connection->executeQuery(
+                    'SELECT id FROM user WHERE email = ?',
+                    [$data['email']]
                 );
 
-                // Connecter automatiquement
-                $request->getSession()->set('user', [
-                    'id' => $connection->lastInsertId(),
-                    'prenom' => $data['prenom'],
-                    'nom' => $data['nom'],
-                    'email' => $data['email'],
-                    'role' => 'user',
-                    'connecte' => true
-                ]);
+                if ($result->fetchAssociative()) {
+                    $error = 'Cet email est déjà utilisé';
+                } else {
+                    $hash = password_hash($data['password'], PASSWORD_DEFAULT);
+                    $connection->executeStatement(
+                        'INSERT INTO user (prenom, nom, email, password, role, actif, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 1, NOW(), NOW())',
+                        [$data['prenom'], $data['nom'], $data['email'], $hash, 'user']
+                    );
 
-                return $this->redirectToRoute('app_home');
+                    $request->getSession()->set('user', [
+                        'id' => $connection->lastInsertId(),
+                        'prenom' => $data['prenom'],
+                        'nom' => $data['nom'],
+                        'email' => $data['email'],
+                        'role' => 'user',
+                        'connecte' => true
+                    ]);
+
+                    return $this->redirectToRoute('app_home');
+                }
             }
         }
 
