@@ -5,6 +5,14 @@ framework:
     http_method_override: false
     handle_all_throwables: true
 
+    # Configuration des assets
+    assets:
+        # Chemin de base pour les assets (utile si déployé dans un sous-dossier)
+        # En production, vous pouvez définir ASSET_BASE_PATH dans .env
+        base_path: '%env(default::ASSET_BASE_PATH)%'
+        # URL de base pour les assets (si hébergés sur un CDN)
+        # base_urls: []
+
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
